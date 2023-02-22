@@ -293,6 +293,11 @@ button:active, .button:active {
   > .button:last-child, .dropdown:last-child > .button {
     border-radius: 0px 3px 3px 0px;
   }
+
+  > button:only-child, .dropdown:only-child > button, 
+  > .button:only-child, .dropdown:only-child > .button{
+    border-radius: 3px;
+  }
 }
 
 .button-group-mini {
