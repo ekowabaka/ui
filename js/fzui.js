@@ -1,8 +1,12 @@
 
-var fzui = {};
+import {Nav} from "nav.js"
 
-window.addEventListener('load', () => fzui.dropdowns.init([document]));
+const fzui = {
+  nav: new Nav(),
+  dropdowns: new Dropdowns()
+};
 
-if(typeof require === 'function') {
-  module.exports = fzui;
-}
+window.addEventListener('load', () => {
+    fzui.dropdowns.init([document]);
+    fzui.nav.init();
+  });

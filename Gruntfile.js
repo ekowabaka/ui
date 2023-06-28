@@ -4,12 +4,19 @@ const js_sources = ['js/fzui.js', 'js/dom.js', 'js/dropdown.js', 'js/modal.js', 
 module.exports = function(grunt)
 {
     grunt.initConfig({
-        concat: {
+        copy: {
             dist: {
-                src: js_sources,
-                dest: 'dist/fzui.js',
-            },
+                files: [
+                    {expand: true, src: ['js/*'], dest: 'dist/', filter: 'isFile'}
+                ]                
+            }
         },
+        // concat: {
+        //     dist: {
+        //         src: js_sources,
+        //         dest: 'dist/fzui.js',
+        //     },
+        // },
         cssmin: {
             target: {
                 files:{
@@ -56,7 +63,11 @@ module.exports = function(grunt)
                 ]
             }
         },
-        clean : ['dist', 'build']
+        clean : ['dist', 'build'],
+        watch: {
+            files: ["js/*.js", "sass/*.scss", "examples/*"],
+            tasks: ['build', 'copy']
+        }
     });
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-mustache-render');
@@ -64,6 +75,8 @@ module.exports = function(grunt)
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.registerTask('default', ['sass', 'concat', 'mustache_render']);
     grunt.registerTask('build', ['sass', 'concat', 'cssmin', 'uglify', 'mustache_render'])
 }

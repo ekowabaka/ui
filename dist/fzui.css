@@ -633,6 +633,12 @@ ul.tabs {
   margin: 0px;
   padding: 0px;
   border-bottom: solid 1px #dbdbdb; }
+  ul.tabs li a {
+    font-size: 14px;
+    padding: 7px 15px 7px 15px;
+    text-decoration: none;
+    display: block;
+    font-weight: bold; }
   ul.tabs li {
     display: inline-block;
     margin-bottom: -1px; }
@@ -704,13 +710,6 @@ ul.nav {
     text-decoration: none;
     display: block;
     font-weight: bold; }
-
-div.nav-panel {
-  display: none;
-  padding: 10px; }
-
-div.nav-panel:target {
-  display: block; }
 
 ul.nav-mini li a {
   font-size: 12px;

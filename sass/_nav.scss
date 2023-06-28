@@ -1,5 +1,18 @@
-ul.tabs{
+@mixin nav {
     list-style: none;
+    li{
+        a {
+            @include size-normal;
+            text-decoration: none;
+            display:block;
+            font-weight: bold;
+        }
+    }
+}
+
+ul.tabs{
+    @include nav;
+    //list-style: none;
     margin:0px;
     padding:0px;
     border-bottom: solid 1px $gray-5;
@@ -62,24 +75,7 @@ ul.pills-vertical{
 }
 
 ul.nav{
-    list-style: none;
-    li{
-        a {
-            @include size-normal;
-            text-decoration: none;
-            display:block;
-            font-weight: bold;
-        }
-    }
-}
-
-div.nav-panel{
-    display:none;
-    padding:10px;
-}
-
-div.nav-panel:target{
-    display: block;
+    @include nav
 }
 
 ul.nav-mini{ li{ a{ @include size-mini }}}
