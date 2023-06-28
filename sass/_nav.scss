@@ -1,12 +1,11 @@
 @mixin nav {
     list-style: none;
     li{
-        a {
-            @include size-normal;
-            text-decoration: none;
-            display:block;
-            font-weight: bold;
-        }
+        @include size-normal;
+        text-decoration: none;
+        display:block;
+        font-weight: bold;
+        cursor: pointer;
     }
 }
 
@@ -18,9 +17,7 @@ ul.tabs{
     border-bottom: solid 1px $gray-5;
 
     li {
-        a{
-            color: $gray-3;
-        }
+        color: $gray-3;
         display:inline-block;
         margin-bottom: -1px;
     }

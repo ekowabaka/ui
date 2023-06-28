@@ -3,27 +3,25 @@
  * user interfaces.
  */
 
-class Nav {
-    init () {
-        const tabs = document.querySelectorAll('.tabs > li');
-        tabs.forEach(x => x.addEventListener('click',
-            event => {
-                const parent = event.target.parentNode
-                parent.querySelectorAll("li").forEach(x => x.classList.remove("active"))
-                event.target.classList.add("active")
-            }
-        ));
-    }
+export function init() {
+    document.querySelectorAll(".tabs").forEach(x => new Nav(x));
 }
 
-// fzui.nav = new (function() {
-//     this.init = function() {
-//         const tabs = document.querySelectorAll('.nav > li > a');
-//         tabs.forEach(x => x.addEventListener('click', event => {
-//             const parent = event.target.parentNode;
-//             parent.parentNode.querySelectorAll("li").forEach(x => x.classList.remove('active'));
-//             parent.classList.add('active');
-//         }))
-//     }
-// })();
+class Nav {
+    #tabsContainer;
+    #tabs;
+    #panesContainer;
+    #panes
+
+    constructor (container) {
+        this.#tabs = container.querySelectorAll('li');
+        this.#tabs.forEach(tab => tab.addEventListener('click', e => this.#tabClicked(e)));
+        this.#tabsContainer = container;
+    }
+
+    #tabClicked (event) {
+        this.#tabs.forEach(x => x.classList.remove("active"));
+        event.target.classList.add("active");
+    }
+}
 

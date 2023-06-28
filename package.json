@@ -16,13 +16,17 @@
     "grunt": "*",
     "grunt-cli": "*",
     "grunt-contrib-clean": "*",
-    "grunt-contrib-concat": "*",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-mustache-render": "*",
     "grunt-sass": "*",
-    "node-sass": "*"
+    "grunt-webpack": "^5.0.0",
+    "node-sass": "*",
+    "webpack": "^5.88.1"
+  },
+  "dependencies": {
+    "webpack-cli": "^5.1.4"
   }
 }
