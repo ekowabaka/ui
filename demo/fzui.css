@@ -631,6 +631,12 @@ ul.menu {
     display: block;
     clear: both; }
 
+/**
+ * A mixin as the base for all navigation tabs / pills.
+ */
+/**
+ * Specific styling for tabs.
+ */
 ul.tabs {
   list-style: none;
   margin: 0px;
@@ -653,6 +659,9 @@ ul.tabs {
     background-color: white;
     border-radius: 3px 3px 0px 0px; }
 
+/**
+ * Specific styling for pills.
+ */
 ul.pills {
   list-style: none;
   margin: 0px;
@@ -692,6 +701,9 @@ ul.pills {
     outline: none;
     vertical-align: bottom; }
 
+/**
+ * Make pills vertical.
+ */
 ul.pills-vertical li {
   display: block;
   margin-bottom: 7px; }
@@ -699,12 +711,21 @@ ul.pills-vertical li {
 ul.pills-vertical li:last-child {
   margin-bottom: 0px; }
 
+/**
+ * Keep the navigation to the left.
+ */
 .nav-left {
   float: left; }
 
+/**
+ * Keep navigation to the right.
+ */
 .nav-right {
   float: right; }
 
+/**
+ * Styling for menu style navigations.
+ */
 ul.nav {
   list-style: none; }
   ul.nav li {
@@ -715,6 +736,9 @@ ul.nav {
     font-weight: bold;
     cursor: pointer; }
 
+/**
+ * Define sizes for navigations.
+ */
 ul.nav-mini li a {
   font-size: 12px;
   padding: 3px 6px 3px 6px; }
@@ -734,6 +758,15 @@ ul.nav-large li a {
 ul.nav-mega li a {
   font-size: 16px;
   padding: 12px 24px 12px 24px; }
+
+/**
+ * Panes for paned navigations like tabs and pills. You could use this for menu navigations, too.
+ */
+div.panes > div {
+  display: none; }
+
+div.panes > div.active {
+  display: block; }
 
 .form-element {
   padding-bottom: 10px; }
