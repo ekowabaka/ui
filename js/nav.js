@@ -16,6 +16,7 @@ export function init() {
 
 /**
  * Represents a navigational unit.
+ * Navigation units could be either tab lists, or pills, or navigation men bars.
  */
 class Nav {
     /**
@@ -28,7 +29,7 @@ class Nav {
     #activeTab;
 
     constructor (container) {
-        this.#activeTab = 0;
+        this.#activeTab = -1;
         this.#tabs = container.querySelectorAll('li');
         this.#tabs.forEach((tab, i) => tab.addEventListener('click', e => {
             this.showTab(i);
@@ -45,7 +46,23 @@ class Nav {
             this.#panes = [];
         }
 
-        this.showTab(this.#activeTab);
+        const tabObserver = new MutationObserver((list, observer) => this.#tabChangedCallback(list, observer));
+        console.log(tabObserver);
+        tabObserver.observe(container, {childList: true});
+
+        if(this.#tabs.length > 0) {
+            this.#activeTab = 0;
+            this.showTab(this.#activeTab);
+        }
+    }
+
+    #tabChangedCallback(mutations) {
+        mutations = mutations.filter(x => x.type === "childList");
+        for (const mutation of mutations) {
+            if(mutation.addedNodes.length > 0) {
+                
+            }
+        }
     }
 
     showTab (index) {

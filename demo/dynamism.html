@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FZUI Dynamic Samples</title>
+        <link rel="stylesheet" type="text/css" href="fzui.css" />
+        <script src="fzui.js"></script>
+        <script>
+            window.addEventListener('load', () => {
+                const tabs = document.getElementById("all-tabs");
+                const panes = document.getElementById("all-panes");
+                let numTabs = 0;
+
+                document.getElementById("add-tab-button").addEventListener("click",
+                    () => {
+                        const tab = document.createElement("li");
+                        tab.innerHTML = `Tab #${numTabs}`;
+                        tabs.appendChild(tab);
+                        numTabs += 1;
+                    }
+                );
+            });
+        </script>        
+    </head>
+    <body>
+        <div class="tab-wrapper">
+            <ul id="all-tabs" class="tabs" >
+            </ul>
+            <button id="add-tab-button">Add Tab</button>
+            <div id="all-panes" class="panes">
+            </div>    
+        </div>
+    </body>
+</html>
