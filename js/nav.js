@@ -71,8 +71,7 @@ class Nav {
         for (const mutation of mutations) {
             mutation.addedNodes.forEach(node => {
                 if(node.nodeName === 'LI') {
-                    //node.addEventListener('click', () => this.showTab(node))
-                    this.#initializeTab(tab);
+                    this.#initializeTab(node);
                 }
             });
         }
