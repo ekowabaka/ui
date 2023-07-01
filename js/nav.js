@@ -1,17 +1,15 @@
-import {DomUtilities} from './dom.js'
+const allNavs = new Map();
 
-/**
- * Holds all navs that are currently active.
- */
-const allNavs = [];
-
-/**
- * Implements the highlighting of the current tab or pill for tab and pill
- * user interfaces.
- */
-
-export function init() {
-    document.querySelectorAll("ul.tabs").forEach(x => new Nav(x));
+export const navOperations = {
+    init: function() {
+        document.querySelectorAll("ul.tabs").forEach(x => allNavs.set(x, new Nav(x))); 
+    },
+    get: function(nav) {      
+        if (typeof nav === "string") {
+            nav = document.getElementById(nav);
+        }
+        return allNavs.get(nav);
+    }
 }
 
 /**
@@ -23,56 +21,81 @@ class Nav {
      * The container holding the list of tabs.
      */
     #tabsContainer;
-    #tabs;
     #panesContainer;
-    #panes
-    #activeTab;
 
+    /**
+     * Create a new navigation around a un-ordered list with the list.
+     *  
+     *
+     * @param {Element} container 
+     */
     constructor (container) {
-        this.#activeTab = -1;
-        this.#tabs = container.querySelectorAll('li');
-        this.#tabs.forEach((tab, i) => tab.addEventListener('click', e => {
-            this.showTab(i);
-            if (e.target.classList.contains("active")) {
-                this.#activeTab = i;
+        let firstTab = null;
+        
+        container.querySelectorAll('li').forEach(tab => {
+            if (firstTab === null) {
+                firstTab = tab;
             }
-        }));
+            this.#initializeTab(tab);
+            //tab.addEventListener('click', () => this.showTab(tab));
+        });
+        
         this.#tabsContainer = container;
-        this.#panesContainer = DomUtilities.nextSibling(container);
+        
+        for (const node of container.parentNode.children) {
+            if(node.classList.contains("panes")) {
+                this.#panesContainer = node;
+            }
+        }
 
         if (this.#panesContainer !== null) {
-            this.#panes = this.#panesContainer.querySelectorAll("div");
-        } else {
-            this.#panes = [];
+            this.#panesContainer.querySelectorAll("div");
         }
 
-        const tabObserver = new MutationObserver((list, observer) => this.#tabChangedCallback(list, observer));
-        console.log(tabObserver);
+        const tabObserver = new MutationObserver((list, observer) => this.#tabsMutated(list, observer));
         tabObserver.observe(container, {childList: true});
 
-        if(this.#tabs.length > 0) {
-            this.#activeTab = 0;
-            this.showTab(this.#activeTab);
-        }
+        if(firstTab) {
+            this.showTab(firstTab);
+        } 
     }
 
-    #tabChangedCallback(mutations) {
+    #initializeTab(tab) {
+        const tabInitialized = new CustomEvent("fz-tab-initialized", {detail: tab});
+        tab.addEventListener('click', () => this.showTab(tab));
+        this.#tabsContainer.dispatchEvent(tabInitialized);
+    }
+
+    #tabsMutated(mutations) {
         mutations = mutations.filter(x => x.type === "childList");
         for (const mutation of mutations) {
-            if(mutation.addedNodes.length > 0) {
-                
-            }
+            mutation.addedNodes.forEach(node => {
+                if(node.nodeName === 'LI') {
+                    //node.addEventListener('click', () => this.showTab(node))
+                    this.#initializeTab(tab);
+                }
+            });
         }
     }
 
-    showTab (index) {
-        this.#tabs.forEach(x => x.classList.remove("active"));
-        this.#panes.forEach(x => x.classList.remove("active"));
-        this.#tabs[index].classList.add("active");   
-        this.#activeTab = index;
-
-        if (index < this.#panes.length) {
-            this.#panes[index].classList.add("active");
+    showTab(node) {
+        let nodeIndex;
+        this.#tabsContainer.querySelectorAll("li").forEach((x, i) => {
+            x.classList.remove("active");
+            if (x === node) {
+                nodeIndex = i;
+            }
+        });
+        this.#tabsContainer.querySelectorAll("li").forEach(x => x.classList.remove("active"));
+        node.classList.add("active");
+        
+        let paneIndex = 0;
+        this.#panesContainer.querySelectorAll("div").forEach(x => x.classList.remove("active"));
+        for (const pane of this.#panesContainer.childNodes) {
+            if (pane.nodeType === Node.ELEMENT_NODE && paneIndex++ === nodeIndex) {
+                pane.classList.add("active")
+                break;
+            }
         }
     }
 }

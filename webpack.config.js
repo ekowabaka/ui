@@ -1,7 +1,8 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: './js/fzui.js',
+  entry: './js/main.js',
   output: {
     filename: 'fzui.js',
     path: path.resolve(__dirname, 'dist'),

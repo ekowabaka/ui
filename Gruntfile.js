@@ -55,7 +55,7 @@ module.exports = function(grunt)
         clean : ['dist', 'build'],
         watch: {
             files: ["js/*.js", "sass/*.scss", "examples/*"],
-            tasks: ['build', 'copy']
+            tasks: ['default']
         },
         webpack: {
             options: {
@@ -74,7 +74,6 @@ module.exports = function(grunt)
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-webpack');
 
-    grunt.registerTask('default', ['sass', 'webpack', 'mustache_render']);
-    grunt.registerTask('build', ['sass', 'cssmin', 'webpack', 'mustache_render'])
+    grunt.registerTask('default', ['sass', 'cssmin', 'webpack', 'copy', 'mustache_render']);
 }
 

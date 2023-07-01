@@ -39,13 +39,13 @@ function getDimension(node, dimension, margins, margin1, margin2) {
 }
 
 export const DomUtilities = {
-  nextSibling: function (node) {
-    return getSubsequent(node, 'next')
-  },
+  // nextSibling: function (node) {
+  //   return getSubsequent(node, 'next')
+  // },
 
-  previousSibling: function (node) {
-    return getSubsequent(node, 'previous')
-  },
+  // previousSibling: function (node) {
+  //   return getSubsequent(node, 'previous')
+  // },
 
   toggleClass: function (node, className) {
     if (node.classList.contains(className)) {
@@ -74,7 +74,7 @@ export const DomUtilities = {
   siblings: function (node) {
     let siblings = [];
     for (let sibling = node.parentNode.firstChild; sibling; sibling = sibling.nextSibling) {
-      if (sibling === node || sibling.nodeType === Node.TEXT_NODE) {
+      if (sibling === node) {// || sibling.nodeType === Node.TEXT_NODE) {
         continue;
       }
       siblings.push(sibling);
