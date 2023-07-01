@@ -25,8 +25,6 @@ class Nav {
 
     /**
      * Create a new navigation around a un-ordered list with the list.
-     *  
-     *
      * @param {Element} container 
      */
     constructor (container) {
@@ -83,10 +81,14 @@ class Nav {
 
     showTab(node) {
         let nodeIndex;
+        
         this.#tabsContainer.querySelectorAll("li").forEach((x, i) => {
             x.classList.remove("active");
-            if (x === node) {
+            if (typeof node === "object" && x === node) {
                 nodeIndex = i;
+            } else if (typeof node === "number" && i == node) {
+                nodeIndex = i;
+                node = x;
             }
         });
         this.#tabsContainer.querySelectorAll("li").forEach(x => x.classList.remove("active"));
