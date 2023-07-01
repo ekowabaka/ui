@@ -38,7 +38,6 @@ class Nav {
                 firstTab = tab;
             }
             this.#initializeTab(tab);
-            //tab.addEventListener('click', () => this.showTab(tab));
         });        
         
         for (const node of container.parentNode.children) {
@@ -59,8 +58,8 @@ class Nav {
         } 
     }
 
-    #initializeTab(tab) {
-        const tabInitialized = new CustomEvent("fz-tab-initialized", {detail: tab});
+    #initializeTab(tab, index) {
+        const tabInitialized = new CustomEvent("fz-tab-initialized", {detail: index});
         tab.addEventListener('click', () => this.showTab(tab));
         this.#tabsContainer.dispatchEvent(tabInitialized);
     }
@@ -70,7 +69,13 @@ class Nav {
         for (const mutation of mutations) {
             mutation.addedNodes.forEach(node => {
                 if(node.nodeName === 'LI') {
-                    this.#initializeTab(node);
+                    let index = 0;
+                    let intermediateNode = node;
+                    while(intermediateNode.previousElementSibling) {
+                        index += 1;
+                        intermediateNode = intermediateNode.previousElementSibling;
+                    }
+                    this.#initializeTab(node, index);
                 }
             });
         }
