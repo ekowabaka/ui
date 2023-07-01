@@ -63,6 +63,7 @@ class Nav {
     #initializeTab(tab) {
         const tabInitialized = new CustomEvent("fz-tab-initialized", {detail: tab});
         tab.addEventListener('click', () => this.showTab(tab));
+        console.log(this.#tabsContainer);
         this.#tabsContainer.dispatchEvent(tabInitialized);
     }
 
