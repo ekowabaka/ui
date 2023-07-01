@@ -507,19 +507,19 @@ button:active, .button:active {
   .button-group > .button:only-child, .button-group .dropdown:only-child > .button {
     border-radius: 3px; }
 
-.button-group-mini > button, .button-group-mini > .dropdown > button {
+.button-group-mini > button, .button-group-mini > .dropdown > button, .button-group-mini > .button {
   font-size: 12px;
   padding: 3px 6px 3px 6px; }
 
-.button-group-small > button, .button-group-small > .dropdown > button {
+.button-group-small > button, .button-group-small > .dropdown > button, .button-group-small > .button {
   font-size: 14px;
   padding: 5px 12px 5px 12px; }
 
-.button-group-large > button, .button-group-large > .dropdown > button {
+.button-group-large > button, .button-group-large > .dropdown > button, .button-group-large > .button {
   font-size: 14px;
   padding: 10px 18px 10px 18px; }
 
-.button-group-mega > button, .button-group-mega > .dropdown > button {
+.button-group-mega > button, .button-group-mega > .dropdown > button, .button-group-mega > .button {
   font-size: 16px;
   padding: 12px 24px 12px 24px; }
 
