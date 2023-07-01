@@ -32,15 +32,14 @@ class Nav {
     constructor (container) {
         let firstTab = null;
         
+        this.#tabsContainer = container;
         container.querySelectorAll('li').forEach(tab => {
             if (firstTab === null) {
                 firstTab = tab;
             }
             this.#initializeTab(tab);
             //tab.addEventListener('click', () => this.showTab(tab));
-        });
-        
-        this.#tabsContainer = container;
+        });        
         
         for (const node of container.parentNode.children) {
             if(node.classList.contains("panes")) {
