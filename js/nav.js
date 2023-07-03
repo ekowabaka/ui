@@ -22,6 +22,8 @@ class Nav {
      */
     #tabsContainer;
     #panesContainer;
+    #activeTab;
+    #activePane;
 
     /**
      * Create a new navigation around a un-ordered list with the list.
@@ -58,9 +60,8 @@ class Nav {
     }
 
     #initializeTab(tab, index) {
-        const tabInitialized = new CustomEvent("fz-tab-initialized", {detail: index});
         tab.addEventListener('click', () => this.showTab(tab));
-        this.#tabsContainer.dispatchEvent(tabInitialized);
+        this.#tabsContainer.dispatchEvent(new CustomEvent("fz-tab-initialized", {detail: index}));
     }
 
     #tabsMutated(mutations) {
@@ -95,8 +96,8 @@ class Nav {
                 node = x;
             }
         });
-        console.log(nodeIndex);
         this.#tabsContainer.querySelectorAll("li").forEach(x => x.classList.remove("active"));
+        this.#activeTab = node;
         node.classList.add("active");
         
         let paneIndex = 0;
@@ -104,9 +105,11 @@ class Nav {
         for (const pane of this.#panesContainer.childNodes) {
             if (pane.nodeType === Node.ELEMENT_NODE && paneIndex++ === nodeIndex) {
                 pane.classList.add("active")
+                this.#activePane = pane;
                 break;
             }
         }
+        this.#tabsContainer.dispatchEvent(new CustomEvent("fz-tab-switched", {detail: nodeIndex}));
     }
 }
 
