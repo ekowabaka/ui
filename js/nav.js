@@ -95,6 +95,7 @@ class Nav {
                 node = x;
             }
         });
+        console.log(nodeIndex);
         this.#tabsContainer.querySelectorAll("li").forEach(x => x.classList.remove("active"));
         node.classList.add("active");
         
