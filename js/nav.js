@@ -111,5 +111,13 @@ class Nav {
         }
         this.#tabsContainer.dispatchEvent(new CustomEvent("fz-tab-switched", {detail: nodeIndex}));
     }
+
+    get activeTab() {
+        return this.#activeTab;
+    }
+
+    get activePane() {
+        return this.#activePane;
+    }
 }
 
