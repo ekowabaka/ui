@@ -31,6 +31,7 @@ class Nav {
         let firstTab = null;
         
         this.#tabsContainer = container;
+        this.showNewTabs = true;
         container.querySelectorAll('li').forEach(tab => {
             if (firstTab === null) {
                 firstTab = tab;
@@ -74,6 +75,9 @@ class Nav {
                         intermediateNode = intermediateNode.previousElementSibling;
                     }
                     this.#initializeTab(node, index);
+                    if(this.showNewTabs) {
+                        this.showTab(index);
+                    }
                 }
             });
         }
