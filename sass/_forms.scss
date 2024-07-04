@@ -1,243 +1,332 @@
+@import "buttons";
+
 .form-element {
 
-  input:focus, textarea:focus, select:focus {
-    outline:none
-  }
-
-  padding-bottom: 10px;
-
-  >label {
-    display:block;
-    padding-top:5px;
-    padding-bottom:5px;
-    font-weight: bold;
-  }
-
-  >input, >select, textarea {
-    border:1px solid $gray-5;
-    border-radius: 3px;
-    padding:8px 8px 5px 8px;
-    width:100%;
-    box-sizing: border-box;
-    box-shadow: inset 1px 1px 3px rgba(darken($gray-5, 30%), 0.2);
-    color:$gray-0;
-    font-size: 11pt;
-    font-family: inherit;
-    background-color: $white;
-  }
-
-  >input[type=checkbox]{
-    border:none;
-    box-shadow: none;
-    width: auto;
-  }
-  
-  >input[type=text]::placeholder, >input[type=password]::placeholder {
-      color:#a0a0a0
-  }
-
-  >span {
-    font-size: small;
-    color: $gray-3;
-    display:block;
-    margin-top:5px;
-  }
-
-  textarea {
-    height:150px;
-  }
-
-  .check-group {
-    label {
-      display: block;
+    input:focus,
+    textarea:focus,
+    select:focus {
+        outline: none
     }
-  }
 
-  > select {
-    width: auto;
-    max-width: 100%;
-  }
+    padding-bottom: 10px;
 
-  ul{
-    margin:0px;
-    font-size: 0.9em;
-    padding-top: 5px;
-    padding-bottom:5px;
-    padding-left:0px;
-    color:$gray-1;
-    list-style: none;
-  }
-}
-
-.form-submit-area {
-  padding-top:10px;
-  input[type=submit]{ @include button($blue) }  
-  input[type=submit]:hover{
-    @include button-hover($blue)
-  }  
-  input[type=submit]:active{
-    @include button-active($blue)
-  }  
-  
-  input[type=submit].button-red { @include button($red) }
-  input[type=submit].button-red:hover { @include button-hover($red) }
-  input[type=submit].button-red:active { @include button-active($red) }
-
-  input[type=submit].button-yellow { @include button($yellow) }
-  input[type=submit].button-yellow:hover { @include button-hover($yellow) }
-  input[type=submit].button-yellow:active { @include button-active($yellow) }
-
-  input[type=submit].button-blue { @include button($blue) }
-  input[type=submit].button-blue:hover { @include button-hover($blue) }
-  input[type=submit].button-blue:active { @include button-active($blue) }
-
-  input[type=submit].button-green { @include button($green) }
-  input[type=submit].button-green:hover { @include button-hover($green) }
-  input[type=submit].button-green:active { @include button-active($green) }
-
-  input[type=submit].button-brown { @include button($brown) }
-  input[type=submit].button-brown:hover { @include button-hover($brown) }
-  input[type=submit].button-brown:active { @include button-active($brown) }
-
-  input[type=submit].button-purple { @include button($purple) }
-  input[type=submit].button-purple:hover { @include button-hover($purple) }
-  input[type=submit].button-purple:active { @include button-active($purple) }  
-  
-  input[type=submit].button-mini{ @include size-mini }
-  input[type=submit].button-small{ @include size-small }
-  input[type=submit].button-large{ @include size-large }
-  input[type=submit].button-mega{ @include size-mega }    
-}
-
-.form-grid {
-  .form-element{
-    white-space: nowrap;
-    font-size: 0;
     >label {
-      display:inline-block;
-      width:30%;
-      box-sizing: border-box;
-      font-size: initial;
-      text-align: right;
-      padding-right:10px;
-      margin-top:10px;
-      vertical-align: top
-    }
-    >input, >select, textarea, .check-group, .input-wrapper {
-      width:70%;
-      display:inline-block;
-      box-sizing: border-box;
-      font-size: 11pt;
-      margin-top:10px;
-    }
-    >input[type=checkbox] {
-      width:initial;
-      margin-top:20px;
+        display: block;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-weight: bold;
     }
 
-    > select {
-      width: auto;
-      max-width: 70%;
+    >input,
+    >select,
+    textarea {
+        border: 1px solid $gray-5;
+        border-radius: 3px;
+        padding: 8px 8px 5px 8px;
+        width: 100%;
+        box-sizing: border-box;
+        box-shadow: inset 1px 1px 3px rgba(darken($gray-5, 30%), 0.2);
+        color: $gray-0;
+        font-size: 11pt;
+        font-family: inherit;
+        background-color: $white;
+    }
+
+    >input[type=checkbox] {
+        border: none;
+        box-shadow: none;
+        width: auto;
+    }
+
+    >input[type=text]::placeholder,
+    >input[type=password]::placeholder {
+        color: #a0a0a0
     }
 
     >span {
-      margin-left: 30%;
-      font-size:small;
-      white-space: normal;
+        font-size: small;
+        color: $gray-3;
+        display: block;
+        margin-top: 5px;
     }
 
-    >ul{
-      margin-left: 30%;
-      white-space: normal;
-      font-size: initial;
-      li{
-        font-size: 0.9em;
-      }
+    textarea {
+        height: 150px;
     }
 
     .check-group {
-      label{
-        display: block;
-        width: auto;
-        text-align: left;
-      }
+        label {
+            display: block;
+        }
     }
-  }
-  .form-submit-area {
-    text-align: right
-  }
+
+    >select {
+        width: auto;
+        max-width: 100%;
+    }
+
+    ul {
+        margin: 0px;
+        font-size: 0.9em;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 0px;
+        color: $gray-1;
+        list-style: none;
+    }
+}
+
+.form-submit-area {
+    padding-top: 10px;
+
+    input[type=submit] {
+        @include button($blue)
+    }
+
+    input[type=submit]:hover {
+        @include button-hover($blue)
+    }
+
+    input[type=submit]:active {
+        @include button-active($blue)
+    }
+
+    input[type=submit].button-red {
+        @include button($red)
+    }
+
+    input[type=submit].button-red:hover {
+        @include button-hover($red)
+    }
+
+    input[type=submit].button-red:active {
+        @include button-active($red)
+    }
+
+    input[type=submit].button-yellow {
+        @include button($yellow)
+    }
+
+    input[type=submit].button-yellow:hover {
+        @include button-hover($yellow)
+    }
+
+    input[type=submit].button-yellow:active {
+        @include button-active($yellow)
+    }
+
+    input[type=submit].button-blue {
+        @include button($blue)
+    }
+
+    input[type=submit].button-blue:hover {
+        @include button-hover($blue)
+    }
+
+    input[type=submit].button-blue:active {
+        @include button-active($blue)
+    }
+
+    input[type=submit].button-green {
+        @include button($green)
+    }
+
+    input[type=submit].button-green:hover {
+        @include button-hover($green)
+    }
+
+    input[type=submit].button-green:active {
+        @include button-active($green)
+    }
+
+    input[type=submit].button-brown {
+        @include button($brown)
+    }
+
+    input[type=submit].button-brown:hover {
+        @include button-hover($brown)
+    }
+
+    input[type=submit].button-brown:active {
+        @include button-active($brown)
+    }
+
+    input[type=submit].button-purple {
+        @include button($purple)
+    }
+
+    input[type=submit].button-purple:hover {
+        @include button-hover($purple)
+    }
+
+    input[type=submit].button-purple:active {
+        @include button-active($purple)
+    }
+
+    input[type=submit].button-mini {
+        @include size-mini
+    }
+
+    input[type=submit].button-small {
+        @include size-small
+    }
+
+    input[type=submit].button-large {
+        @include size-large
+    }
+
+    input[type=submit].button-mega {
+        @include size-mega
+    }
+}
+
+.form-grid {
+    .form-element {
+        white-space: nowrap;
+        font-size: 0;
+
+        >label {
+            display: inline-block;
+            width: 30%;
+            box-sizing: border-box;
+            font-size: initial;
+            text-align: right;
+            padding-right: 10px;
+            margin-top: 10px;
+            vertical-align: top
+        }
+
+        >input,
+        >select,
+        textarea,
+        .check-group,
+        .input-wrapper {
+            width: 70%;
+            display: inline-block;
+            box-sizing: border-box;
+            font-size: 11pt;
+            margin-top: 10px;
+        }
+
+        >input[type=checkbox] {
+            width: initial;
+            margin-top: 20px;
+        }
+
+        >select {
+            width: auto;
+            max-width: 70%;
+        }
+
+        >span {
+            margin-left: 30%;
+            font-size: small;
+            white-space: normal;
+        }
+
+        >ul {
+            margin-left: 30%;
+            white-space: normal;
+            font-size: initial;
+
+            li {
+                font-size: 0.9em;
+            }
+        }
+
+        .check-group {
+            label {
+                display: block;
+                width: auto;
+                text-align: left;
+            }
+        }
+    }
+
+    .form-submit-area {
+        text-align: right
+    }
 }
 
 @mixin marked-element($color) {
-  input, select{
-    border-color: $color;
-    box-shadow: inset 1px 1px 3px rgba(darken($color, 60%), 0.2);
-    background-color: lighten($color, 50%);
-    color: darken($color,30%)
-  }
-  label, ul {
-    color: darken($color,30%)
-  }
+
+    input,
+    select {
+        border-color: $color;
+        box-shadow: inset 1px 1px 3px rgba(darken($color, 60%), 0.2);
+        background-color: lighten($color, 50%);
+        color: darken($color, 30%)
+    }
+
+    label,
+    ul {
+        color: darken($color, 30%)
+    }
 }
 
-.form-error{ 
-  @include marked-element($light-red)
+.form-error {
+    @include marked-element($light-red)
 }
-.form-warning{ 
-  @include marked-element($light-yellow)
+
+.form-warning {
+    @include marked-element($light-yellow)
 }
-.form-success{ 
-  @include marked-element($light-green)
+
+.form-success {
+    @include marked-element($light-green)
 }
 
 fieldset {
-  border:1px solid $gray-5;
-  border-radius: 3px;
-  padding:10px;
-  padding-top:50px;
-  position:relative;
-  margin: 0px;
-  margin-top:10px;
+    border: 1px solid $gray-5;
+    border-radius: 3px;
+    padding: 10px;
+    padding-top: 50px;
+    position: relative;
+    margin: 0px;
+    margin-top: 10px;
 
-  legend {
-    font-weight: bold;
-    font-size: initial;
-    position:absolute;
-    left:0px;
-    top:0px;
-    width:100%;
-    color:$gray-2;
-    border-bottom: 1px dotted $gray-5;
-    padding:10px;
-    box-sizing: border-box;
-  }
+    legend {
+        font-weight: bold;
+        font-size: initial;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        color: $gray-2;
+        border-bottom: 1px dotted $gray-5;
+        padding: 10px;
+        box-sizing: border-box;
+    }
 }
 
-.form-element.elements-inline{
+.form-element.elements-inline {
 
-  white-space: normal;
-  font-size: initial;
-  margin-top: 10px;
+    white-space: normal;
+    font-size: initial;
+    margin-top: 10px;
 
-  >label, >input, >select, >textarea {
-    display: inline-block;
-    width: auto;
-    margin:0px;
-    margin-right:5px;
-  }
+    >label,
+    >input,
+    >select,
+    >textarea {
+        display: inline-block;
+        width: auto;
+        margin: 0px;
+        margin-right: 5px;
+    }
 
-  >label{
-    padding:0px;  
-    padding-top: 5px;
-    padding-bottom: 5px;
-    vertical-align: middle;
-  }
+    >label {
+        padding: 0px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        vertical-align: middle;
+    }
 }
 
 .form-element.elements-inline.form-error,
 .form-element.elements-inline.form-warning,
-.form-element.elements-inline.form-success{
-  ul{
-    margin-left: 0px;
-  }
+.form-element.elements-inline.form-success {
+    ul {
+        margin-left: 0px;
+    }
 }

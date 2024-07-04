@@ -23,6 +23,8 @@
                         numTabs += 1;
                     }
                 );
+
+                tabs.addEventListener("fz-tab-switched", x => console.log("Switched", x.detail));
             });
         </script>        
     </head>

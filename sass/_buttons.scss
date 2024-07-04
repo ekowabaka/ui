@@ -1,3 +1,5 @@
+@import "sizes";
+
 // Shadow for the button
 @mixin button-shadow($color) {
   box-shadow: 1px 1px 3px rgba(darken($color, 60%), 0.2);
@@ -18,7 +20,7 @@
 
 @mixin button-decoration($color) {
   background-color: $color;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  //font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-weight: bold;
   border-radius: 3px;
   cursor: default;
