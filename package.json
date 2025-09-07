@@ -1,6 +1,6 @@
 {
   "name": "fzui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Fahodzi UI Library",
   "repository": {
     "type": "git",
@@ -20,7 +20,6 @@
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-mustache-render": "*",
     "grunt-sass": "*",
     "grunt-webpack": "^5.0.0",
     "node-sass": "*",

@@ -29,29 +29,6 @@ module.exports = function(grunt)
                 }
             }
         },
-        mustache_render: {
-            options: {
-                directory: 'examples'
-            },
-            default: {
-                files : [
-                    {
-                        data: "examples/index.json",
-                        template: "examples/index.mustache",
-                        dest: "demo/index.html"
-                    }
-                ]
-            },
-            build: {
-                files : [
-                    {
-                        data: "examples/index_min.json",
-                        template: "examples/index.mustache",
-                        dest: "demo/index.min.html"
-                    }
-                ]
-            }
-        },
         clean : ['dist', 'build'],
         watch: {
             files: ["js/*.js", "sass/*.scss", "examples/*"],
