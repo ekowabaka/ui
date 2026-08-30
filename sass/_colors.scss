@@ -1,19 +1,31 @@
+@use "sass:color";
+@use "sass:map";
+
 // Colour functions
 @function light-shade($color) {
-    @return lighten($color, 20%);
+  @return color.adjust($color, $lightness: 20%);
 }
 
 @function dark-shade($color) {
-    @return darken($color, 20%);
+  @return color.adjust($color, $lightness: -20%);
 }
 
 // Base colours
-$red:       #fc4e4e;
-$blue:      #21add3;
-$yellow:    #ffb724;
-$green:     #3bbf7e;
-$purple:    #c36ad1;
-$brown:     #d06f06;
+$colors: (
+  'red':    #fc4e4e,
+  'blue':   #21add3,
+  'yellow': #ffb724,
+  'green':  #3bbf7e,
+  'purple': #c36ad1,
+  'brown':  #d06f06,
+);
+
+$red:    map.get($colors, 'red');
+$blue:   map.get($colors, 'blue');
+$yellow: map.get($colors, 'yellow');
+$green:  map.get($colors, 'green');
+$purple: map.get($colors, 'purple');
+$brown:  map.get($colors, 'brown');
 
 // Shades
 $light-red: light-shade($red);
@@ -39,65 +51,32 @@ $gray-4:    #b6b6b6;
 $gray-5:    #dbdbdb;
 $white:     white;
 
-// Styles
-.red { color : $red;}
-.light-red { color: $light-red }
-.dark-red { color: $dark-red }
-
-.red-bg { background-color : $red;}
-.light-red-bg { background-color: $light-red }
-.dark-red-bg { background-color: $dark-red }
-
-.blue { color : $blue;}
-.light-blue { color: $light-blue }
-.dark-blue { color: $dark-blue }
-
-.blue-bg { background-color : $blue;}
-.light-blue-bg { background-color: $light-blue }
-.dark-blue-bg { background-color: $dark-blue }
-
-.yellow { color : $yellow;}
-.light-yellow { color: $light-yellow }
-.dark-yellow { color: $dark-yellow }
-
-.yellow-bg { background-color : $yellow;}
-.light-yellow-bg { background-color: $light-yellow }
-.dark-yellow-bg { background-color: $dark-yellow }
-
-.green { color : $green;}
-.light-green { color: $light-green }
-.dark-green { color: $dark-green }
-
-.green-bg { background-color : $green;}
-.light-green-bg { background-color: $light-green }
-.dark-green-bg { background-color: $dark-green }
-
-.purple { color : $purple }
-.light-purple { color: $light-purple }
-.dark-purple { color: $dark-purple }
-
-.purple-bg { background-color : $purple }
-.light-purple-bg { background-color: $light-purple }
-.dark-purple-bg { background-color: $dark-purple }
-
-.brown { color : $brown;}
-.light-brown { color: $light-brown }
-.dark-brown { color: $dark-brown }
-
-.brown-bg { background-color : $brown;}
-.light-brown-bg { background-color: $light-brown }
-.dark-brown-bg { background-color: $dark-brown }
-
-.gray-0 { color: $gray-0 }
-.gray-1 { color: $gray-1 }
-.gray-2 { color: $gray-2 }
-.gray-3 { color: $gray-3 }
-.gray-4 { color: $gray-4 }
-.gray-5 { color: $gray-5 }
-
-.gray-0-bg { background-color: $gray-0 }
-.gray-1-bg { background-color: $gray-1 }
-.gray-2-bg { background-color: $gray-2 }
-.gray-3-bg { background-color: $gray-3 }
-.gray-4-bg { background-color: $gray-4 }
-.gray-5-bg { background-color: $gray-5 }
+// All colors map (base, shades, greys)
+$all-colors: (
+  'red':          $red,
+  'light-red':    $light-red,
+  'dark-red':     $dark-red,
+  'blue':         $blue,
+  'light-blue':   $light-blue,
+  'dark-blue':    $dark-blue,
+  'yellow':       $yellow,
+  'light-yellow': $light-yellow,
+  'dark-yellow':  $dark-yellow,
+  'green':        $green,
+  'light-green':  $light-green,
+  'dark-green':   $dark-green,
+  'purple':       $purple,
+  'light-purple': $light-purple,
+  'dark-purple':  $dark-purple,
+  'brown':        $brown,
+  'light-brown':  $light-brown,
+  'dark-brown':   $dark-brown,
+  'black':        $black,
+  'gray-0':       $gray-0,
+  'gray-1':       $gray-1,
+  'gray-2':       $gray-2,
+  'gray-3':       $gray-3,
+  'gray-4':       $gray-4,
+  'gray-5':       $gray-5,
+  'white':        $white,
+);

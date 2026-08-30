@@ -1,0 +1,32 @@
+@use "sass:map";
+@use "colors";
+
+// Corner variables
+$radius-sharp: 0px;
+$radius-subtle: 3px;
+$radius-curved: 8px;
+$radius-circle: 50%;
+
+// Corner map
+$corner-radii: (
+  'sharp': $radius-sharp,
+  'subtle': $radius-subtle,
+  'curved': $radius-curved,
+  'circle': $radius-circle,
+);
+
+
+// Layers map
+$layers: (
+  '0': 0,
+  '1': 1,
+  '2': 3,
+  '3': 9,
+);
+
+// Layers mixins
+@function layer($layer) {
+  $offset: map.get($layers, $layer);
+  $shadow-position: $offset * 1.2px;
+  @return $shadow-position $shadow-position ($offset * 4px) rgba(0, 0, 0, 0.2);
+}

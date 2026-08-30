@@ -1,0 +1,138 @@
+@use "colors";
+
+// Sans-serif and monospace font stacks
+$font-family-sans:  "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", system-ui, -apple-system, BlinkMacSystemFont,;
+$font-family-monospace: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+// Font weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// Font sizes (modular scale)
+$font-size-xs: 0.75rem;    // 12px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-base: 1rem;     // 16px
+$font-size-lg: 1.125rem;   // 18px
+$font-size-xl: 1.25rem;    // 20px
+$font-size-2xl: 1.5rem;    // 24px
+$font-size-3xl: 1.875rem;  // 30px
+$font-size-4xl: 2.25rem;   // 36px
+$font-size-5xl: 3rem;      // 48px
+
+// Line heights
+$line-height-tight: 1.2;
+$line-height-snug: 1.375;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.625;
+$line-height-loose: 2;
+
+// Letter spacing
+$letter-spacing-tight: -0.025em;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.025em;
+
+// Text colors
+$color-text-main: colors.$gray-0;
+$color-text-muted: colors.$gray-2;
+$color-text-light: colors.$gray-4;
+
+:root {
+  --fz-font-sans: #{$font-family-sans};
+  --fz-font-mono: #{$font-family-monospace};
+  --fz-font-size-base: #{$font-size-base};
+  --fz-line-height-base: #{$line-height-normal};
+  --fz-color-text: #{$color-text-main};
+  --fz-color-text-muted: #{$color-text-muted};
+}
+
+// Global base typography
+body {
+  font-family: var(--fz-font-sans);
+  font-size: var(--fz-font-size-base);
+  line-height: var(--fz-line-height-base);
+  color: var(--fz-color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fz-font-sans);
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: var(--fz-color-text);
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  letter-spacing: $letter-spacing-tight;
+}
+
+h1 { font-size: $font-size-4xl; }
+h2 { font-size: $font-size-3xl; }
+h3 { font-size: $font-size-2xl; }
+h4 { font-size: $font-size-xl; }
+h5 { font-size: $font-size-lg; }
+h6 { font-size: $font-size-base; font-weight: $font-weight-semibold; }
+
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+  line-height: $line-height-normal;
+}
+
+small {
+  font-size: $font-size-sm;
+  color: var(--fz-color-text-muted);
+}
+
+strong, b {
+  font-weight: $font-weight-bold;
+}
+
+code, kbd, samp, pre {
+  font-family: var(--fz-font-mono);
+  font-size: 0.9em;
+}
+
+pre {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto;
+}
+
+// Typography utility classes
+.font-sans { font-family: var(--fz-font-sans) !important; }
+.font-mono { font-family: var(--fz-font-mono) !important; }
+
+.font-light     { font-weight: $font-weight-light !important; }
+.font-normal    { font-weight: $font-weight-normal !important; }
+.font-medium    { font-weight: $font-weight-medium !important; }
+.font-semibold  { font-weight: $font-weight-semibold !important; }
+.font-bold      { font-weight: $font-weight-bold !important; }
+.font-extrabold { font-weight: $font-weight-extrabold !important; }
+
+.text-xs  { font-size: $font-size-xs !important; }
+.text-sm  { font-size: $font-size-sm !important; }
+.text-base { font-size: $font-size-base !important; }
+.text-lg  { font-size: $font-size-lg !important; }
+.text-xl  { font-size: $font-size-xl !important; }
+.text-2xl { font-size: $font-size-2xl !important; }
+.text-3xl { font-size: $font-size-3xl !important; }
+.text-4xl { font-size: $font-size-4xl !important; }
+
+.text-left    { text-align: left !important; }
+.text-center  { text-align: center !important; }
+.text-right   { text-align: right !important; }
+.text-justify { text-align: justify !important; }
+
+.text-muted   { color: var(--fz-color-text-muted) !important; }
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

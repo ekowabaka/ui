@@ -1,8 +1,6 @@
+import '../sass/fzui.scss';
+import { CardComponent } from './components/cards/cards.js';
 
-var fzui = {};
-
-window.addEventListener('load', () => fzui.dropdowns.init([document]));
-
-if(typeof require === 'function') {
-  module.exports = fzui;
+export function initialize() {
+    customElements.define('fz-card', CardComponent);
 }

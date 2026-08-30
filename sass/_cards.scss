@@ -1,0 +1,86 @@
+@use 'colors';
+@use 'modifiers';
+@use 'sass:list';
+@use 'sass:color';
+
+$default-layer: '1';
+
+@function card-border-color($color) {
+  @return rgba(color.adjust($color, $lightness: -20%), 0.5);
+}
+
+
+// Calculate perceived luminance to reliably classify dark vs light backgrounds
+@function luminance($c) {
+  $r: color.channel($c, 'red', $space: rgb);
+  $g: color.channel($c, 'green', $space: rgb);
+  $b: color.channel($c, 'blue', $space: rgb);
+  @return calc((0.299 * $r + 0.587 * $g + 0.114 * $b) / 255);
+}
+
+@function is-dark($c) {
+  @return luminance($c) < 0.65;
+}
+
+@function card-title-color($bg-color) {
+  @if is-dark($bg-color) {
+    @return #ffffff;
+  } @else {
+    @return #1a1a1a;
+  }
+}
+
+@function card-body-color($bg-color) {
+  @if is-dark($bg-color) {
+    @return rgba(255, 255, 255, 0.85);
+  } @else {
+    @return #4a4a4a;
+  }
+}
+
+fz-card,
+.fz-card {
+  --card-border-color: #{card-border-color(colors.$white)};
+  --card-border: 0.5px solid #{card-border-color(colors.$white)};
+  --card-box-shadow: #{modifiers.layer($default-layer)};
+  --card-background-color: #{colors.$white};
+  --card-title-color: #{card-title-color(colors.$white)};
+  --card-body-color: #{card-body-color(colors.$white)};
+  color: var(--card-body-color);
+
+  [slot="title"] {
+    color: var(--card-title-color);
+  }
+
+  // BEM corner modifier loop: .fz-card--sharp, .fz-card--subtle, etc.
+  @each $modifier, $radius in modifiers.$corner-radii {
+    &--#{$modifier},
+    &.#{$modifier} {
+      --card-border-radius: #{$radius};
+    }
+  }
+
+  // BEM layer modifier loop: .fz-card--layer-0, .fz-card--layer-1, etc.
+  @each $layer, $offset in modifiers.$layers {
+    &--layer-#{$layer} {
+      --card-box-shadow: #{modifiers.layer($layer)};
+    }
+  }
+
+  // BEM color modifier loop: .fz-card--red, .fz-card--blue, etc.
+  @each $color-name, $color-val in colors.$all-colors {
+    &--#{$color-name},
+    &.#{$color-name} {
+      --card-background-color: #{$color-val};
+      --card-border-color: #{card-border-color($color-val)};
+      --card-box-shadow: #{modifiers.layer($default-layer)};
+      --card-title-color: #{card-title-color($color-val)};
+      --card-body-color: #{card-body-color($color-val)};
+      color: var(--card-body-color);
+
+      [slot="title"] {
+        color: var(--card-title-color);
+      }
+    }
+  }
+}

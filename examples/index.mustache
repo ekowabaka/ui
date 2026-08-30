@@ -65,6 +65,9 @@
         </style>
         <link rel="stylesheet" type="text/css" href="fzui.{{#min}}min.{{/min}}css" />
         <script src="fzui.{{#min}}min.{{/min}}js"></script>
+        <script>
+            fzui.initialize();
+        </script>
         <script type="text/javascript">
             function getColor(id){
                 var rgb = getComputedStyle(document.getElementById(id)).backgroundColor.split(',');

@@ -1,291 +1,160 @@
-
-var fzui = {};
-
-window.addEventListener('load', () => fzui.dropdowns.init([document]));
-
-if(typeof require === 'function') {
-  module.exports = fzui;
-}
-fzui.domUtils = new (function () {
-
-  function getSubsequent(node, direction) {
-    do {
-      node = node[`${direction}Sibling`];
-    } while (node !== null && node.nodeType == Node.TEXT_NODE);
-    return node;
-  }
-
-  /**
-   * Get the dimensions of a given dom node.
-   * 
-   * @param {DomNode} node 
-   * @param {string} dimension 
-   * @param {boolean} margins 
-   * @param {string} margin1 
-   * @param {string} margin2 
-   */
-  function getDimension(node, dimension, margins, margin1, margin2) {
-    let style = window.getComputedStyle(node);
-    if (style['display'] == 'none' || style['display'] == '') {
-      let parent = node.parentNode;
-      let sibling = node.nextSibling;
-      let position = node.style.position;
-      document.body.appendChild(node);
-      node.style.display = 'block';
-      node.style.position = 'absolute';
-      let measured = getDimension(node, dimension, margins, margin1, margin2);
-      node.style.display = 'none';
-      node.style.position = position;
-      if (parent) {
-        parent.insertBefore(node, sibling);
-      }
-      return measured;
-    }
-    return parseInt(style[dimension])
-      + parseInt(style[`padding-${margin1}`]) + parseInt(style[`padding-${margin2}`])
-      + (margins ? parseInt(style[`margin-${margin1}`]) + parseInt(style[`margin-${margin2}`]) : 0);
-  }
-
-  this.nextSibling = function (node) {
-    return getSubsequent(node, 'next')
-  }
-
-  this.previousSibling = function (node) {
-    return getSubsequent(node, 'previous')
-  }
-
-  this.toggleClass = function (node, className) {
-    if (node.classList.contains(className)) {
-      node.classList.remove(className)
-    } else {
-      node.classList.add(className)
-    }
-  }
-
-  this.toggleStyleProperty = function(node, styleName, value1, value2) {
-    if (node.style[styleName] === value1) {
-      node.style[styleName] = value2
-    } else {
-      node.style[styleName] = value1
-    }
-  }
-
-  this.outerHeight = function (node, margins) {
-    return getDimension(node, 'height', margins, 'top', 'bottom')
-  }
-
-  this.outerWidth = function (node, margins) {
-    return getDimension(node, 'width', margins, 'left', 'right')
-  }
-
-  this.siblings = function(node) {
-    let siblings = [];
-    for(let sibling = node.parentNode.firstChild ;sibling; sibling = sibling.nextSibling) {
-      if(sibling === node || sibling.nodeType === Node.TEXT_NODE) {
-        continue;
-      }
-      siblings.push(sibling);
-    }
-    return siblings;
-  }
-})();
-
-
-/**
- * Dropdown menu javascript
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-fzui.dropdowns = new (function () {
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["fzui"] = factory();
+	else
+		root["fzui"] = factory();
+})(Object(typeof self !== "undefined" ? self : this), () => {
+return /******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
-  let lastContainer;
-  let onClosedCallback;
-  let onShowCallback;
-  let callbacks = {
-    onClose : function (callback) {
-      onClosedCallback = callback;
-      return callbacks
-    },
-    onShow : function (callback) {
-      onShowCallback = callback;
-      return callbacks
-    }
-  };
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs/index.js!./js/components/cards/cards.css"
+/*!******************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs/index.js!./js/components/cards/cards.css ***!
+  \******************************************************************************************************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
 
-  function resetContents(event) {
-    document.querySelectorAll('.dropdown, .dropup').forEach(item => {
-      // Reset all dropdowns on body click
-      if (event.type == 'click' && event.target.parentNode === item) return;
-      item.classList.remove('active');
-      if(typeof onClosedCallback === 'function') onClosedCallback();
-    });
+eval("{// Imports\nvar ___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\nvar ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\nvar ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___);\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, `.card {\n  border: var(--card-border, 1px solid #ccc);\n  border-color: var(--card-border-color, #ccc);\n  box-shadow: var(--card-box-shadow, 2px 2px 4px rgba(0, 0, 0, 0.1));\n  border-radius: var(--card-border-radius, 4px);\n  padding: var(--card-padding, 1.25em);\n  background-color: var(--card-background-color, #fff);\n  color: var(--card-body-color, #4a4a4a);\n  line-height: 1.1em;\n  font-family: inherit;\n  slot[name=title] {\n    display: block;\n  }\n  slot:not([name]) {\n    display: block;\n  }\n  [slot=title]:empty {\n    display: none;\n  }\n}\n\n::slotted([slot=title]) {\n  display: block;\n  color: var(--card-title-color, #1a1a1a);\n  font-size: var(--card-title-font-size, 1em);\n  font-weight: var(--card-title-font-weight, 700);\n  letter-spacing: -0.01em;\n  margin-bottom: var(--card-title-margin-bottom, 0.3em);\n}\n\n::slotted(:not([slot=title])) {\n  color: var(--card-body-color, #4a4a4a);\n  font-size: var(--card-body-font-size, 1em);\n  font-weight: var(--card-body-font-weight, 400);\n  line-height: 1.5;\n}`, \"\"]);\n// Exports\nmodule.exports = ___CSS_LOADER_EXPORT___;\n\n\n//# sourceURL=webpack://fzui/./js/components/cards/cards.css?./node_modules/css-loader/dist/cjs.js??ruleSet%5B1%5D.rules%5B1%5D.use%5B1%5D!./node_modules/sass-loader/dist/cjs/index.js\n}");
 
-    // Replace contents of dropdowns attached directly to the body
-    let floatingDropdown = document.querySelector('body > .dropdown-contents');
-    if(floatingDropdown) {
-      floatingDropdown.parentNode.removeChild(floatingDropdown);
-      lastContainer.appendChild(floatingDropdown);
-      lastContainer.classList.remove('active')
-    }
-  }
+/***/ },
 
-  function showContentsInPlace(button, content) {
-    var parent = button.parentNode;
-    fzui.domUtils.toggleClass(parent, 'active');
-    if (content.classList.contains('dropdown-right') || content.classList.contains('dropup-right')) {
-      content.style.left = (button.offsetWidth - content.offsetWidth) + 'px';
-    }
-    if (parent.classList.contains('dropup')) {
-      content.style.top = - fzui.domUtils.outerHeight(content, true) + "px";
-    }
-    if(typeof onShowCallback === 'function') onShowCallback(content)
-  }
+/***/ "./node_modules/css-loader/dist/runtime/api.js"
+/*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+(module) {
 
-  function showContentsOnBody(button, contents) {
-    let position = button.getBoundingClientRect();
-    lastContainer = button.parentNode;
-    contents.parentNode.removeChild(contents);
-    contents.style.position = 'absolute';
-    contents.style.left = position.left + 'px'; 
-    contents.style.top = (position.top + window.scrollY + fzui.domUtils.outerHeight(button, true)) + 'px'; 
-    document.getElementsByTagName('body')[0].appendChild(contents);
-    contents.style.display = 'block';
-    if(typeof onShowCallback === 'function') onShowCallback(contents)
-  }
+"use strict";
+eval("{\n\n/*\n  MIT License http://www.opensource.org/licenses/mit-license.php\n  Author Tobias Koppers @sokra\n*/\nmodule.exports = function (cssWithMappingToString) {\n  var list = [];\n\n  // return the list of modules as css string\n  list.toString = function toString() {\n    return this.map(function (item) {\n      var content = \"\";\n      var needLayer = typeof item[5] !== \"undefined\";\n      if (item[4]) {\n        content += \"@supports (\".concat(item[4], \") {\");\n      }\n      if (item[2]) {\n        content += \"@media \".concat(item[2], \" {\");\n      }\n      if (needLayer) {\n        content += \"@layer\".concat(item[5].length > 0 ? \" \".concat(item[5]) : \"\", \" {\");\n      }\n      content += cssWithMappingToString(item);\n      if (needLayer) {\n        content += \"}\";\n      }\n      if (item[2]) {\n        content += \"}\";\n      }\n      if (item[4]) {\n        content += \"}\";\n      }\n      return content;\n    }).join(\"\");\n  };\n\n  // import a list of modules into the list\n  list.i = function i(modules, media, dedupe, supports, layer) {\n    if (typeof modules === \"string\") {\n      modules = [[null, modules, undefined]];\n    }\n    var alreadyImportedModules = {};\n    if (dedupe) {\n      for (var k = 0; k < this.length; k++) {\n        var id = this[k][0];\n        if (id != null) {\n          alreadyImportedModules[id] = true;\n        }\n      }\n    }\n    for (var _k = 0; _k < modules.length; _k++) {\n      var item = [].concat(modules[_k]);\n      if (dedupe && alreadyImportedModules[item[0]]) {\n        continue;\n      }\n      if (typeof layer !== \"undefined\") {\n        if (typeof item[5] === \"undefined\") {\n          item[5] = layer;\n        } else {\n          item[1] = \"@layer\".concat(item[5].length > 0 ? \" \".concat(item[5]) : \"\", \" {\").concat(item[1], \"}\");\n          item[5] = layer;\n        }\n      }\n      if (media) {\n        if (!item[2]) {\n          item[2] = media;\n        } else {\n          item[1] = \"@media \".concat(item[2], \" {\").concat(item[1], \"}\");\n          item[2] = media;\n        }\n      }\n      if (supports) {\n        if (!item[4]) {\n          item[4] = \"\".concat(supports);\n        } else {\n          item[1] = \"@supports (\".concat(item[4], \") {\").concat(item[1], \"}\");\n          item[4] = supports;\n        }\n      }\n      list.push(item);\n    }\n  };\n  return list;\n};\n\n//# sourceURL=webpack://fzui/./node_modules/css-loader/dist/runtime/api.js?\n}");
 
-  /**
-   * Initialize all the dropdowns in a containing element.
-   * Use this when new dropdowns are defined after the page has already been loaded.
-   * 
-   * @param {Node} container 
-   */
-  function initializeContainer(container) {
+/***/ },
 
-    container.querySelectorAll('.dropdown > .dropdown-right, .dropup > .dropup-right').forEach(dropdown => {
-      let button = fzui.domUtils.previousSibling(dropdown);
-      dropdown.style.left = button.style.left + button.outerWidth - dropdown.outerWidth;
-    });
-    
-    let query = '.dropdown > button, .dropdown > .button, .dropdown > .clickable, .dropup > button, .dropup > .button, .dropup > .clickable';
-    container.querySelectorAll(query).forEach(
-      dropdown => {
-        dropdown.addEventListener('click', event => {
-          resetContents(event);
-          let button = event.currentTarget;
-          let content = fzui.domUtils.nextSibling(button);
+/***/ "./node_modules/css-loader/dist/runtime/noSourceMaps.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/noSourceMaps.js ***!
+  \**************************************************************/
+(module) {
 
-          if(content.getAttribute('data-container') == 'body') {
-            showContentsOnBody(button, content);
-          } else {
-            showContentsInPlace(button, content);
-          }
+"use strict";
+eval("{\n\nmodule.exports = function (i) {\n  return i[1];\n};\n\n//# sourceURL=webpack://fzui/./node_modules/css-loader/dist/runtime/noSourceMaps.js?\n}");
 
-          event.stopPropagation();
-        }, true)
-      }
-    );
-  }
+/***/ },
 
-  this.init = function (containers) {
-    if(typeof containers[Symbol.iterator] !== 'function') {
-      containers = [containers];
-    }
-    containers.forEach(container => initializeContainer(container))
-    return callbacks
-  }
-  document.addEventListener('click', resetContents);
-})();
+/***/ "./sass/fzui.scss"
+/*!************************!*\
+  !*** ./sass/fzui.scss ***!
+  \************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-fzui.modals = new(function(){
-  let modalCount = 0;
-  let openModals = new Map();
+"use strict";
+eval("{__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://fzui/./sass/fzui.scss?\n}");
 
-  function getObject(description) {
-    if(typeof description === 'string') {
-      return document.querySelector(description);
-    }
-    return description
-  }
-  
-  this.open = function (description) {
-    let object = getObject(description);
-    let backdrop = document.createElement('div');
-    backdrop.classList.add('modal-backdrop');
-  
-    let close = document.createElement('div');
-    let modal = object.cloneNode(true);
-    let top = 60;
-    let width = fzui.domUtils.outerWidth(modal, true);
-    let left = (window.innerWidth / 2) - (width / 2);
+/***/ },
 
-    let shownEvent = new CustomEvent('shown', {detail: {modal:modal}});
-  
-    object.parentNode.removeChild(object);
-    modal.classList.add('modal-wrapper');
-    modal.insertBefore(close, modal.firstChild);
-    modal.style.left = left + 'px';
-    modal.style.top = top + 'px'; 
-    close.classList.add('close-button');
-    close.style.left = (width - 35) + 'px';
-  
-    backdrop.appendChild(modal);
-    document.body.appendChild(backdrop);
-    backdrop.style.display = 'block';
-    modal.style.display = 'block';
-    object.dispatchEvent(shownEvent);
-  
-    /*backdrop.fadeIn('fast', function () {
-      content.css('opacity', '0.0');
-      content.show();
-      content.trigger('fzui.modal.showing');
-      content.animate(
-        {top: "+=20", opacity: 1}, 'fast',
-        function(){
-          fzui.dropdowns.init(content);
-          content.trigger('fzui.modal.shown');
-        }
-      );
-    });*/
-  
-    close.addEventListener('click', () => this.close(modal));
-    openModals.set(modal, {content: object, backdrop: backdrop});
-    return modal
-  }
-  
-  this.close = function (modal) {
-    let modalData = openModals.get(getObject(modal));
-    let content = modalData.content;
-    let backdrop = modalData.backdrop;
+/***/ "./js/components/cards/cards.css"
+/*!***************************************!*\
+  !*** ./js/components/cards/cards.css ***!
+  \***************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
 
-    backdrop.parentNode.removeChild(backdrop);
-    openModals.delete(modal);
-    document.body.appendChild(content);
-    content.classList.add('modal');
+eval("{\n        var result = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../../node_modules/sass-loader/dist/cjs/index.js!./cards.css */ \"./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs/index.js!./js/components/cards/cards.css\");\n\n        if (result && result.__esModule) {\n            result = result.default;\n        }\n\n        if (typeof result === \"string\") {\n            module.exports = result;\n        } else {\n            module.exports = result.toString();\n        }\n    \n\n//# sourceURL=webpack://fzui/./js/components/cards/cards.css?\n}");
 
-    /*$(modal).animate({
-        top: "-20",
-        opacity: 0
-      }, 'fast',
-      function () {
-        $('body').append(content);
-        content.addClass('modal');
-        backdrop.fadeOut('fast', function () {
-          modal.remove();
-          backdrop.remove();
-        });
-      }
-    );*/
-  }  
-})();
-/**
- * Implements the highlighting of the current tab or pill for tab and pill
- * user interfaces.
- */
-fzui.nav = new (function() {
-    this.init = function() {
-        $('.nav > li > a').click(function(event){
-            var parent = $(event.target).parent();
-            parent.parent().find('li').removeClass('active')
-            parent.addClass('active');
-        })
-    }
-})();
+/***/ },
 
+/***/ "./js/components/cards/cards.js"
+/*!**************************************!*\
+  !*** ./js/components/cards/cards.js ***!
+  \**************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   CardComponent: () => (/* binding */ CardComponent)\n/* harmony export */ });\n/* harmony import */ var _cards_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cards.css */ \"./js/components/cards/cards.css\");\n\n\nclass CardComponent extends HTMLElement {\n    constructor() {\n        super();\n        this.attachShadow({mode: 'open'}).innerHTML = \n            `<style>\n                ${_cards_css__WEBPACK_IMPORTED_MODULE_0__}\n            </style>\n            <div class=\"card\">\n                <slot name=\"title\"></slot>\n                <slot></slot>\n            </div>`\n    }\n}\n\n\n\n//# sourceURL=webpack://fzui/./js/components/cards/cards.js?\n}");
+
+/***/ },
+
+/***/ "./js/fzui.js"
+/*!********************!*\
+  !*** ./js/fzui.js ***!
+  \********************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   initialize: () => (/* binding */ initialize)\n/* harmony export */ });\n/* harmony import */ var _sass_fzui_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../sass/fzui.scss */ \"./sass/fzui.scss\");\n/* harmony import */ var _components_cards_cards_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/cards/cards.js */ \"./js/components/cards/cards.js\");\n\n\n\nfunction initialize() {\n    customElements.define('fz-card', _components_cards_cards_js__WEBPACK_IMPORTED_MODULE_1__.CardComponent);\n}\n\n//# sourceURL=webpack://fzui/./js/fzui.js?\n}");
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	const __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		const cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		const module = __webpack_module_cache__[moduleId] = {
+/******/ 			id: moduleId,
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			const e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	// define getter/value functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			}
+/******/ 		}
+/******/ 	};
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop));
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = (exports) => {
+/******/ 		Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	let __webpack_exports__ = __webpack_require__("./js/fzui.js");
+/******/ 	
+/******/ 	return __webpack_exports__;
+/******/ })()
+;
+});

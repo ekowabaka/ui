@@ -2,6 +2,7 @@
   "name": "fzui",
   "version": "0.1.0",
   "description": "Fahodzi UI Library",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ekowabaka/fzui.git"
@@ -13,14 +14,17 @@
   },
   "homepage": "https://github.com/ekowabaka/fzui#readme",
   "devDependencies": {
-    "grunt": "^1.0.4",
-    "grunt-cli": "^1.4.3",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-concat": "^2.0.0",
-    "grunt-contrib-cssmin": "^4.0.0",
-    "grunt-contrib-uglify": "^5.0.0",
-    "grunt-mustache-render": "^1.9.2",
-    "grunt-sass": "^3.0.0",
-    "node-sass": "^6.0.1"
+    "copy-webpack-plugin": "^14.0.0",
+    "css-loader": "^7.1.5",
+    "css-minimizer-webpack-plugin": "^8.0.0",
+    "html-webpack-plugin": "^5.6.8",
+    "mini-css-extract-plugin": "^2.10.2",
+    "mustache": "^4.2.0",
+    "sass": "^1.103.1",
+    "sass-loader": "^17.0.0",
+    "terser-webpack-plugin": "^5.6.1",
+    "to-string-loader": "^1.2.0",
+    "webpack": "^5.110.1",
+    "webpack-cli": "^7.2.3"
   }
 }
