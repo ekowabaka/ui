@@ -55,7 +55,7 @@ export default {
     new CopyPlugin({
       patterns: [
         { from: path.resolve(__dirname, 'examples/index.html'), to: 'index.html' },
-        { from: path.resolve(__dirname, 'examples/index.css'), to: 'index.css' },
+        { from: path.resolve(__dirname, 'examples/assets'), to: 'assets' },
       ],
     }),
   ],

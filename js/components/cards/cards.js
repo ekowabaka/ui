@@ -8,9 +8,11 @@ export class CardComponent extends HTMLElement {
                 ${styles}
             </style>
             <div class="card">
-                <slot name="title"></slot>
-                <slot></slot>
+                <slot name="image"></slot>
+                <div class="card__body">
+                    <slot name="title"></slot>
+                    <slot></slot>
+                </div>
             </div>`
     }
 }
-

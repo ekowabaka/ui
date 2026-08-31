@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Fahodzi UI</title>
         <link rel="stylesheet" href="fzui.css" />
-        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="assets/index.css" />
         <script src="fzui.js"></script>
         <script>fzui.initialize();</script>
 
@@ -45,16 +45,60 @@
 
                 <section class="cards">
                     <fz-card class="fz-card--layer-0">
+                        <span slot="title">Layer 0 Card</span>
                         <div>This card is on the first layer so it has no shadow.</div>
                     </fz-card>
                     <fz-card class="fz-card--layer-1">
+                        <span slot="title">Layer 1 Card</span>
                         <div>This card is on the second layer so it has a subtle shadow. This is the default layer.</div>
                     </fz-card>
                     <fz-card class="fz-card--layer-2">
+                        <span slot="title">Layer 2 Card</span>
                         <div>This card is on the third layer so it has a more pronounced shadow.</div>
                     </fz-card>
                     <fz-card class="fz-card--layer-3">
+                        <span slot="title">Layer 3 Card</span>
                         <div>This card is on the fourth layer so it has a very pronounced shadow.</div>
+                    </fz-card>
+                </section>
+
+                <section class="cards">
+                    <fz-card>
+                        <div>This card has no title</div>
+                    </fz-card>
+                </section>
+
+                <section class="cards">
+                    <fz-card>
+                        <span slot="title">Card with Image</span>
+                        <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                        <div>
+                            This card has an image above the body text. The image is responsive and will scale with the card.
+                        </div>
+                    </fz-card>
+
+                    <fz-card class="fz-card--image-bottom">
+                        <span slot="title">Card with Image</span>
+                        <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                        <div>
+                            This card has an image above the body text. The image is responsive and will scale with the card.
+                        </div>
+                    </fz-card>
+
+                    <fz-card class="fz-card--image-left">
+                        <span slot="title">Card with Image</span>
+                        <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                        <div>
+                            This card has an image above the body text. The image is responsive and will scale with the card.
+                        </div>
+                    </fz-card>
+
+                    <fz-card class="fz-card--image-right">
+                        <span slot="title">Card with Image</span>
+                        <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                        <div>
+                            This card has an image above the body text. The image is responsive and will scale with the card.
+                        </div>
                     </fz-card>
                 </section>
             </section>
