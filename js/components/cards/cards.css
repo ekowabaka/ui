@@ -14,26 +14,35 @@
     line-height: 1.1em;
     font-family: inherit;
     overflow: hidden;
+    height: 100%;
 
     slot[name="image"] {
         display: block;
         width: var(--card-image-width, 100%);
         height: var(--card-image-height, auto);
         order: var(--card-image-order, 0);
-        padding: var(--card-image-padding, var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em));
+        padding: var(--card-image-calculated-padding, 0);
         box-sizing: border-box;
         flex-shrink: 0;
     }
 
-    /*slot:not([name]) {*/
-    /*    display: block;*/
-    /*}*/
+    slot[name="title"] {
+        display: block;
+    }
+
+    slot:not([name]) {
+        display: block;
+    }
+
+    [slot="title"]:empty {
+        display: none;
+    }
 
     .card__body {
         display: flex;
         flex-direction: column;
         flex: 1 1 auto;
-        padding: var(--card-padding, 1.25em);
+        padding: var(--card-body-calculated-padding, var(--card-padding, 1.25em));
         order: 1;
     }
 }

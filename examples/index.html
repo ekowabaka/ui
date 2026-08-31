@@ -21,6 +21,7 @@
                     <h2>Cards</h2>
                     <p>Cards are used to display content in a structured way.</p>
                 </div>
+                <h3>Colors</h3>
                 <section class="cards">
                     <fz-card>
                         <span slot="title">Default Card</span>
@@ -43,6 +44,7 @@
                     </fz-card>
                 </section>
 
+                <h3>Layers</h3>
                 <section class="cards">
                     <fz-card class="fz-card--layer-0">
                         <span slot="title">Layer 0 Card</span>
@@ -62,12 +64,14 @@
                     </fz-card>
                 </section>
 
+                <h3>Content Cards</h3>
                 <section class="cards">
                     <fz-card>
                         <div>This card has no title</div>
                     </fz-card>
                 </section>
 
+                <h3>Image Positioning</h3>
                 <section class="cards">
                     <fz-card>
                         <span slot="title">Card with Image</span>
@@ -101,6 +105,42 @@
                         </div>
                     </fz-card>
                 </section>
+
+                <section class="cards">
+                    <fz-card flush>
+                        <span slot="title">Card with Image</span>
+                        <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                        <div>
+                            This card has an image above the body text. The image is responsive and will scale with the card.
+                        </div>
+                    </fz-card>
+
+                    <fz-card class="fz-card--image-bottom" flush>
+                        <span slot="title">Card with Image</span>
+                        <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                        <div>
+                            This card has an image above the body text. The image is responsive and will scale with the card.
+                        </div>
+                    </fz-card>
+
+                    <fz-card class="fz-card--image-left" flush>
+                        <span slot="title">Card with Image</span>
+                        <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                        <div>
+                            This card has an image above the body text. The image is responsive and will scale with the card.
+                        </div>
+                    </fz-card>
+
+                    <fz-card class="fz-card--image-right" flush>
+                        <span slot="title">Card with Image</span>
+                        <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                        <div>
+                            This card has an image above the body text. The image is responsive and will scale with the card.
+                        </div>
+                    </fz-card>
+                </section>
+
+
             </section>
         </article>
     </body>

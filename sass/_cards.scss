@@ -38,41 +38,48 @@ $default-layer: '1';
   }
 }
 
-// Image position configurations
+// Image position configurations with position-specific image and body padding
 $image-positions: (
   'top': (
     'flex-direction': column,
     'order': 0,
     'width': 100%,
     'height': auto,
-    'padded-padding': var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em),
+    'image-padding': var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em),
+    'body-padding': var(--card-image-padding, var(--card-padding, 1.25em)) var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-padding, 1.25em),
   ),
   'bottom': (
     'flex-direction': column,
     'order': 2,
     'width': 100%,
     'height': auto,
-    'padded-padding': 0 var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-padding, 1.25em),
+    'image-padding': 0 var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-padding, 1.25em),
+    'body-padding': var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-image-padding, var(--card-padding, 1.25em)) var(--card-padding, 1.25em),
   ),
   'left': (
     'flex-direction': row,
     'order': 0,
     'width': var(--card-image-side-width, 40%),
     'height': 100%,
-    'padded-padding': var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em) var(--card-padding, 1.25em),
+    'image-padding': var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em) var(--card-padding, 1.25em),
+    'body-padding': var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-image-padding, var(--card-padding, 1.25em)),
   ),
   'right': (
     'flex-direction': row,
     'order': 2,
     'width': var(--card-image-side-width, 40%),
     'height': 100%,
-    'padded-padding': var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0,
+    'image-padding': var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0,
+    'body-padding': var(--card-padding, 1.25em) var(--card-image-padding, var(--card-padding, 1.25em)) var(--card-padding, 1.25em) var(--card-padding, 1.25em),
   ),
 );
 
 fz-card,
 .fz-card {
   --card-padding: 1.25em;
+  --card-image-padding: var(--card-padding, 1.25em);
+  --card-image-calculated-padding: var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em);
+  --card-body-calculated-padding: var(--card-image-padding, var(--card-padding, 1.25em)) var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-padding, 1.25em);
   --card-border-color: #{card-border-color(colors.$white)};
   --card-border: 0.5px solid #{card-border-color(colors.$white)};
   --card-box-shadow: #{modifiers.layer($default-layer)};
@@ -84,9 +91,14 @@ fz-card,
   --card-image-width: 100%;
   --card-image-height: auto;
   --card-image-object-fit: cover;
-  --card-image-padding: var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em);
   --card-image-border-radius: var(--card-border-radius, 4px);
   color: var(--card-body-color);
+
+  // When card has no image, reset image padding and use standard card padding for body
+  &:not(:has([slot="image"])):not(:has(.fz-card__image)) {
+    --card-image-calculated-padding: 0;
+    --card-body-calculated-padding: var(--card-padding, 1.25em);
+  }
 
   [slot="title"] {
     color: var(--card-title-color);
@@ -109,7 +121,7 @@ fz-card,
     height: var(--card-image-height, auto);
     object-fit: var(--card-image-object-fit, cover);
     order: var(--card-image-order, 0);
-    padding: var(--card-image-padding, var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em));
+    padding: var(--card-image-calculated-padding);
     border-radius: var(--card-image-border-radius, var(--card-border-radius, 4px));
     box-sizing: border-box;
     flex-shrink: 0;
@@ -124,11 +136,12 @@ fz-card,
       --card-image-order: #{map.get($props, 'order')};
       --card-image-width: #{map.get($props, 'width')};
       --card-image-height: #{map.get($props, 'height')};
-      --card-image-padding: #{map.get($props, 'padded-padding')};
+      --card-image-calculated-padding: #{map.get($props, 'image-padding')};
+      --card-body-calculated-padding: #{map.get($props, 'body-padding')};
       order: #{map.get($props, 'order')};
       width: #{map.get($props, 'width')};
       height: #{map.get($props, 'height')};
-      padding: #{map.get($props, 'padded-padding')};
+      padding: #{map.get($props, 'image-padding')};
     }
 
     [slot="image"].#{$pos},
@@ -138,7 +151,8 @@ fz-card,
       --card-image-order: #{map.get($props, 'order')};
       --card-image-width: #{map.get($props, 'width')};
       --card-image-height: #{map.get($props, 'height')};
-      --card-image-padding: #{map.get($props, 'padded-padding')};
+      --card-image-calculated-padding: #{map.get($props, 'image-padding')};
+      --card-body-calculated-padding: #{map.get($props, 'body-padding')};
     }
   }
 
@@ -149,7 +163,8 @@ fz-card,
   [slot="image"].flush,
   [slot="image"][flush],
   [slot="image"].fz-card__image--flush {
-    --card-image-padding: 0;
+    --card-image-calculated-padding: 0;
+    --card-body-calculated-padding: var(--card-padding, 1.25em);
     --card-image-border-radius: 0;
     padding: 0;
     border-radius: 0;
@@ -181,7 +196,8 @@ fz-card,
       --card-image-order: #{map.get($props, 'order')};
       --card-image-width: #{map.get($props, 'width')};
       --card-image-height: #{map.get($props, 'height')};
-      --card-image-padding: #{map.get($props, 'padded-padding')};
+      --card-image-calculated-padding: #{map.get($props, 'image-padding')};
+      --card-body-calculated-padding: #{map.get($props, 'body-padding')};
     }
 
     &:has(.fz-card__image--#{$pos}),
@@ -194,7 +210,8 @@ fz-card,
       --card-image-order: #{map.get($props, 'order')};
       --card-image-width: #{map.get($props, 'width')};
       --card-image-height: #{map.get($props, 'height')};
-      --card-image-padding: #{map.get($props, 'padded-padding')};
+      --card-image-calculated-padding: #{map.get($props, 'image-padding')};
+      --card-body-calculated-padding: #{map.get($props, 'body-padding')};
     }
   }
 
@@ -205,7 +222,8 @@ fz-card,
   &.flush,
   &[flush],
   &[image-flush] {
-    --card-image-padding: 0;
+    --card-image-calculated-padding: 0;
+    --card-body-calculated-padding: var(--card-padding, 1.25em);
     --card-image-border-radius: 0;
   }
 
@@ -229,7 +247,8 @@ fz-card,
   &:has([slot="image"].flush),
   &:has([slot="image"][flush]),
   &:has([slot="image"].fz-card__image--flush) {
-    --card-image-padding: 0;
+    --card-image-calculated-padding: 0;
+    --card-body-calculated-padding: var(--card-padding, 1.25em);
     --card-image-border-radius: 0;
   }
 
@@ -250,14 +269,18 @@ fz-card,
   // BEM corner modifier loop: .fz-card--sharp, .fz-card--subtle, etc.
   @each $modifier, $radius in modifiers.$corner-radii {
     &--#{$modifier},
-    &.#{$modifier} {
+    &.#{$modifier},
+    &[#{$modifier}] {
       --card-border-radius: #{$radius};
     }
   }
 
-  // BEM layer modifier loop: .fz-card--layer-0, .fz-card--layer-1, etc.
+  // BEM layer modifier loop: .fz-card--layer-0, [layer="0"], [layer-0], etc.
   @each $layer, $offset in modifiers.$layers {
-    &--layer-#{$layer} {
+    &--layer-#{$layer},
+    &.layer-#{$layer},
+    &[layer="#{$layer}"],
+    &[layer-#{$layer}] {
       --card-box-shadow: #{modifiers.layer($layer)};
     }
   }
@@ -265,7 +288,8 @@ fz-card,
   // BEM color modifier loop: .fz-card--red, .fz-card--blue, etc.
   @each $color-name, $color-val in colors.$all-colors {
     &--#{$color-name},
-    &.#{$color-name} {
+    &.#{$color-name},
+    &[#{$color-name}] {
       --card-background-color: #{$color-val};
       --card-border-color: #{card-border-color($color-val)};
       --card-box-shadow: #{modifiers.layer($default-layer)};
@@ -287,7 +311,7 @@ fz-card,
   height: var(--card-image-height, auto);
   object-fit: var(--card-image-object-fit, cover);
   order: var(--card-image-order, 0);
-  padding: var(--card-image-padding, var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em));
+  padding: var(--card-image-calculated-padding);
   border-radius: var(--card-image-border-radius, var(--card-border-radius, 4px));
   box-sizing: border-box;
   flex-shrink: 0;
@@ -299,7 +323,7 @@ fz-card,
       order: #{map.get($props, 'order')};
       width: #{map.get($props, 'width')};
       height: #{map.get($props, 'height')};
-      padding: #{map.get($props, 'padded-padding')};
+      padding: #{map.get($props, 'image-padding')};
     }
   }
 
@@ -335,7 +359,7 @@ fz-card,
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
-    padding: var(--card-padding, 1.25em);
+    padding: var(--card-body-calculated-padding, var(--card-padding, 1.25em));
     order: 1;
   }
 }
