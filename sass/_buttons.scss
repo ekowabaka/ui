@@ -1,3 +1,6 @@
+@use "colors" as colors;
+@use "sizes" as sizes;
+
 // Shadow for the button
 @mixin button-shadow($color) {
   box-shadow: 1px 1px 3px rgba(darken($color, 60%), 0.2);
@@ -30,7 +33,7 @@
 
 @mixin button($color) {
   position: relative;
-  @include size-normal;
+  @include sizes.size-normal;
   @include button-decoration($color);
   @include button-shadow($color);
   display: inline-block;
@@ -55,7 +58,7 @@
 }
 
 button, .button {
-  @include button($gray-4)
+  @include button(colors.$gray-4)
 }
 
 button::-moz-focus-inner {

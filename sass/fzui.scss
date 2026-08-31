@@ -2,7 +2,6 @@
 @use "typography";
 // @use "corners";
 // @import "sizes";
-// @import "buttons";
 // @import "dropdowns";
 // @import "menus";
 // @import "modal";
@@ -10,4 +9,5 @@
 // @import "forms"; 
 // @import "layouts";
 // @import "panel";
+@use "buttons";
 @use "cards";
