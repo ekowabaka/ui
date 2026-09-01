@@ -80,3 +80,14 @@ $all-colors: (
   'gray-5':       $gray-5,
   'white':        $white,
 );
+
+// Background and Foreground color utility classes
+@each $name, $val in $all-colors {
+  .bg-#{$name} {
+    background-color: $val;
+  }
+
+  .fg-#{$name} {
+    color: $val;
+  }
+}

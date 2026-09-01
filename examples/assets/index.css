@@ -22,10 +22,41 @@ body {
     }
 }
 
-.components {
-    .component-header {
+.component {
+    > .component-header {
         text-align: center;
         margin-bottom: 3em;
     }
+
+    > section {
+        margin-bottom: 2em;
+    }
     margin-bottom: 2em;
+}
+
+.pallete{
+    display: inline-block;
+    width: 16%;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.pallete > div {
+    height: 50px;
+    line-height: 50px;
+    font-weight: normal;
+    color: #fff;
+}
+
+.pallete > div:first-child {
+    border-radius: 7px 7px 0px 0px;
+}
+.pallete > div:nth-last-child(2) {
+    border-radius: 0px 0px 7px 7px;
+}
+
+.pallete > div:only-child {
+    border-radius: 7px;
 }

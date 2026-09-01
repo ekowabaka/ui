@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "Fahodzi UI Library",
   "type": "module",
+  "scripts": {
+    "build": "webpack",
+    "build:examples": "webpack --config webpack-example.config.js",
+    "build:all": "webpack && webpack --config webpack-example.config.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ekowabaka/fzui.git"
@@ -17,6 +22,8 @@
     "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^7.1.5",
     "css-minimizer-webpack-plugin": "^8.0.0",
+    "handlebars": "^4.7.9",
+    "handlebars-loader": "^1.7.3",
     "html-webpack-plugin": "^5.6.8",
     "mini-css-extract-plugin": "^2.10.2",
     "mustache": "^4.2.0",

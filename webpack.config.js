@@ -1,7 +1,6 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import CopyPlugin from 'copy-webpack-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -51,12 +50,6 @@ export default {
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'fzui.css',
-    }),
-    new CopyPlugin({
-      patterns: [
-        { from: path.resolve(__dirname, 'examples/index.html'), to: 'index.html' },
-        { from: path.resolve(__dirname, 'examples/assets'), to: 'assets' },
-      ],
     }),
   ],
 };

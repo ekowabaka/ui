@@ -1,22 +1,23 @@
+@use "sass:color";
 @use "colors" as colors;
 @use "sizes" as sizes;
 
 // Shadow for the button
 @mixin button-shadow($color) {
-  box-shadow: 1px 1px 3px rgba(darken($color, 60%), 0.2);
+  box-shadow: 1px 1px 3px rgba(color.adjust($color, $lightness: -60%), 0.2);
 }
 
 // Inversion of the shadow for active engaged button
 @mixin button-active($color) {
-  background-color: desaturate(darken($color, 5%), 10%);
-  box-shadow: inset 1px 1px 4px darken($color, 30%);
+  background-color: color.adjust(color.adjust($color, $lightness: -5%), $saturation: -10%);
+  box-shadow: inset 1px 1px 4px color.adjust($color, $lightness: -30%);
   top: 1px;
   left: 1px;
 }
 
 @mixin button-hover($color) {
-  background-color: lighten($color, 5%);
-  box-shadow: 2px 2px 4px rgba(darken($color, 70%), 0.2);
+  background-color: color.adjust($color, $lightness: 5%);
+  box-shadow: 2px 2px 4px rgba(color.adjust($color, $lightness: -70%), 0.2);
 }
 
 @mixin button-decoration($color) {
@@ -42,7 +43,7 @@
 
 @mixin button-outline($color) {
   border-color: $color;
-  @include outline-size-normal;
+  @include sizes.outline-size-normal;
   color: $color;
 }
 
@@ -51,274 +52,184 @@
 }
 
 @mixin button-outline-active($color) {
-  background-color: rgba(darken($color, 20%), 0.1);
-  box-shadow: inset 1px 1px 2px rgba(darken($color, 30%), 0.4);
+  background-color: rgba(color.adjust($color, $lightness: -20%), 0.1);
+  box-shadow: inset 1px 1px 2px rgba(color.adjust($color, $lightness: -30%), 0.4);
   top: 0px;
   left: 0px;
 }
 
-button, .button {
-  @include button(colors.$gray-4)
+button,
+.button {
+  @include button(colors.$gray-4);
+
+  &:hover {
+    @include button-hover(colors.$gray-4);
+  }
+
+  &:active {
+    @include button-active(colors.$gray-4);
+  }
+
+  &::-moz-focus-inner {
+    border: none;
+  }
+
+  // BEM Color modifiers loop
+  @each $color-name, $color-val in colors.$all-colors {
+    &--#{$color-name} {
+      @include button($color-val);
+
+      &:hover {
+        @include button-hover($color-val);
+      }
+
+      &:active {
+        @include button-active($color-val);
+      }
+    }
+  }
+
+  // BEM Outline modifier
+  &--outline {
+    background-color: transparent;
+    box-shadow: none;
+    border-width: 1px;
+    border-style: solid;
+    @include button-outline(colors.$gray-4);
+
+    &:hover {
+      box-shadow: none;
+      @include button-outline-hover(colors.$gray-4);
+    }
+
+    &:active {
+      @include button-outline-active(colors.$gray-4);
+    }
+
+    // BEM Outline Color modifiers
+    @each $color-name, $color-val in colors.$all-colors {
+      &.button--#{$color-name},
+      &--#{$color-name} {
+        @include button-outline($color-val);
+
+        &:hover {
+          @include button-outline-hover($color-val);
+        }
+
+        &:active {
+          @include button-outline-active($color-val);
+        }
+      }
+    }
+
+    // BEM Outline Size modifiers
+    &.button--mini,
+    &--mini {
+      @include sizes.outline-size-mini;
+    }
+
+    &.button--small,
+    &--small {
+      @include sizes.outline-size-small;
+    }
+
+    &.button--large,
+    &--large {
+      @include sizes.outline-size-large;
+    }
+
+    &.button--mega,
+    &--mega {
+      @include sizes.outline-size-mega;
+    }
+  }
+
+  // BEM Size modifiers
+  &--mini {
+    @include sizes.size-mini;
+  }
+
+  &--small {
+    @include sizes.size-small;
+  }
+
+  &--large {
+    @include sizes.size-large;
+  }
+
+  &--mega {
+    @include sizes.size-mega;
+  }
 }
 
-button::-moz-focus-inner {
-  border: none;
-}
-
-button:hover, .button:hover {
-  @include button-hover($gray-4)
-}
-
-button:active, .button:active {
-  @include button-active($gray-4)
-}
-
-.button-red {
-  @include button($red)
-}
-
-.button-red:hover {
-  @include button-hover($red)
-}
-
-.button-red:active {
-  @include button-active($red)
-}
-
-.button-yellow {
-  @include button($yellow)
-}
-
-.button-yellow:hover {
-  @include button-hover($yellow)
-}
-
-.button-yellow:active {
-  @include button-active($yellow)
-}
-
-.button-blue {
-  @include button($blue)
-}
-
-.button-blue:hover {
-  @include button-hover($blue)
-}
-
-.button-blue:active {
-  @include button-active($blue)
-}
-
-.button-green {
-  @include button($green)
-}
-
-.button-green:hover {
-  @include button-hover($green)
-}
-
-.button-green:active {
-  @include button-active($green)
-}
-
-.button-brown {
-  @include button($brown)
-}
-
-.button-brown:hover {
-  @include button-hover($brown)
-}
-
-.button-brown:active {
-  @include button-active($brown)
-}
-
-.button-purple {
-  @include button($purple)
-}
-
-.button-purple:hover {
-  @include button-hover($purple)
-}
-
-.button-purple:active {
-  @include button-active($purple)
-}
-
-.button-outline {
-  background-color: transparent;
-  box-shadow: none;
-  border-width: 1px;
-  border-style: solid;
-  @include button-outline($gray-4);
-}
-
-.button-outline:hover {
-  box-shadow: none;
-  @include button-outline-hover($gray-4);
-}
-
-.button-outline:active {
-  @include button-outline-active($gray-4);
-}
-
-.button-mini {
-  @include size-mini
-}
-
-.button-small {
-  @include size-small
-}
-
-.button-large {
-  @include size-large
-}
-
-.button-mega {
-  @include size-mega
-}
-
-.button-outline.button-red {
-  @include button-outline($red)
-}
-
-.button-outline.button-red:hover {
-  @include button-outline-hover($red)
-}
-
-.button-outline.button-red:active {
-  @include button-outline-active($red)
-}
-
-.button-outline.button-yellow {
-  @include button-outline($yellow)
-}
-
-.button-outline.button-yellow:hover {
-  @include button-outline-hover($yellow)
-}
-
-.button-outline.button-yellow:active {
-  @include button-outline-active($yellow)
-}
-
-.button-outline.button-blue {
-  @include button-outline($blue)
-}
-
-.button-outline.button-blue:hover {
-  @include button-outline-hover($blue)
-}
-
-.button-outline.button-blue:active {
-  @include button-outline-active($blue)
-}
-
-.button-outline.button-green {
-  @include button-outline($green)
-}
-
-.button-outline.button-green:hover {
-  @include button-outline-hover($green)
-}
-
-.button-outline.button-green:active {
-  @include button-outline-active($green)
-}
-
-.button-outline.button-brown {
-  @include button-outline($brown)
-}
-
-.button-outline.button-brown:hover {
-  @include button-outline-hover($brown)
-}
-
-.button-outline.button-brown:active {
-  @include button-outline-active($brown)
-}
-
-.button-outline.button-purple {
-  @include button-outline($purple)
-}
-
-.button-outline.button-purple:hover {
-  @include button-outline-hover($purple)
-}
-
-.button-outline.button-purple:active {
-  @include button-outline-active($purple)
-}
-
-.button-outline.button-mini {
-  @include outline-size-mini
-}
-
-.button-outline.button-small {
-  @include outline-size-small
-}
-
-.button-outline.button-large {
-  @include outline-size-large
-}
-
-.button-outline.button-mega {
-  @include outline-size-mega
-}
-
+// BEM Button Group
 .button-group {
   font-size: 0;
-  button, .button {
+
+  button,
+  .button {
     border-radius: 0px;
     border-right: none;
   }
-  button:active, .button:active,
-  .button-red:active,
-  .button-yellow:active,
-  .button-blue:active,
-  .button-green:active,
-  .button-brown:active,
-  .button-purple:active {
+
+  button:active,
+  .button:active,
+  [class*="button--"]:active {
     top: 0px;
     left: 0px;
   }
-  > button:first-child, .dropdown:first-child > button,
-  > .button:first-child, .dropdown:first-child > .button,
-  > .button-red:first-child, .dropdown:first-child > .button-red,
-  > .button-yellow:first-child, .dropdown:first-child > .button-yellow,
-  > .button-blue:first-child, .dropdown:first-child > .button-blue,
-  > .button-green:first-child, .dropdown:first-child > .button-green,
-  > .button-brown:first-child, .dropdown:first-child > .button-brown,
-  > .button-purple:first-child, .dropdown:first-child > .button-purple {
+
+  > button:first-child,
+  > .button:first-child,
+  > [class*="button--"]:first-child,
+  .dropdown:first-child > button,
+  .dropdown:first-child > .button,
+  .dropdown:first-child > [class*="button--"] {
     border-radius: 3px 0px 0px 3px;
   }
-  > button:last-child, .dropdown:last-child > button,
-  > .button:last-child, .dropdown:last-child > .button {
+
+  > button:last-child,
+  > .button:last-child,
+  > [class*="button--"]:last-child,
+  .dropdown:last-child > button,
+  .dropdown:last-child > .button,
+  .dropdown:last-child > [class*="button--"] {
     border-radius: 0px 3px 3px 0px;
   }
-}
 
-.button-group-mini {
-  > button, > .dropdown > button {
-    @include size-mini
+  &--mini {
+    > button,
+    > .button,
+    > .dropdown > button,
+    > .dropdown > .button {
+      @include sizes.size-mini;
+    }
+  }
+
+  &--small {
+    > button,
+    > .button,
+    > .dropdown > button,
+    > .dropdown > .button {
+      @include sizes.size-small;
+    }
+  }
+
+  &--large {
+    > button,
+    > .button,
+    > .dropdown > button,
+    > .dropdown > .button {
+      @include sizes.size-large;
+    }
+  }
+
+  &--mega {
+    > button,
+    > .button,
+    > .dropdown > button,
+    > .dropdown > .button {
+      @include sizes.size-mega;
+    }
   }
 }
-
-.button-group-small {
-  > button, > .dropdown > button {
-    @include size-small
-  }
-}
-
-.button-group-large {
-  > button, > .dropdown > button {
-    @include size-large
-  }
-}
-
-.button-group-mega {
-  > button, > .dropdown > button {
-    @include size-mega
-  }
-}
-
