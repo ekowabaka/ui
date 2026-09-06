@@ -1,38 +1,42 @@
+<div class="component-header">
+    <h2>Colour Palletes</h2>
+    <p>Colour palletes.</p>
+</div>
 <section class="component">
-    <div class="component-header">
-        <h2>Colour Palletes</h2>
-        <p>Colour palletes.</p>
+    <div class="variant">
+        <h3>Colour Pallete</h3>
+        <section class="colors">
+            {{#colors}}
+                <div class="pallete">
+                    <div class="bg-light-{{name}}" id="light-{{name}}"></div>
+                    <div class="bg-{{name}}" id="normal-{{name}}"></div>
+                    <div class="bg-dark-{{name}}" id="dark-{{name}}"></div>
+                    <span>{{name}}</span>
+                </div>
+            {{/colors}}
+        </section>
     </div>
-    <h3>Colour Pallete</h3>
-    <section class="colors">
-        {{#colors}}
-        <div class="pallete">
-            <div class="bg-light-{{name}}" id="light-{{name}}"></div>
-            <div class="bg-{{name}}" id="normal-{{name}}"></div>
-            <div class="bg-dark-{{name}}" id="dark-{{name}}"></div>
-            <span>{{name}}</span>
-        </div>
-        {{/colors}}
-    </section>
-    <h3>Gray Pallete</h3>
-    <section class="colors">
-        <div class="pallete">
-            <div class="bg-gray-0" id="gray-0"></div>
-        </div>
-        <div class="pallete">
-            <div class="bg-gray-1" id="gray-1"></div>
-        </div>
-        <div class="pallete">
-            <div class="bg-gray-2" id="gray-2"></div>
-        </div>
-        <div class="pallete">
-            <div class="bg-gray-3" id="gray-3"></div>
-        </div>
-        <div class="pallete">
-            <div class="bg-gray-4" id="gray-4"></div>
-        </div>
-        <div class="pallete">
-            <div class="bg-gray-5" id="gray-5"></div>
-        </div>
-    </section>
+    <div class="variant">
+        <h3>Gray Pallete</h3>
+        <section class="colors">
+            <div class="pallete">
+                <div class="bg-gray-0" id="gray-0"></div>
+            </div>
+            <div class="pallete">
+                <div class="bg-gray-1" id="gray-1"></div>
+            </div>
+            <div class="pallete">
+                <div class="bg-gray-2" id="gray-2"></div>
+            </div>
+            <div class="pallete">
+                <div class="bg-gray-3" id="gray-3"></div>
+            </div>
+            <div class="pallete">
+                <div class="bg-gray-4" id="gray-4"></div>
+            </div>
+            <div class="pallete">
+                <div class="bg-gray-5" id="gray-5"></div>
+            </div>
+        </section>
+    </div>
 </section>

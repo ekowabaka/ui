@@ -6,7 +6,9 @@
   "scripts": {
     "build": "webpack",
     "build:examples": "webpack --config webpack-example.config.js",
-    "build:all": "webpack && webpack --config webpack-example.config.js"
+    "build:all": "webpack && webpack --config webpack-example.config.js",
+    "watch": "webpack --watch",
+    "watch:examples": "webpack --config webpack-example.config.js --watch"
   },
   "repository": {
     "type": "git",

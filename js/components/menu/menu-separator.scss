@@ -1,0 +1,14 @@
+@use "../../../sass/colors";
+
+:host {
+    display: block;
+    user-select: none;
+    pointer-events: none;
+}
+
+.menu-separator {
+    height: 1px;
+    margin: var(--fz-menu-separator-margin, 4px 0);
+    background-color: var(--fz-menu-separator-color, colors.$gray-5);
+    border: none;
+}

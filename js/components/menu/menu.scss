@@ -1,0 +1,16 @@
+@use "sass:color";
+@use "../../../sass/colors";
+
+:host {
+    display: block;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    padding: var(--fz-menu-padding, 0px);
+    margin: 0;
+    list-style: none;
+    background-color: var(--fz-menu-bg, transparent);
+    min-width: var(--fz-menu-min-width, 140px);
+}

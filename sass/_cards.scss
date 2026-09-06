@@ -191,6 +191,7 @@ fz-card,
     &--image-#{$pos},
     &.image-#{$pos},
     &[image-#{$pos}],
+    &[image-position="#{$pos}"],
     &[#{$pos}] {
       --card-flex-direction: #{map.get($props, 'flex-direction')};
       --card-image-order: #{map.get($props, 'order')};
@@ -266,16 +267,18 @@ fz-card,
     --card-image-border-radius: var(--card-border-radius, 4px);
   }
 
-  // BEM corner modifier loop: .fz-card--sharp, .fz-card--subtle, etc.
+  // BEM corner modifier loop: .fz-card--sharp, .fz-card--subtle, etc. (classes + attributes)
   @each $modifier, $radius in modifiers.$corner-radii {
     &--#{$modifier},
     &.#{$modifier},
-    &[#{$modifier}] {
+    &[#{$modifier}],
+    &[corner="#{$modifier}"],
+    &[radius="#{$modifier}"] {
       --card-border-radius: #{$radius};
     }
   }
 
-  // BEM layer modifier loop: .fz-card--layer-0, [layer="0"], [layer-0], etc.
+  // BEM layer modifier loop: .fz-card--layer-0, [layer="0"], [layer-0], etc. (classes + attributes)
   @each $layer, $offset in modifiers.$layers {
     &--layer-#{$layer},
     &.layer-#{$layer},
@@ -285,11 +288,12 @@ fz-card,
     }
   }
 
-  // BEM color modifier loop: .fz-card--red, .fz-card--blue, etc.
+  // BEM color modifier loop: .fz-card--red, [color="red"], [red], etc. (classes + attributes)
   @each $color-name, $color-val in colors.$all-colors {
     &--#{$color-name},
     &.#{$color-name},
-    &[#{$color-name}] {
+    &[#{$color-name}],
+    &[color="#{$color-name}"] {
       --card-background-color: #{$color-val};
       --card-border-color: #{card-border-color($color-val)};
       --card-box-shadow: #{modifiers.layer($default-layer)};

@@ -1,32 +1,161 @@
-<h2>Dropdown</h2>
-{{#drops}}
-<p>
-    <div class="{{type}}">
-        <button>Dropdown</button>
-        <div class="{{type}}-contents" data-container="{{container}}">
-            Hello!
+<div class="component-header">
+    <h2>Dropdown & Menu</h2>
+    <p>Dropdowns and Menus display contextual options and actions with support for colors, layers (elevation), positioning, and sizing via attributes and BEM classes.</p>
+</div>
+
+<section class="component">
+    <div class="variant half">
+        <h3>Standard & Positioning</h3>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <fz-dropdown>
+                <button slot="button">Standard</button>
+                <fz-menu>
+                    <fz-menu-item>Profile</fz-menu-item>
+                    <fz-menu-item>Settings</fz-menu-item>
+                    <fz-menu-item disabled>Disabled Option</fz-menu-item>
+                    <fz-menu-separator></fz-menu-separator>
+                    <fz-menu-item>Logout</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown right>
+                <button slot="button">Right-Aligned</button>
+                <fz-menu>
+                    <fz-menu-item>Right Aligned Option 1</fz-menu-item>
+                    <fz-menu-item>Right Aligned Option 2</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown dropup>
+                <button slot="button">Dropup</button>
+                <fz-menu>
+                    <fz-menu-item>Dropup Item 1</fz-menu-item>
+                    <fz-menu-item>Dropup Item 2</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
         </div>
     </div>
-    <div class="{{type}}">
-        <button class="button-red" >Red</button>
-        <ul class="{{type}}-contents menu" data-container="{{container}}">
-            <li>Some Item</li>
-            <li>Another Item</li>
-        </li>
-    </div>
-    <div class="{{type}}">
-        <button class="button-purple" >Purple</button>
-        <ul class="{{type}}-contents {{type}}-right menu" data-container="{{container}}">
-            <li>Some Item</li>
-            <li>Another Item</li>
-            <li>Item should align to right"
-        </li>
-    </div>
-    <div class="{{type}}">
-        <div class="clickable"> Clickable DIV</div>
-        <div class="{{type}}-contents" data-container="{{container}}">
-            <p>This is supposed to be a padded {{type}}.</p>
+
+    <div class="variant half">
+        <h3>Layers / Elevation</h3>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <fz-dropdown layer="0">
+                <button slot="button">Layer 0</button>
+                <fz-menu>
+                    <fz-menu-item>Flat Elevation</fz-menu-item>
+                    <fz-menu-item>No Shadow</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown layer="1">
+                <button slot="button">Layer 1</button>
+                <fz-menu>
+                    <fz-menu-item>Default Subtle</fz-menu-item>
+                    <fz-menu-item>Shadow Item</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown layer="2">
+                <button slot="button">Layer 2</button>
+                <fz-menu>
+                    <fz-menu-item>Raised Elevation</fz-menu-item>
+                    <fz-menu-item>Medium Shadow</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown layer="3">
+                <button slot="button">Layer 3</button>
+                <fz-menu>
+                    <fz-menu-item>Floating Elevation</fz-menu-item>
+                    <fz-menu-item>High Shadow</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
         </div>
     </div>
-</p>
-{{/drops}}
+
+    <div class="variant half">
+        <h3>Color Variants (Solid Buttons)</h3>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <fz-dropdown color="blue">
+                <button slot="button" color="blue">Blue Menu</button>
+                <fz-menu color="blue">
+                    <fz-menu-item>Dashboard</fz-menu-item>
+                    <fz-menu-item>Analytics</fz-menu-item>
+                    <fz-menu-separator></fz-menu-separator>
+                    <fz-menu-item>Reports</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown color="green">
+                <button slot="button" color="green">Green Menu</button>
+                <fz-menu color="green">
+                    <fz-menu-item>Approve</fz-menu-item>
+                    <fz-menu-item>Publish</fz-menu-item>
+                    <fz-menu-separator></fz-menu-separator>
+                    <fz-menu-item>Archive</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown red>
+                <button slot="button" red>Red Menu</button>
+                <fz-menu red>
+                    <fz-menu-item>Delete Record</fz-menu-item>
+                    <fz-menu-item>Revoke Access</fz-menu-item>
+                    <fz-menu-separator></fz-menu-separator>
+                    <fz-menu-item>Purge All</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown purple>
+                <button slot="button" purple>Purple Menu</button>
+                <fz-menu purple>
+                    <fz-menu-item>Overview</fz-menu-item>
+                    <fz-menu-item>Preferences</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+        </div>
+    </div>
+
+    <div class="variant half">
+        <h3>Color Variants (Outline Buttons)</h3>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <fz-dropdown color="blue">
+                <button slot="button" outline color="blue">Blue Menu</button>
+                <fz-menu color="blue">
+                    <fz-menu-item>Dashboard</fz-menu-item>
+                    <fz-menu-item>Analytics</fz-menu-item>
+                    <fz-menu-separator></fz-menu-separator>
+                    <fz-menu-item>Reports</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown color="green">
+                <button slot="button" outline color="green">Green Menu</button>
+                <fz-menu color="green">
+                    <fz-menu-item>Approve</fz-menu-item>
+                    <fz-menu-item>Publish</fz-menu-item>
+                    <fz-menu-separator></fz-menu-separator>
+                    <fz-menu-item>Archive</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown red>
+                <button slot="button" outline red>Red Menu</button>
+                <fz-menu red>
+                    <fz-menu-item>Delete Record</fz-menu-item>
+                    <fz-menu-item>Revoke Access</fz-menu-item>
+                    <fz-menu-separator></fz-menu-separator>
+                    <fz-menu-item>Purge All</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown purple>
+                <button slot="button" outline purple>Purple Menu</button>
+                <fz-menu purple>
+                    <fz-menu-item>Overview</fz-menu-item>
+                    <fz-menu-item>Preferences</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+        </div>
+    </div>
+</section>

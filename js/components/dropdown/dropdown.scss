@@ -1,0 +1,53 @@
+@use "../../../sass/modifiers";
+
+:host {
+    display: inline-block;
+    position: relative;
+}
+
+@mixin after ($text){
+    content: $text;
+    padding-left: 10px;
+}
+
+::slotted([slot="button"]) {
+    cursor: pointer;
+}
+
+::slotted([slot="button"]):after {
+    @include after("▼");
+}
+
+div.contents {
+    display: none;
+    position: absolute;
+    top: var(--dropdown-contents-top, 100%);
+    bottom: var(--dropdown-contents-bottom, auto);
+    left: var(--dropdown-contents-left, 0);
+    right: var(--dropdown-contents-right, auto);
+    box-shadow: var(--dropdown-contents-box-shadow, #{modifiers.layer('1')});
+    margin: var(--dropdown-contents-margin, 5px 0);
+    background-color: var(--dropdown-contents-background-color, #ffffff);
+    color: var(--dropdown-contents-color, #494949);
+    border-radius: var(--dropdown-contents-border-radius, 3px);
+    border: var(--dropdown-contents-border, 1px solid #dbdbdb);
+    z-index: 1000;
+    padding: 0.5em;
+
+    &.active {
+        display: block;
+    }
+}
+
+// BEM Layer Modifiers on :host
+@each $layer, $offset in modifiers.$layers {
+    :host([layer="#{$layer}"]),
+    :host([layer-#{$layer}]),
+    :host(.layer-#{$layer}),
+    :host(.fz-dropdown--layer-#{$layer}),
+    :host(.dropdown--layer-#{$layer}) {
+        div.contents {
+            box-shadow: var(--dropdown-contents-box-shadow, #{modifiers.layer($layer)});
+        }
+    }
+}

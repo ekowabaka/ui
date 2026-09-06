@@ -1,124 +1,150 @@
+<div class="component-header">
+    <h2>Cards</h2>
+    <p>Cards are used to display content in a structured way with support for colors, layers, corners, and image positioning via classes and attributes.</p>
+</div>
 <section class="component">
-    <div class="component-header">
-        <h2>Cards</h2>
-        <p>Cards are used to display content in a structured way.</p>
+    <div class="variant">
+        <h3>Colors (via attributes & classes)</h3>
+        <section class="cards">
+            <fz-card>
+                <span slot="title">Default Card</span>
+                <div>Light background with dark title and de-emphasized body text.</div>
+            </fz-card>
+
+            <fz-card color="red">
+                <span slot="title">Red Card (color="red")</span>
+                <div>Dark background with crisp white title and light body text.</div>
+            </fz-card>
+
+            <fz-card color="yellow">
+                <span slot="title">Yellow Card (color="yellow")</span>
+                <div>Light background with dark title and charcoal body text.</div>
+            </fz-card>
+
+            <fz-card color="blue">
+                <span slot="title">Blue Card (color="blue")</span>
+                <div>Dark background with bright white title and soft white body text.</div>
+            </fz-card>
+
+            <fz-card green>
+                <span slot="title">Green Card (boolean [green])</span>
+                <div>Green background assigned via boolean attribute.</div>
+            </fz-card>
+
+            <fz-card purple>
+                <span slot="title">Purple Card (boolean [purple])</span>
+                <div>Purple background assigned via boolean attribute.</div>
+            </fz-card>
+        </section>
     </div>
-    <h3>Colors</h3>
-    <section class="cards">
-        <fz-card>
-            <span slot="title">Default Card</span>
-            <div>Light background with dark title and de-emphasized body text.</div>
-        </fz-card>
 
-        <fz-card class="fz-card--red">
-            <span slot="title">Red Card</span>
-            <div>Dark background with crisp white title and light body text.</div>
-        </fz-card>
+    <div class="variant">
+        <h3>Layers / Elevation (via layer="..." & [layer-#])</h3>
+        <section class="cards">
+            <fz-card layer="0">
+                <span slot="title">Layer 0 (layer="0")</span>
+                <div>This card is on layer 0 so it has no shadow.</div>
+            </fz-card>
+            <fz-card layer="1">
+                <span slot="title">Layer 1 (layer="1")</span>
+                <div>This card is on layer 1 with a subtle shadow (default).</div>
+            </fz-card>
+            <fz-card layer="2">
+                <span slot="title">Layer 2 (layer="2")</span>
+                <div>This card is on layer 2 with a more pronounced shadow.</div>
+            </fz-card>
+            <fz-card layer="3">
+                <span slot="title">Layer 3 (layer="3")</span>
+                <div>This card is on layer 3 with a floating elevation shadow.</div>
+            </fz-card>
+        </section>
+    </div>
 
-        <fz-card class="fz-card--yellow">
-            <span slot="title">Yellow Card</span>
-            <div>Light background with dark title and charcoal body text.</div>
-        </fz-card>
+    <div class="variant">
+        <h3>Content Cards</h3>
+        <section class="cards">
+            <fz-card>
+                <div>This card has no title</div>
+            </fz-card>
+            <fz-card>
+                <span slot="title">Card with Title</span>
+                <div>This card has a title and body text.</div>
+            </fz-card>
+            <fz-card>
+                <span slot="title">Card with just a title.</span>
+            </fz-card>
+            <fz-card></fz-card>
+        </section>
+    </div>
 
-        <fz-card class="fz-card--blue">
-            <span slot="title">Blue Card</span>
-            <div>Dark background with bright white title and soft white body text.</div>
-        </fz-card>
-    </section>
+    <div class="variant">
+        <h3>Image Positioning</h3>
+        <section class="cards">
+            <fz-card>
+                <span slot="title">Card with Image</span>
+                <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                <div>
+                    This card has an image above the body text. The image is responsive and will scale with the card.
+                </div>
+            </fz-card>
 
-    <h3>Layers</h3>
-    <section class="cards">
-        <fz-card class="fz-card--layer-0">
-            <span slot="title">Layer 0 Card</span>
-            <div>This card is on the first layer so it has no shadow.</div>
-        </fz-card>
-        <fz-card class="fz-card--layer-1">
-            <span slot="title">Layer 1 Card</span>
-            <div>This card is on the second layer so it has a subtle shadow. This is the default layer.</div>
-        </fz-card>
-        <fz-card class="fz-card--layer-2">
-            <span slot="title">Layer 2 Card</span>
-            <div>This card is on the third layer so it has a more pronounced shadow.</div>
-        </fz-card>
-        <fz-card class="fz-card--layer-3">
-            <span slot="title">Layer 3 Card</span>
-            <div>This card is on the fourth layer so it has a very pronounced shadow.</div>
-        </fz-card>
-    </section>
+            <fz-card image-position="bottom">
+                <span slot="title">Card with Image (bottom)</span>
+                <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                <div>
+                    This card has an image above the body text. The image is responsive and will scale with the card.
+                </div>
+            </fz-card>
 
-    <h3>Content Cards</h3>
-    <section class="cards">
-        <fz-card>
-            <div>This card has no title</div>
-        </fz-card>
-    </section>
+            <fz-card image-position="left">
+                <span slot="title">Card with Image (left)</span>
+                <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                <div>
+                    This card has an image above the body text. The image is responsive and will scale with the card.
+                </div>
+            </fz-card>
 
-    <h3>Image Positioning</h3>
-    <section class="cards">
-        <fz-card>
-            <span slot="title">Card with Image</span>
-            <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
-            <div>
-                This card has an image above the body text. The image is responsive and will scale with the card.
-            </div>
-        </fz-card>
+            <fz-card image-position="right">
+                <span slot="title">Card with Image (right)</span>
+                <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                <div>
+                    This card has an image above the body text. The image is responsive and will scale with the card.
+                </div>
+            </fz-card>
+        </section>
 
-        <fz-card class="fz-card--image-bottom">
-            <span slot="title">Card with Image</span>
-            <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
-            <div>
-                This card has an image above the body text. The image is responsive and will scale with the card.
-            </div>
-        </fz-card>
+        <section class="cards">
+            <fz-card flush>
+                <span slot="title">Card with Image</span>
+                <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                <div>
+                    This card has an image above the body text. The image is responsive and will scale with the card.
+                </div>
+            </fz-card>
 
-        <fz-card class="fz-card--image-left">
-            <span slot="title">Card with Image</span>
-            <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
-            <div>
-                This card has an image above the body text. The image is responsive and will scale with the card.
-            </div>
-        </fz-card>
+            <fz-card image-position="bottom" flush>
+                <span slot="title">Card with Image</span>
+                <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                <div>
+                    This card has an image above the body text. The image is responsive and will scale with the card.
+                </div>
+            </fz-card>
 
-        <fz-card class="fz-card--image-right">
-            <span slot="title">Card with Image</span>
-            <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
-            <div>
-                This card has an image above the body text. The image is responsive and will scale with the card.
-            </div>
-        </fz-card>
-    </section>
+            <fz-card image-position="left" flush>
+                <span slot="title">Card with Image</span>
+                <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                <div>
+                    This card has an image above the body text. The image is responsive and will scale with the card.
+                </div>
+            </fz-card>
 
-    <section class="cards">
-        <fz-card flush>
-            <span slot="title">Card with Image</span>
-            <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
-            <div>
-                This card has an image above the body text. The image is responsive and will scale with the card.
-            </div>
-        </fz-card>
-
-        <fz-card class="fz-card--image-bottom" flush>
-            <span slot="title">Card with Image</span>
-            <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
-            <div>
-                This card has an image above the body text. The image is responsive and will scale with the card.
-            </div>
-        </fz-card>
-
-        <fz-card class="fz-card--image-left" flush>
-            <span slot="title">Card with Image</span>
-            <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
-            <div>
-                This card has an image above the body text. The image is responsive and will scale with the card.
-            </div>
-        </fz-card>
-
-        <fz-card class="fz-card--image-right" flush>
-            <span slot="title">Card with Image</span>
-            <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
-            <div>
-                This card has an image above the body text. The image is responsive and will scale with the card.
-            </div>
-        </fz-card>
-    </section>
+            <fz-card image-position="right" flush>
+                <span slot="title">Card with Image</span>
+                <img slot="image" src="assets/landscape.jpg" alt="Sample Image" />
+                <div>
+                    This card has an image above the body text. The image is responsive and will scale with the card.
+                </div>
+            </fz-card>
+        </section>
+    </div>
 </section>

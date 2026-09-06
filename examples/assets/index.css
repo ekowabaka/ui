@@ -4,34 +4,46 @@ body {
     background-color: #fff;
 
     article {
-        max-width: 1200px;
+        max-width: 1600px;
         margin: 0 auto;
-        padding: 2rem;
     }
 }
 
 .cards {
     display: flex;
-    gap: 1rem;
-    flex-grow: 1;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    gap: 1em;
 
     > * {
         width: 25%;
     }
 }
 
+.component-header {
+    text-align: center;
+    margin-bottom: 3em;
+    margin-top: 3em;
+}
+
 .component {
-    > .component-header {
-        text-align: center;
-        margin-bottom: 3em;
+    > div.variant {
+        > section.cards {
+            margin-bottom: 2em;
+            display: flex;
+            > .buttons {
+                width: 50%;
+                margin-bottom: 2em;
+            }
+        }
     }
 
-    > section {
+    > div.half {
+        width: 49%;
+        display: inline-block;
         margin-bottom: 2em;
     }
-    margin-bottom: 2em;
+
+    padding: 2em 1em 3em;
+    border-bottom: 1px solid #ccc;
 }
 
 .pallete{

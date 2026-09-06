@@ -2,8 +2,7 @@
 @use "typography";
 // @use "corners";
 // @import "sizes";
-// @import "dropdowns";
-// @import "menus";
+@use "menus";
 // @import "modal";
 // @import "nav";
 // @import "forms"; 
@@ -11,3 +10,4 @@
 // @import "panel";
 @use "buttons";
 @use "cards";
+@use "dropdowns";

@@ -1,49 +1,160 @@
-@mixin contents {
+@use "sass:color";
+@use "sass:map";
+@use "colors";
+@use "modifiers";
+
+$default-layer: "1";
+
+// Function to generate a lighter outline shade of a color
+@function dropdown-outline-color($c) {
+  @if $c == colors.$white {
+    @return colors.$gray-5;
+  } @else if $c == colors.$gray-5 {
+    @return colors.$gray-4;
+  } @else {
+    @return color.adjust($c, $lightness: 20%);
+  }
+}
+
+// Base Dropdown Block (Custom element & pure CSS classes)
+.dropdown,
+.fz-dropdown,
+fz-dropdown {
+  position: relative;
+  display: inline-block;
+
+  // CSS variables for Web Components & Shadow DOM
+  --dropdown-contents-background-color: #{colors.$white};
+  --dropdown-contents-color: #{colors.$gray-1};
+  --dropdown-contents-border-color: #{colors.$gray-5};
+  --dropdown-contents-border: 1px solid var(--dropdown-contents-border-color);
+  --dropdown-contents-border-radius: #{map.get(modifiers.$corner-radii, 'subtle')};
+  --dropdown-contents-box-shadow: #{modifiers.layer($default-layer)};
+  --dropdown-contents-margin: 5px 0;
+  --dropdown-contents-left: 0;
+  --dropdown-contents-right: auto;
+  --dropdown-contents-top: 100%;
+  --dropdown-contents-bottom: auto;
+
+  // Positioning modifiers
+  &--right,
+  &.dropdown-right,
+  &[right] {
+    --dropdown-contents-left: auto;
+    --dropdown-contents-right: 0;
+
+    .dropdown__contents,
+    .fz-dropdown__contents,
+    .dropdown-contents {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  &--dropup,
+  &--up,
+  &.dropup,
+  &[dropup],
+  &[up] {
+    --dropdown-contents-top: auto;
+    --dropdown-contents-bottom: 100%;
+    --dropdown-contents-margin: 0 0 5px 0;
+
+    .dropdown__contents,
+    .fz-dropdown__contents,
+    .dropdown-contents {
+      top: auto;
+      bottom: 100%;
+      margin: 0 0 5px 0;
+    }
+  }
+
+  // Corner radius modifiers
+  @each $modifier, $radius in modifiers.$corner-radii {
+    &--#{$modifier},
+    &.#{$modifier},
+    &[#{$modifier}],
+    &[corner="#{$modifier}"],
+    &[radius="#{$modifier}"] {
+      --dropdown-contents-border-radius: #{$radius};
+
+      .dropdown__contents,
+      .fz-dropdown__contents,
+      .dropdown-contents {
+        border-radius: #{$radius};
+      }
+    }
+  }
+
+  // BEM Layer / Shadow modifiers loop (layer-0, layer-1, layer-2, layer-3)
+  @each $layer, $offset in modifiers.$layers {
+    &--layer-#{$layer},
+    &.layer-#{$layer},
+    &[layer="#{$layer}"],
+    &[layer-#{$layer}] {
+      --dropdown-contents-box-shadow: #{modifiers.layer($layer)};
+
+      .dropdown__contents,
+      .fz-dropdown__contents,
+      .dropdown-contents {
+        box-shadow: #{modifiers.layer($layer)};
+      }
+    }
+  }
+
+  // Color modifiers loop: Outline is a lighter shade of the color
+  @each $color-name, $color-val in colors.$all-colors {
+    $outline-color: dropdown-outline-color($color-val);
+
+    &--#{$color-name},
+    &.#{$color-name},
+    &[#{$color-name}],
+    &[color="#{$color-name}"] {
+      --dropdown-contents-background-color: #{colors.$white};
+      --dropdown-contents-color: #{colors.$gray-1};
+      --dropdown-contents-border-color: #{$outline-color};
+      --dropdown-contents-border: 1px solid #{$outline-color};
+
+      .dropdown__contents,
+      .fz-dropdown__contents,
+      .dropdown-contents {
+        background-color: colors.$white;
+        color: colors.$gray-1;
+        border: 1px solid $outline-color;
+      }
+    }
+  }
+
+  // Active state for pure CSS dropdowns
+  &--active,
+  &.active {
+    .dropdown__contents,
+    .fz-dropdown__contents,
+    .dropdown-contents {
+      display: block;
+    }
+  }
+}
+
+// Pure CSS Dropdown Contents Element
+.dropdown__contents,
+.fz-dropdown__contents,
+.dropdown-contents {
   display: none;
   position: absolute;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 5px;
-  margin-bottom: 5px;
-  background-color: #fff;
-  border-radius: 3px;
-  border: 1px solid lighten($gray-5, 5%);
+  top: 100%;
+  left: 0;
   z-index: 1000;
-}
+  margin: 5px 0;
+  background-color: colors.$white;
+  color: colors.$gray-1;
+  border: 1px solid colors.$gray-5;
+  border-radius: map.get(modifiers.$corner-radii, "subtle");
+  box-shadow: modifiers.layer($default-layer);
+  min-width: 140px;
 
-@mixin after ($text){
-  content: $text;
-  padding-left: 10px;
-}
-
-@mixin drop {
-  display: inline-block;
-  position: relative;
-}
-
-.dropdown {
-  @include drop;
-  button:after {
-    @include after("▼")
-  }
-}
-
-.dropdown-contents {
-  @include contents;
-}
-
-.dropup {
-  @include drop;
-  button:after {
-    @include after("▲")
-  }
-}
-
-.dropup-contents {
-  @include contents;
-}
-
-.dropdown.active > .dropdown-contents, 
-.dropup.active > .dropup-contents {
+  &--active,
+  &.active {
     display: block;
+  }
 }
-

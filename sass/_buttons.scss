@@ -1,6 +1,7 @@
 @use "sass:color";
 @use "colors" as colors;
 @use "sizes" as sizes;
+@use "modifiers" as modifiers;
 
 // Shadow for the button
 @mixin button-shadow($color) {
@@ -74,9 +75,12 @@ button,
     border: none;
   }
 
-  // BEM Color modifiers loop
+  // Color modifiers (classes + attributes)
   @each $color-name, $color-val in colors.$all-colors {
-    &--#{$color-name} {
+    &--#{$color-name},
+    &.#{$color-name},
+    &[#{$color-name}],
+    &[color="#{$color-name}"] {
       @include button($color-val);
 
       &:hover {
@@ -89,8 +93,35 @@ button,
     }
   }
 
-  // BEM Outline modifier
-  &--outline {
+  // Layer modifiers (classes + attributes): Layer 0 (flat), Layer 1 (default elevation)
+  &--layer-0,
+  &.layer-0,
+  &[layer="0"],
+  &[layer-0] {
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    &:active {
+      box-shadow: none;
+      top: 0px;
+      left: 0px;
+    }
+  }
+
+  &--layer-1,
+  &.layer-1,
+  &[layer="1"],
+  &[layer-1] {
+    // Retains standard button elevation and active behavior
+  }
+
+  // Outline modifier (classes + attributes)
+  &--outline,
+  &.outline,
+  &[outline] {
     background-color: transparent;
     box-shadow: none;
     border-width: 1px;
@@ -106,10 +137,12 @@ button,
       @include button-outline-active(colors.$gray-4);
     }
 
-    // BEM Outline Color modifiers
+    // Outline Color modifiers
     @each $color-name, $color-val in colors.$all-colors {
       &.button--#{$color-name},
-      &--#{$color-name} {
+      &.#{$color-name},
+      &[#{$color-name}],
+      &[color="#{$color-name}"] {
         @include button-outline($color-val);
 
         &:hover {
@@ -122,42 +155,62 @@ button,
       }
     }
 
-    // BEM Outline Size modifiers
+    // Outline Size modifiers
     &.button--mini,
-    &--mini {
+    &.mini,
+    &[mini],
+    &[size="mini"] {
       @include sizes.outline-size-mini;
     }
 
     &.button--small,
-    &--small {
+    &.small,
+    &[small],
+    &[size="small"] {
       @include sizes.outline-size-small;
     }
 
     &.button--large,
-    &--large {
+    &.large,
+    &[large],
+    &[size="large"] {
       @include sizes.outline-size-large;
     }
 
     &.button--mega,
-    &--mega {
+    &.mega,
+    &[mega],
+    &[size="mega"] {
       @include sizes.outline-size-mega;
     }
   }
 
-  // BEM Size modifiers
-  &--mini {
+  // Size modifiers (classes + attributes)
+  &--mini,
+  &.mini,
+  &[mini],
+  &[size="mini"] {
     @include sizes.size-mini;
   }
 
-  &--small {
+  &--small,
+  &.small,
+  &[small],
+  &[size="small"] {
     @include sizes.size-small;
   }
 
-  &--large {
+  &--large,
+  &.large,
+  &[large],
+  &[size="large"] {
     @include sizes.size-large;
   }
 
-  &--mega {
+  &--mega,
+  &.mega,
+  &[mega],
+  &[size="mega"] {
     @include sizes.size-mega;
   }
 }
