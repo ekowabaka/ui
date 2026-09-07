@@ -29,7 +29,14 @@ body {
 }
 
 .component {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2em 1em 3em;
+    border-bottom: 1px solid #e5e7eb;
+    gap: 0.5em;
+
     > div.variant {
+        width: 100%;
         > section.cards {
             margin-bottom: 2em;
             display: flex;
@@ -41,21 +48,18 @@ body {
     }
 
     > div.third {
-        width: 31%;
+        width: calc(33% - 0.25em);
         display: inline-block;
         margin-bottom: 2em;
         vertical-align: top;
     }
 
     > div.half {
-        width: 49%;
+        width: calc(50% - 0.5em);
         display: inline-block;
         margin-bottom: 2em;
         vertical-align: top;
     }
-
-    padding: 2em 1em 3em;
-    border-bottom: 1px solid #e5e7eb;
 }
 
 section.colors {
