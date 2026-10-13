@@ -1,0 +1,204 @@
+@use "sass:map";
+@use "sass:color";
+@use "colors";
+@use "sizes";
+@use "modifiers";
+
+// Tables display lists of items. The outline and row separators are solid,
+// while columns are separated by dotted lines.
+//
+//   <table class="fz-table"> ... </table>
+//   <table class="fz-table curved"> ... </table>
+//   <table class="fz-table" radius="curved"> ... </table>
+//
+// Corner radius modifiers: sharp, subtle, curved (as class, attribute, BEM
+// modifier, [corner="..."] or [radius="..."]).
+
+$table-radii: map.remove(modifiers.$corner-radii, 'circle');
+
+table.fz-table,
+.fz-table {
+  --fz-table-border-color: #{colors.$gray-4};
+  --fz-table-column-color: #{colors.$gray-4};
+  --fz-table-dot-gap: 6px;
+  --fz-table-header-bg: #{colors.$gray-5};
+  --fz-table-header-color: #{colors.$gray-0};
+  --fz-table-hover-bg: #{rgba(colors.$gray-5, 0.4)};
+  --fz-table-stripe-bg: #{rgba(colors.$gray-5, 0.25)};
+  --fz-table-radius: #{map.get(modifiers.$corner-radii, 'subtle')};
+  --fz-table-font-size: #{sizes.$normal-font-size};
+  --fz-table-cell-padding: #{sizes.$normal-vertical-padding} #{sizes.$normal-horizontal-padding};
+
+  // Separate borders are required for rounded corners to work reliably.
+  display: table;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: var(--fz-table-font-size);
+  text-align: left;
+  border: 1px solid var(--fz-table-border-color);
+  border-radius: var(--fz-table-radius);
+  background-color: #{colors.$white};
+  color: #{colors.$gray-0};
+
+  caption {
+    caption-side: bottom;
+    padding: 8px 0 0;
+    text-align: left;
+    color: #{colors.$gray-2};
+    font-size: 0.9em;
+  }
+
+  th,
+  td {
+    padding: var(--fz-table-cell-padding);
+    // Solid line below every row ...
+    border-bottom: 1px solid var(--fz-table-border-color);
+    // ... and a sparse dotted line between columns drawn as a 1px-wide
+    // repeating background on the left edge. Using border-image would wipe out
+    // border-bottom on non-first columns because border-image governs all sides.
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--fz-table-column-color) 0,
+      var(--fz-table-column-color) 1px,
+      transparent 1px,
+      transparent var(--fz-table-dot-gap)
+    );
+    background-size: 1px 100%;
+    background-repeat: no-repeat;
+    background-position: left top;
+    vertical-align: middle;
+
+    &:first-child {
+      background-image: none;
+    }
+  }
+
+  th {
+    font-weight: 600;
+    background-color: var(--fz-table-header-bg);
+    color: var(--fz-table-header-color);
+  }
+
+  // The last row in the table has no bottom separator, the outer outline closes it.
+  // We scope to the table's last group (:last-child) so a lone header row in thead
+  // still retains its bottom separator before the body.
+  > tr:last-child > th,
+  > tr:last-child > td,
+  > :last-child > tr:last-child > th,
+  > :last-child > tr:last-child > td {
+    border-bottom: none;
+  }
+
+  // Round the corner cells so backgrounds follow the table outline.
+  $inner-radius: calc(var(--fz-table-radius) - 1px);
+
+  > :first-child > tr:first-child > :first-child {
+    border-top-left-radius: $inner-radius;
+  }
+  > :first-child > tr:first-child > :last-child {
+    border-top-right-radius: $inner-radius;
+  }
+  > :last-child > tr:last-child > :first-child {
+    border-bottom-left-radius: $inner-radius;
+  }
+  > :last-child > tr:last-child > :last-child {
+    border-bottom-right-radius: $inner-radius;
+  }
+
+  // Captions sit outside of the outline; don't treat them as first/last children.
+  > caption:first-child + :not(caption) > tr:first-child > :first-child {
+    border-top-left-radius: $inner-radius;
+  }
+  > caption:first-child + :not(caption) > tr:first-child > :last-child {
+    border-top-right-radius: $inner-radius;
+  }
+
+  // Corner radius modifiers
+  @each $modifier, $radius in $table-radii {
+    &--#{$modifier},
+    &.#{$modifier},
+    &[#{$modifier}],
+    &[corner="#{$modifier}"],
+    &[radius="#{$modifier}"] {
+      --fz-table-radius: #{$radius};
+      border-radius: #{$radius};
+    }
+  }
+
+  // Layer modifiers
+  @each $layer, $offset in modifiers.$layers {
+    &--layer-#{$layer},
+    &.layer-#{$layer},
+    &[layer="#{$layer}"],
+    &[layer-#{$layer}] {
+      box-shadow: #{modifiers.layer($layer)};
+    }
+  }
+
+  // Row modifiers
+  &--striped,
+  &.striped,
+  &[striped] {
+    tbody > tr:nth-child(even) > td {
+      background-color: var(--fz-table-stripe-bg);
+    }
+  }
+
+  &--hover,
+  &.hover,
+  &[hover] {
+    tbody > tr:hover > td {
+      background-color: var(--fz-table-hover-bg);
+    }
+  }
+
+  // Size modifiers
+  &--mini,
+  &.mini,
+  &[mini],
+  &[size="mini"] {
+    --fz-table-font-size: #{sizes.$mini-font-size};
+    --fz-table-cell-padding: #{sizes.$mini-vertical-padding} #{sizes.$mini-horizontal-padding};
+  }
+
+  &--small,
+  &.small,
+  &[small],
+  &[size="small"] {
+    --fz-table-font-size: #{sizes.$small-font-size};
+    --fz-table-cell-padding: #{sizes.$small-vertical-padding} #{sizes.$small-horizontal-padding};
+  }
+
+  &--large,
+  &.large,
+  &[large],
+  &[size="large"] {
+    --fz-table-font-size: #{sizes.$large-font-size};
+    --fz-table-cell-padding: #{sizes.$large-vertical-padding} #{sizes.$large-horizontal-padding};
+  }
+
+  &--mega,
+  &.mega,
+  &[mega],
+  &[size="mega"] {
+    --fz-table-font-size: #{sizes.$mega-font-size};
+    --fz-table-cell-padding: #{sizes.$mega-vertical-padding} #{sizes.$mega-horizontal-padding};
+  }
+
+  // Color modifiers: tint the outline, dotted lines and header
+  @each $color-name, $color-val in colors.$all-colors {
+    &--#{$color-name},
+    &.#{$color-name},
+    &[#{$color-name}],
+    &[color="#{$color-name}"] {
+      --fz-table-border-color: #{$color-val};
+      --fz-table-column-color: #{rgba($color-val, 0.6)};
+      --fz-table-header-bg: #{rgba($color-val, 0.15)};
+      --fz-table-header-color: #{color.adjust($color-val, $lightness: -20%)};
+      --fz-table-hover-bg: #{rgba($color-val, 0.08)};
+      --fz-table-stripe-bg: #{rgba($color-val, 0.06)};
+    }
+  }
+}

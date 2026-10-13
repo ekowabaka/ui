@@ -3,12 +3,25 @@ import sidebarStyle from './sidebar.scss'
 import sidebarItemStyle from './sidebaritem.scss'
 
 export class AppFrameComponent extends HTMLElement {
+    #toggle
+    #backdrop
+    #mediaQuery = window.matchMedia('(max-width: 600px)')
+
+    static get observedAttributes() {
+        return ['open']
+    }
+
     constructor() {
         super()
         this.attachShadow({ mode: 'open' }).innerHTML =
             `<style>${appFrameStyle}</style>
             <div id="wrapper">
                 <header>
+                    <button type="button" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                            <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                        </svg>
+                    </button>
                     <slot name="logo"></slot>
                     <slot name="search"></slot>
                     <slot name="topnav"></slot>
@@ -16,6 +29,7 @@ export class AppFrameComponent extends HTMLElement {
                 <aside>
                     <slot name="sidebar"></slot>
                 </aside>
+                <div class="backdrop"></div>
                 <main>
                     <slot></slot>
                 </main>
@@ -23,6 +37,46 @@ export class AppFrameComponent extends HTMLElement {
                     <slot name="footer"></slot>
                 </footer>
             </div>`
+
+        this.#toggle = this.shadowRoot.querySelector('.menu-toggle')
+        this.#backdrop = this.shadowRoot.querySelector('.backdrop')
+
+        this.#toggle.addEventListener('click', () => { this.open = !this.open })
+        this.#backdrop.addEventListener('click', () => { this.open = false })
+        this.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && this.open) {
+                this.open = false
+                this.#toggle.focus()
+            }
+        })
+    }
+
+    // Whether the off-canvas sidebar is open (only meaningful on narrow viewports).
+    get open() {
+        return this.hasAttribute('open')
+    }
+
+    set open(value) {
+        this.toggleAttribute('open', Boolean(value))
+    }
+
+    connectedCallback() {
+        this.#mediaQuery.addEventListener('change', this.#onViewportChange)
+    }
+
+    disconnectedCallback() {
+        this.#mediaQuery.removeEventListener('change', this.#onViewportChange)
+    }
+
+    attributeChangedCallback(name) {
+        if (name === 'open') {
+            this.#toggle.setAttribute('aria-expanded', String(this.open))
+        }
+    }
+
+    // Leaving the narrow layout always resets the drawer to closed.
+    #onViewportChange = () => {
+        this.open = false
     }
 }
 

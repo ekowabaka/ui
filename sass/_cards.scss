@@ -60,7 +60,7 @@ $image-positions: (
     'flex-direction': row,
     'order': 0,
     'width': var(--card-image-side-width, 40%),
-    'height': 100%,
+    'height': auto,
     'image-padding': var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em) var(--card-padding, 1.25em),
     'body-padding': var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-image-padding, var(--card-padding, 1.25em)),
   ),
@@ -68,7 +68,7 @@ $image-positions: (
     'flex-direction': row,
     'order': 2,
     'width': var(--card-image-side-width, 40%),
-    'height': 100%,
+    'height': auto,
     'image-padding': var(--card-padding, 1.25em) var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0,
     'body-padding': var(--card-padding, 1.25em) var(--card-image-padding, var(--card-padding, 1.25em)) var(--card-padding, 1.25em) var(--card-padding, 1.25em),
   ),
@@ -83,6 +83,7 @@ fz-card,
   --card-border-color: #{card-border-color(colors.$white)};
   --card-border: 0.5px solid #{card-border-color(colors.$white)};
   --card-box-shadow: #{modifiers.layer($default-layer)};
+  --card-border-radius: #{map.get(modifiers.$corner-radii, 'subtle')};
   --card-background-color: #{colors.$white};
   --card-title-color: #{card-title-color(colors.$white)};
   --card-body-color: #{card-body-color(colors.$white)};
@@ -91,7 +92,7 @@ fz-card,
   --card-image-width: 100%;
   --card-image-height: auto;
   --card-image-object-fit: cover;
-  --card-image-border-radius: var(--card-border-radius, 4px);
+  --card-image-border-radius: var(--card-border-radius);
   color: var(--card-body-color);
 
   // When card has no image, reset image padding and use standard card padding for body
@@ -269,12 +270,20 @@ fz-card,
 
   // BEM corner modifier loop: .fz-card--sharp, .fz-card--subtle, etc. (classes + attributes)
   @each $modifier, $radius in modifiers.$corner-radii {
-    &--#{$modifier},
-    &.#{$modifier},
-    &[#{$modifier}],
-    &[corner="#{$modifier}"],
-    &[radius="#{$modifier}"] {
-      --card-border-radius: #{$radius};
+    // @at-root avoids generating the invalid `fz-card--sharp` element selector
+    @at-root {
+      .fz-card--#{$modifier},
+      .fz-card.#{$modifier},
+      .fz-card[#{$modifier}],
+      .fz-card[corner="#{$modifier}"],
+      .fz-card[radius="#{$modifier}"],
+      fz-card.fz-card--#{$modifier},
+      fz-card.#{$modifier},
+      fz-card[#{$modifier}],
+      fz-card[corner="#{$modifier}"],
+      fz-card[radius="#{$modifier}"] {
+        --card-border-radius: #{$radius};
+      }
     }
   }
 

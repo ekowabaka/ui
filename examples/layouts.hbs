@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fahodzi UI - Layouts</title>
+        <link rel="stylesheet" href="fzui.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+        <link rel="stylesheet" href="assets/index.css" />
+        <style>
+            html, body { height: 100%; margin: 0; padding: 0; }
+            /* The frame fills the viewport so the responsive breakpoints can be seen by resizing the window. */
+            fz-app-frame { width: 100vw; height: 100vh; }
+        </style>
+        <script src="fzui.js"></script>
+        <script>fzui.initialize();</script>
+    </head>
+    <body>
+        <fz-app-frame>
+            <fz-avatar slot="topnav" size="small">
+                <img slot="image" src="assets/avatar.jpg" alt="User Avatar">
+                <span slot="name">John Doe</span>
+            </fz-avatar>
+            <div slot="search" style="text-align:center">
+                <input placeholder="Search..." size="small"></input>
+            </div>
+            <span slot="logo">My App</span>
+            <fz-sidebar slot="sidebar" color="green">
+                <fz-sidebar-item selected><span slot="icon" class="material-symbols-outlined">dashboard</span>Dashboard</fz-sidebar-item>
+                <fz-sidebar-item>
+                    <span slot="icon" class="material-symbols-outlined">folder</span>Settings
+                    <fz-sidebar>
+                        <fz-sidebar-item><span slot="icon" class="material-symbols-outlined">settings</span>General</fz-sidebar-item>
+                        <fz-sidebar-item><span slot="icon" class="material-symbols-outlined">shield</span>Security</fz-sidebar-item>
+                    </fz-sidebar>
+                </fz-sidebar-item>
+                <fz-sidebar-item><span slot="icon" class="material-symbols-outlined">person</span>Profile</fz-sidebar-item>
+            </fz-sidebar>
+            <div style="padding: 10px">
+                <h3>Dashboard</h3>
+                <p>This content is placed in the default slot.</p>
+            </div>
+        </fz-app-frame>
+    </body>
+</html>

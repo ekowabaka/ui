@@ -8,10 +8,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const examplesDir = path.resolve(__dirname, 'examples');
 
+// Templates compiled into standalone pages (all other .hbs files are partials).
+const pageTemplates = ['index.hbs', 'layouts.hbs', 'forms.hbs'];
+
 function registerHandlebarsPartials(dir) {
   const files = fs.readdirSync(dir);
   for (const file of files) {
-    if (file.endsWith('.hbs') && file !== 'index.hbs') {
+    if (file.endsWith('.hbs') && !pageTemplates.includes(file)) {
       const name = path.basename(file, '.hbs');
       const content = fs.readFileSync(path.join(dir, file), 'utf8');
       Handlebars.registerPartial(name, content);
@@ -28,6 +31,15 @@ class WatchExamplesPlugin {
   }
 }
 
+function compilePage(content) {
+  const dataPath = path.resolve(examplesDir, 'index.json');
+  const data = fs.existsSync(dataPath)
+    ? JSON.parse(fs.readFileSync(dataPath, 'utf8'))
+    : {};
+  registerHandlebarsPartials(examplesDir);
+  return Handlebars.compile(content.toString())(data);
+}
+
 export default {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: {},
@@ -39,20 +51,11 @@ export default {
     new WatchExamplesPlugin(),
     new CopyPlugin({
       patterns: [
-        {
-          from: path.resolve(examplesDir, 'index.hbs'),
-          to: 'index.html',
-          transform(content) {
-            const templateStr = content.toString();
-            const dataPath = path.resolve(examplesDir, 'index.json');
-            const data = fs.existsSync(dataPath)
-              ? JSON.parse(fs.readFileSync(dataPath, 'utf8'))
-              : {};
-            registerHandlebarsPartials(examplesDir);
-            const compiled = Handlebars.compile(templateStr);
-            return compiled(data);
-          },
-        },
+        ...pageTemplates.map((file) => ({
+          from: path.resolve(examplesDir, file),
+          to: path.basename(file, '.hbs') + '.html',
+          transform: compilePage,
+        })),
         { from: path.resolve(examplesDir, 'assets'), to: 'assets' },
       ],
     }),

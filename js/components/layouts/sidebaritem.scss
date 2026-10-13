@@ -114,3 +114,62 @@
     display: none !important;
   }
 }
+
+// Compact (icon-only) mode for medium viewports: hide the label and caret,
+// centre the icon and make it slightly larger. Below this range the sidebar
+// becomes an off-canvas drawer in the app frame and shows full items again.
+//
+// Label width, opacity and icon size are transitioned so the change from full
+// to compact is gradual rather than a sudden jump.
+.sidebar-item {
+  transition: gap 0.25s ease, padding 0.25s ease;
+
+  slot:not([name]) {
+    max-width: 240px;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 1;
+    transition: max-width 0.25s ease, opacity 0.15s ease, padding 0.25s ease;
+  }
+
+  ::slotted([slot="icon"]) {
+    transition: font-size 0.25s ease;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .sidebar-item {
+    justify-content: center;
+    gap: 0;
+
+    slot:not([name]) {
+      max-width: 0;
+      opacity: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    // !important is required to beat font-size set by document-level icon
+    // font classes (e.g. .material-symbols-outlined), which otherwise win
+    // over ::slotted() rules.
+    ::slotted([slot="icon"]) {
+      font-size: var(--fz-sidebar-item-compact-icon-size, 28px) !important;
+    }
+  }
+
+  :host([has-children]) .sidebar-item__caret {
+    display: none;
+  }
+
+  .sidebar-item__children {
+    padding-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-item,
+  .sidebar-item slot:not([name]),
+  .sidebar-item ::slotted([slot="icon"]) {
+    transition: none;
+  }
+}

@@ -141,8 +141,10 @@
     const selectors = [
       '.buttons > button',
       '.buttons > .button',
+      '.tables > table',
       'section.cards > fz-card',
       'section.cards > .fz-card',
+      'section.component > div > fz-avatar',
       '.variant > div > fz-dropdown',
       '.variant > div > .fz-dropdown',
       '.variant > div > .dropdown',

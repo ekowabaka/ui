@@ -39,15 +39,27 @@ div.contents {
     }
 }
 
-// BEM Layer Modifiers on :host
+// BEM corner modifiers on :host (classes + attributes).
+// These set the same custom properties the global stylesheet sets, so the
+// component still honours them when the global CSS is not loaded.
+@each $modifier, $radius in modifiers.$corner-radii {
+    :host(.fz-dropdown--#{$modifier}),
+    :host(.dropdown--#{$modifier}),
+    :host(.#{$modifier}),
+    :host([#{$modifier}]),
+    :host([corner="#{$modifier}"]),
+    :host([radius="#{$modifier}"]) {
+        --dropdown-contents-border-radius: #{$radius};
+    }
+}
+
+// BEM layer (shadow) modifiers on :host (classes + attributes)
 @each $layer, $offset in modifiers.$layers {
-    :host([layer="#{$layer}"]),
-    :host([layer-#{$layer}]),
-    :host(.layer-#{$layer}),
     :host(.fz-dropdown--layer-#{$layer}),
-    :host(.dropdown--layer-#{$layer}) {
-        div.contents {
-            box-shadow: var(--dropdown-contents-box-shadow, #{modifiers.layer($layer)});
-        }
+    :host(.dropdown--layer-#{$layer}),
+    :host(.layer-#{$layer}),
+    :host([layer="#{$layer}"]),
+    :host([layer-#{$layer}]) {
+        --dropdown-contents-box-shadow: #{modifiers.layer($layer)};
     }
 }

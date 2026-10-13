@@ -14,6 +14,48 @@
     "header header"
     "sidebar main"
     "footer footer";
+  // Positioned so the off-canvas sidebar can be placed within the grid area.
+  position: relative;
+  transition: grid-template-columns 0.25s ease;
+
+  // Medium viewports: shrink the sidebar column to fit icon-only items.
+  @media (max-width: 1024px) {
+    grid-template-columns: var(--fz-app-frame-sidebar-collapsed-width, 64px) minmax(0, 1fr);
+  }
+
+  // Small viewports: a single column with the sidebar as an off-canvas drawer.
+  @media (max-width: 600px) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+  }
+}
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+  padding: 4px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  @media (max-width: 600px) {
+    display: inline-flex;
+  }
+}
+
+.backdrop {
+  display: none;
 }
 
 header {
@@ -39,6 +81,61 @@ aside {
   grid-area: sidebar;
   min-width: 0;
   overflow-y: auto;
+  overflow-x: hidden;
+
+  @media (max-width: 600px) {
+    // Placed over the main area; absolutely positioned items use the grid area
+    // as their containing block, so the drawer sits below the header.
+    grid-area: main;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    width: var(--fz-app-frame-drawer-width, 280px);
+    max-width: 85%;
+    background: var(--fz-app-frame-drawer-bg, #fff);
+    transform: translateX(-100%);
+    visibility: hidden;
+    // Delay hiding until the slide-out has finished.
+    transition: transform 0.25s ease, visibility 0s linear 0.25s, box-shadow 0.25s ease;
+  }
+}
+
+:host([open]) aside {
+  @media (max-width: 600px) {
+    transform: translateX(0);
+    visibility: visible;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, visibility 0s, box-shadow 0.25s ease;
+  }
+}
+
+@media (max-width: 600px) {
+  .backdrop {
+    display: block;
+    grid-area: main;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  :host([open]) .backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #wrapper,
+  aside,
+  .backdrop {
+    transition: none !important;
+  }
 }
 
 main {

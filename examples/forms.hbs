@@ -1,3 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fahodzi UI - Forms</title>
+        <link rel="stylesheet" href="fzui.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+        <link rel="stylesheet" href="assets/index.css" />
+        <style>
+            /* No inspector panel on this page: center a single column limited to 800px. */
+            body > article {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            /* Forms are stacked, never side by side. */
+            body > article .component {
+                display: block;
+            }
+            body > article .component > div.variant {
+                width: 100%;
+                display: block;
+            }
+        </style>
+        <script src="fzui.js"></script>
+        <script>fzui.initialize();</script>
+    </head>
+    <body>
+        <article>
+            <header>
+                <h1>Fahodzi UI</h1>
+            </header>
+            <p><a href="index.html">&larr; Back to the component examples</a></p>
 <div class="component-header">
     <h2>Forms</h2>
     <p>Forms are used to collect user input and submit data to a server.</p>
@@ -5,7 +38,7 @@
 
 <section class="component">
     {{#form-layouts}}
-    <div class="variant half">
+    <div class="variant">
         <h3>{{title}}</h3>
         <form class="{{class}}">
             <div class="form-element">
@@ -142,3 +175,6 @@
     </div>
     {{/form-layouts}}
 </section>
+        </article>
+    </body>
+</html>

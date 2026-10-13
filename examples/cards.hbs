@@ -61,6 +61,28 @@
     </div>
 
     <div class="variant">
+        <h3>Corners (via corner="..." &amp; [sharp|subtle|curved|circle])</h3>
+        <section class="cards">
+            <fz-card sharp>
+                <span slot="title">Sharp (sharp)</span>
+                <div>Square corners with a 0px radius.</div>
+            </fz-card>
+            <fz-card corner="subtle">
+                <span slot="title">Subtle (corner="subtle")</span>
+                <div>Slightly rounded corners (default).</div>
+            </fz-card>
+            <fz-card curved>
+                <span slot="title">Curved (curved)</span>
+                <div>Noticeably rounded corners.</div>
+            </fz-card>
+            <fz-card class="fz-card--curved">
+                <span slot="title">Curved (class)</span>
+                <div>Applied through the BEM class modifier.</div>
+            </fz-card>
+        </section>
+    </div>
+
+    <div class="variant">
         <h3>Content Cards</h3>
         <section class="cards">
             <fz-card>
