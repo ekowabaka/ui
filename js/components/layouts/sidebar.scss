@@ -1,0 +1,9 @@
+@use "sidebar-colors";
+
+#sidebar {
+  width: 100%
+}
+
+// BEM colour modifiers on the whole sidebar: .fz-sidebar--red, .red, [red], [color="red"], etc.
+// The colour custom properties inherit into every slotted fz-sidebar-item.
+@include sidebar-colors.sidebar-color-modifiers('fz-sidebar');

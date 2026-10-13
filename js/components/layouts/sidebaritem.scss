@@ -1,0 +1,116 @@
+@use "sass:color";
+@use "../../../sass/sizes" as sizes;
+@use "../../../sass/colors";
+@use "sidebar-colors";
+
+:host {
+  display: block;
+  box-sizing: border-box;
+}
+
+// Hover tint (declared before the selected rule so selection wins).
+.sidebar-item:hover {
+  background-color: var(--fz-sidebar-item-hover-bg, #{sidebar-colors.hover-bg(colors.$blue)});
+  color: var(--fz-sidebar-item-hover-color, #{colors.$black});
+  border-radius: var(--fz-sidebar-item-selected-radius, 5px);
+}
+
+:host([selected]) .sidebar-item {
+  background-color: var(--fz-sidebar-item-selected-bg, #{sidebar-colors.selected-bg(colors.$blue)});
+  color: var(--fz-sidebar-item-selected-color, #{colors.$blue});
+  border-radius: var(--fz-sidebar-item-selected-radius, 5px);
+  font-weight: var(--fz-sidebar-item-selected-font-weight, 600);
+}
+
+// BEM colour modifiers: .fz-sidebar-item--red, .red, [red], [color="red"], etc.
+@include sidebar-colors.sidebar-color-modifiers('fz-sidebar-item');
+
+.sidebar-item__children {
+  display: none;
+  padding-left: var(--fz-sidebar-item-children-indent, 16px);
+}
+
+:host([expanded]) .sidebar-item__children {
+  display: block;
+}
+
+.sidebar-item__caret {
+  display: none;
+  margin-left: auto;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 5px solid currentColor;
+  transition: transform 0.15s ease;
+}
+
+:host([has-children]) .sidebar-item {
+  cursor: pointer;
+  user-select: none;
+}
+
+:host([has-children]) .sidebar-item__caret {
+  display: inline-block;
+}
+
+:host([expanded]) .sidebar-item__caret {
+  transform: rotate(90deg);
+}
+
+.sidebar-item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  gap: 5px;
+  margin: var(--fz-sidebar-item-margin, 2px 6px);
+  padding: var(--fz-sidebar-item-padding, #{sizes.$normal-vertical-padding} #{sizes.$normal-horizontal-padding});
+
+  slot[name="icon"],
+  .sidebar-item__icon,
+  .sidebar-item-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+
+    &::slotted(*) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+    }
+  }
+
+  slot:not([name]),
+  .sidebar-item-label,
+  .sidebar-item__label,
+  label {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    padding: var(--fz-sidebar-item-label-padding, #{sizes.$mini-vertical-padding} #{sizes.$mini-horizontal-padding});
+
+    &::slotted(*) {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+    }
+  }
+
+  ::slotted(span:not([slot="icon"])),
+  ::slotted(label),
+  ::slotted(.sidebar-item-label),
+  ::slotted(.label) {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    padding: var(--fz-sidebar-item-label-padding, #{sizes.$mini-vertical-padding} #{sizes.$mini-horizontal-padding});
+  }
+
+  ::slotted(fz-sidebar),
+  ::slotted(.sidebar) {
+    display: none !important;
+  }
+}

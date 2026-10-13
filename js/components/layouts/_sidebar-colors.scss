@@ -1,0 +1,42 @@
+@use "sass:color";
+@use "../../../sass/colors";
+
+// Tint strengths (percentage of the base colour mixed into white).
+$selected-tint: 18% !default;
+$hover-tint: 8% !default;
+
+@function selected-bg($val) {
+  @return color.mix($val, #ffffff, $selected-tint);
+}
+
+@function hover-bg($val) {
+  @return color.mix($val, #ffffff, $hover-tint);
+}
+
+@function selected-color($val) {
+  @return darken($val, 20%);
+}
+
+// Sets the sidebar item colour custom properties for a given colour.
+// Custom properties inherit, so applying this to a host also colours any
+// nested sidebar items unless they declare their own colour.
+@mixin sidebar-item-color($val) {
+  --fz-sidebar-item-selected-bg: #{selected-bg($val)};
+  --fz-sidebar-item-selected-color: #{$val};
+  --fz-sidebar-item-hover-bg: #{hover-bg($val)};
+  --fz-sidebar-item-hover-color: #{colors.$black};
+}
+
+// BEM colour modifier loop for a component host:
+// .<block>--red, .red, [red], [color="red"] (classes + attributes)
+@mixin sidebar-color-modifiers($block) {
+  @each $color-name, $color-val in colors.$all-colors {
+    :host(.#{$block}--#{$color-name}),
+    :host(.#{$color-name}),
+    :host([#{$color-name}]),
+    :host([color="#{$color-name}"]) {
+      @include sidebar-item-color($color-val);
+    }
+  }
+}
+
