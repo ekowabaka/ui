@@ -12,6 +12,7 @@
         "javascript"
     ],
     "homepage": "https://github.com/ekowabaka/ui",
+    "readme": "README.md",
     "license": "MIT",
     "authors": [
         {

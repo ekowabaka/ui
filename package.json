@@ -1,8 +1,24 @@
 {
   "name": "@ekowabaka/ui",
-  "version": "0.1.0",
-  "description": "Fahodzi UI Library",
+  "version": "0.2.0",
+  "description": "Fahodzi UI component and styling library",
   "type": "module",
+  "main": "dist/fzui.js",
+  "module": "dist/fzui.js",
+  "style": "dist/fzui.css",
+  "files": [
+    "dist",
+    "js",
+    "sass"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/fzui.js",
+      "default": "./dist/fzui.js"
+    },
+    "./css": "./dist/fzui.css",
+    "./sass/*": "./sass/*"
+  },
   "scripts": {
     "build": "webpack",
     "build:examples": "webpack --config webpack-example.config.js",
@@ -12,14 +28,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ekowabaka/fzui.git"
+    "url": "git+https://github.com/ekowabaka/ui.git"
   },
-  "author": "James Ekow Ainooson",
+  "keywords": [
+    "ui",
+    "fahodzi",
+    "web-components",
+    "components",
+    "frontend",
+    "css",
+    "sass",
+    "javascript"
+  ],
+  "author": "James Ekow Abaka Ainooson <jainooson@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ekowabaka/fzui/issues"
+    "url": "https://github.com/ekowabaka/ui/issues"
   },
-  "homepage": "https://github.com/ekowabaka/fzui#readme",
+  "homepage": "https://github.com/ekowabaka/ui#readme",
   "devDependencies": {
     "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^7.1.5",
