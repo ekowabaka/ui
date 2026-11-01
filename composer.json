@@ -1,12 +1,34 @@
 {
     "name": "fahodzi/ui",
-    "description": "UI Library",
+    "description": "Fahodzi UI component and styling library",
+    "type": "library",
+    "keywords": [
+        "ui",
+        "fahodzi",
+        "components",
+        "frontend",
+        "css",
+        "scss",
+        "javascript"
+    ],
+    "homepage": "https://github.com/ekowabaka/ui",
     "license": "MIT",
     "authors": [
         {
-            "name": "Ekow Abaka Ainooson",
-            "email": "jainooson@gmail.com"
+            "name": "James Ekow Abaka Ainooson",
+            "email": "jainooson@gmail.com",
+            "homepage": "https://github.com/ekowabaka",
+            "role": "Lead Developer"
         }
     ],
-    "require": {}
+    "support": {
+        "issues": "https://github.com/ekowabaka/ui/issues",
+        "source": "https://github.com/ekowabaka/ui"
+    },
+    "require": {},
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
 }
