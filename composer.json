@@ -1,5 +1,5 @@
 {
-    "name": "fahodzi/ui",
+    "name": "ekowabaka/ui",
     "description": "Fahodzi UI component and styling library",
     "type": "library",
     "keywords": [
@@ -9,7 +9,10 @@
         "frontend",
         "css",
         "scss",
-        "javascript"
+        "javascript",
+        "web-components",
+        "custom-elements",
+        "design-system"
     ],
     "homepage": "https://github.com/ekowabaka/ui",
     "readme": "README.md",
@@ -24,12 +27,36 @@
     ],
     "support": {
         "issues": "https://github.com/ekowabaka/ui/issues",
-        "source": "https://github.com/ekowabaka/ui"
+        "source": "https://github.com/ekowabaka/ui",
+        "docs": "https://github.com/ekowabaka/ui#readme"
+    },
+    "replace": {
+        "fahodzi/ui": "self.version",
+        "ekowabaka/fzui": "self.version"
     },
     "require": {},
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.2.x-dev"
+        }
+    },
+    "scripts": {
+        "build": "npm run build",
+        "build:examples": "npm run build:examples",
+        "build:all": "npm run build:all"
+    },
+    "archive": {
+        "exclude": [
+            "/.*",
+            "/examples",
+            "/node_modules",
+            "webpack*.config.js"
+        ]
     }
 }

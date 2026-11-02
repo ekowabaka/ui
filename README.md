@@ -13,7 +13,7 @@ npm install @ekowabaka/ui
 ### Via Composer
 
 ```bash
-composer require fahodzi/ui
+composer require ekowabaka/ui
 ```
 
 ---
