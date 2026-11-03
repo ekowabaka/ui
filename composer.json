@@ -54,6 +54,7 @@
     "archive": {
         "exclude": [
             "/.*",
+            "/demo",
             "/examples",
             "/node_modules",
             "webpack*.config.js"

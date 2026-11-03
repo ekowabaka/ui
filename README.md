@@ -101,13 +101,13 @@ To import individual SCSS files:
 ## Development
 
 ```bash
-# Build production bundles (dist/fzui.js, dist/fzui.css)
+# Build production bundles (dist/fzui.js, dist/fzui.min.js, dist/fzui.css, dist/fzui.min.css)
 npm run build
 
-# Build example pages (dist/*.html)
+# Build demo pages (demo/*.html)
 npm run build:examples
 
-# Build both bundles and examples
+# Build both bundles and demo
 npm run build:all
 
 # Watch mode during development

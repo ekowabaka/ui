@@ -44,8 +44,8 @@ export default {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: {},
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    clean: false,
+    path: path.resolve(__dirname, 'demo'),
+    clean: true,
   },
   plugins: [
     new WatchExamplesPlugin(),
