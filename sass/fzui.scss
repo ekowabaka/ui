@@ -1,8 +1,7 @@
-@use "colors";
-@use "typography";
-@use "menus";
-@use "forms";
-@use "buttons";
-@use "cards";
-@use "dropdowns";
-@use "tables";
+@use "core.scss";
+@use "_menus.scss";
+@use "_forms.scss";
+@use "_buttons.scss";
+@use "_cards.scss";
+@use "_dropdowns.scss";
+@use "_tables.scss";

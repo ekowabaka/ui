@@ -55,10 +55,45 @@ $normal-font-size: 14px;
 $normal-vertical-padding: 7px;
 $normal-horizontal-padding: 15px;
 
-$large-font-size: 14px;
+$large-font-size: 16px;
 $large-vertical-padding: 10px;
 $large-horizontal-padding: 18px;
 
-$mega-font-size: 16px;
+$mega-font-size: 18px;
 $mega-vertical-padding: 12px;
 $mega-horizontal-padding: 24px;
+
+$normal-label-font-size: 14px;
+$large-label-font-size: 16px;
+$mega-label-font-size: 18px;
+
+$normal-legend-font-size: 16px;
+$large-legend-font-size: 18px;
+$mega-legend-font-size: 22px;
+
+$normal-fieldset-padding: 10px 12px;
+$large-fieldset-padding: 12px 16px;
+$mega-fieldset-padding: 14px 20px;
+
+$normal-fieldset-padding-top: 52px;
+$large-fieldset-padding-top: 60px;
+$mega-fieldset-padding-top: 70px;
+
+$normal-help-font-size: 12px;
+$large-help-font-size: 14px;
+$mega-help-font-size: 16px;
+
+$normal-input-vertical-padding: $normal-vertical-padding - 1px;
+$normal-input-horizontal-padding: 8px;
+
+$large-input-vertical-padding: $large-vertical-padding - 1px;
+$large-input-horizontal-padding: 10px;
+
+$mega-input-vertical-padding: $mega-vertical-padding - 1px;
+$mega-input-horizontal-padding: 12px;
+
+$normal-control-height: 34px;
+$large-control-height: 42px;
+$mega-control-height: 48px;
+
+

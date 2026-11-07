@@ -81,13 +81,22 @@ $all-colors: (
   'white':        $white,
 );
 
-// Background and Foreground color utility classes
-@each $name, $val in $all-colors {
-  .bg-#{$name} {
-    background-color: $val;
+@mixin color-utilities {
+  // CSS Custom Properties for all palette colors
+  :root {
+    @each $name, $val in $all-colors {
+      --fz-color-#{$name}: #{$val};
+    }
   }
 
-  .fg-#{$name} {
-    color: $val;
+  // Background and Foreground color utility classes
+  @each $name, $val in $all-colors {
+    .bg-#{$name} {
+      background-color: var(--fz-color-#{$name}, #{$val});
+    }
+
+    .fg-#{$name} {
+      color: var(--fz-color-#{$name}, #{$val});
+    }
   }
 }

@@ -24,7 +24,6 @@ $hover-tint: 8% !default;
   --fz-sidebar-item-selected-bg: #{selected-bg($val)};
   --fz-sidebar-item-selected-color: #{$val};
   --fz-sidebar-item-hover-bg: #{hover-bg($val)};
-  --fz-sidebar-item-hover-color: #{colors.$black};
 }
 
 // BEM colour modifier loop for a component host:

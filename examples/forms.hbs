@@ -8,18 +8,69 @@
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
         <link rel="stylesheet" href="assets/index.css" />
         <style>
-            /* No inspector panel on this page: center a single column limited to 800px. */
+            /* No inspector panel on this page: center up to two columns. */
+            body {
+                padding-right: 0;
+            }
             body > article {
-                max-width: 800px;
+                max-width: 1600px;
                 margin: 0 auto;
+                padding: 0 2em 4em;
             }
-            /* Forms are stacked, never side by side. */
-            body > article .component {
-                display: block;
-            }
-            body > article .component > div.variant {
+            body > article .component.forms-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0;
                 width: 100%;
-                display: block;
+                max-width: 100%;
+                padding: 0;
+                border-bottom: none;
+            }
+            .forms-column {
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .forms-column:first-child {
+                border-right: 1px solid #e2e8f0;
+                padding-right: 3.5em;
+            }
+            .forms-column:last-child {
+                padding-left: 3.5em;
+            }
+            .forms-column .group-header {
+                margin-bottom: 2em;
+                padding-bottom: 0.75em;
+                border-bottom: 2px solid #0f172a;
+            }
+            .forms-column .group-header h2 {
+                margin: 0;
+                font-size: 1.5em;
+                color: #0f172a;
+            }
+            .forms-column .variant {
+                width: 100%;
+                margin-bottom: 4em;
+            }
+            .forms-column .variant:last-child {
+                margin-bottom: 0;
+            }
+            @media (max-width: 1200px) {
+                body > article {
+                    max-width: 800px;
+                }
+                body > article .component.forms-container {
+                    grid-template-columns: 1fr;
+                }
+                .forms-column:first-child {
+                    border-right: none;
+                    border-bottom: 1px solid #e2e8f0;
+                    padding-right: 0;
+                    padding-bottom: 3.5em;
+                    margin-bottom: 3.5em;
+                }
+                .forms-column:last-child {
+                    padding-left: 0;
+                }
             }
         </style>
         <script src="../dist/fzui.js"></script>
@@ -36,144 +87,151 @@
     <p>Forms are used to collect user input and submit data to a server.</p>
 </div>
 
-<section class="component">
-    {{#form-layouts}}
-    <div class="variant">
-        <h3>{{title}}</h3>
-        <form class="{{class}}">
-            <div class="form-element">
-                <label>Text</label>
-                <input type="text" name="username" />
-                <span>A sample text field. Trying to make this description field so long it might try to wrap.</span>
-            </div>
-
-            <div class="form-element">
-                <label>Password</label>
-                <input type="password" name="username" />
-                <ul>
-                    <li>Passwords must contain numbers and letters</li>
-                    <li>Choose a strong password</li>
-                    <li>Do not use your phone number or date of birth</li>
-                </ul>
-            </div>
-
-            <div class="form-element">
-                <label>Selection</label>
-                <select>
-                    <option></option>
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                </select>
-            </div>
-
-            <div class="form-element form-error">
-                <label>Error</label>
-                <input type="text" name="error" />
-                <ul>
-                    <li>Password fails all the password rules.</li>
-                    <li>Can you try a different password.</li>
-                </ul>
-                <span>An errored field</span>
-            </div>
-
-            <div class="form-element form-warning">
-                <label>Warning</label>
-                <input type="text" name="warning" />
-                <ul>
-                    <li>A warning.</li>
-                    <li>What do you have to say?</li>
-                </ul>
-            </div>
-
-            <div class="form-element form-success">
-                <label>Success</label>
-                <input type="text" name="success" />
-                <ul>
-                    <li>Seems everything worked well</li>
-                </ul>
-            </div>
-            <div class="form-element">
-                <label>Residential Area</label>
-                <textarea name="residential">Some content please?</textarea>
-            </div>
-
-
-            <fieldset>
-                <legend>Personal Information</legend>
+<section class="component forms-container">
+    {{#form-groups}}
+    <div class="forms-column">
+        <div class="group-header">
+            <h2>{{group-title}}</h2>
+        </div>
+        {{#layouts}}
+        <div class="variant">
+            <h3>{{title}}</h3>
+            <form class="{{class}}">
                 <div class="form-element">
-                    <label>Firstname</label>
-                    <input type="text" name="firstname" />
-                    <span>A sample text field</span>
+                    <label>Text</label>
+                    <input type="text" name="username" />
+                    <span>A sample text field. Trying to make this description field so long it might try to wrap.</span>
                 </div>
+
                 <div class="form-element">
-                    <label>Lastname</label>
-                    <input type="text" name="lastname" />
-                    <span>A sample text field</span>
-                </div>
-                <div class="form-element">
-                    <label>Food?</label>
-                    <div class="check-group">
-                        <label><input type="radio" name="hey" /> Burgers and Chips</label>
-                        <label><input type="radio" name="hey" /> Pizza and Coke</label>
-                        <label><input type="radio" name="hey" /> Tacos</label>
-                    </div>
-                </div>
-                <div class="form-element">
-                    <label for="check_1_{{class}}">Take Out?</label><input type="checkbox" name="check_1" id="check_1_{{class}}" />
-                </div>
-                <div class="form-element">
-                    <label>Custom Input Wrapper</label>
-                    <div class="input-wrapper">
-                        Some generic html inputs can be put inside this wrapper
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>Multiple Elements</legend>
-                <div class="form-element elements-inline">
-                    <label>Bank</label>
-                    <select>
-                        <option>Bank 1</option>
-                        <option>Bank 2</option>
-                        <option>Bank 3</option>
-                    </select>
-                    <label>Branch</label>
-                    <select>
-                        <option>Branch 1</option>
-                        <option>Branch 2</option>
-                        <option>Branch 3</option>
-                    </select>
-                    <label>Number</label>
-                    <input type='text' />
-                </div>
-                <div class="form-element elements-inline form-error">
-                    <label>Bank</label>
-                    <select>
-                        <option>Bank 1</option>
-                        <option>Bank 2</option>
-                        <option>Bank 3</option>
-                    </select>
-                    <label>Branch</label>
-                    <select>
-                        <option>Branch 1</option>
-                        <option>Branch 2</option>
-                        <option>Branch 3</option>
-                    </select>
-                    <label>Number</label>
-                    <input type='text' />
+                    <label>Password</label>
+                    <input type="password" name="username" />
                     <ul>
-                        <li>Ooops! something went wrong</li>
+                        <li>Passwords must contain numbers and letters</li>
+                        <li>Choose a strong password</li>
+                        <li>Do not use your phone number or date of birth</li>
                     </ul>
                 </div>
-            </fieldset>
-            <div class="form-submit-area">
-                <input type="submit" />
-            </div>
 
-        </form>
+                <div class="form-element">
+                    <label>Selection</label>
+                    <select>
+                        <option></option>
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+
+                <div class="form-element form-error">
+                    <label>Error</label>
+                    <input type="text" name="error" />
+                    <ul>
+                        <li>Password fails all the password rules.</li>
+                        <li>Can you try a different password.</li>
+                    </ul>
+                    <span>An errored field</span>
+                </div>
+
+                <div class="form-element form-warning">
+                    <label>Warning</label>
+                    <input type="text" name="warning" />
+                    <ul>
+                        <li>A warning.</li>
+                        <li>What do you have to say?</li>
+                    </ul>
+                </div>
+
+                <div class="form-element form-success">
+                    <label>Success</label>
+                    <input type="text" name="success" />
+                    <ul>
+                        <li>Seems everything worked well</li>
+                    </ul>
+                </div>
+                <div class="form-element">
+                    <label>Residential Area</label>
+                    <textarea name="residential">Some content please?</textarea>
+                </div>
+
+
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    <div class="form-element">
+                        <label>Firstname</label>
+                        <input type="text" name="firstname" />
+                        <span>A sample text field</span>
+                    </div>
+                    <div class="form-element">
+                        <label>Lastname</label>
+                        <input type="text" name="lastname" />
+                        <span>A sample text field</span>
+                    </div>
+                    <div class="form-element">
+                        <label>Food?</label>
+                        <div class="check-group">
+                            <label><input type="radio" name="hey" /> Burgers and Chips</label>
+                            <label><input type="radio" name="hey" /> Pizza and Coke</label>
+                            <label><input type="radio" name="hey" /> Tacos</label>
+                        </div>
+                    </div>
+                    <div class="form-element">
+                        <label for="check_1_{{id}}">Take Out?</label><input type="checkbox" name="check_1" id="check_1_{{id}}" />
+                    </div>
+                    <div class="form-element">
+                        <label>Custom Input Wrapper</label>
+                        <div class="input-wrapper">
+                            Some generic html inputs can be put inside this wrapper
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Multiple Elements</legend>
+                    <div class="form-element elements-inline">
+                        <label>Bank</label>
+                        <select>
+                            <option>Bank 1</option>
+                            <option>Bank 2</option>
+                            <option>Bank 3</option>
+                        </select>
+                        <label>Branch</label>
+                        <select>
+                            <option>Branch 1</option>
+                            <option>Branch 2</option>
+                            <option>Branch 3</option>
+                        </select>
+                        <label>Number</label>
+                        <input type='text' />
+                    </div>
+                    <div class="form-element elements-inline form-error">
+                        <label>Bank</label>
+                        <select>
+                            <option>Bank 1</option>
+                            <option>Bank 2</option>
+                            <option>Bank 3</option>
+                        </select>
+                        <label>Branch</label>
+                        <select>
+                            <option>Branch 1</option>
+                            <option>Branch 2</option>
+                            <option>Branch 3</option>
+                        </select>
+                        <label>Number</label>
+                        <input type='text' />
+                        <ul>
+                            <li>Ooops! something went wrong</li>
+                        </ul>
+                    </div>
+                </fieldset>
+                <div class="form-submit-area">
+                    <input type="submit" />
+                </div>
+
+            </form>
+        </div>
+        {{/layouts}}
     </div>
-    {{/form-layouts}}
+    {{/form-groups}}
 </section>
         </article>
     </body>

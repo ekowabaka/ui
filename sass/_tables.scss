@@ -16,8 +16,7 @@
 
 $table-radii: map.remove(modifiers.$corner-radii, 'circle');
 
-table.fz-table,
-.fz-table {
+:is(table.fz-table, .fz-table) {
   --fz-table-border-color: #{colors.$gray-4};
   --fz-table-column-color: #{colors.$gray-4};
   --fz-table-dot-gap: 6px;
@@ -84,10 +83,8 @@ table.fz-table,
   // The last row in the table has no bottom separator, the outer outline closes it.
   // We scope to the table's last group (:last-child) so a lone header row in thead
   // still retains its bottom separator before the body.
-  > tr:last-child > th,
-  > tr:last-child > td,
-  > :last-child > tr:last-child > th,
-  > :last-child > tr:last-child > td {
+  > tr:last-child > :is(th, td),
+  > :last-child > tr:last-child > :is(th, td) {
     border-bottom: none;
   }
 
@@ -117,82 +114,55 @@ table.fz-table,
 
   // Corner radius modifiers
   @each $modifier, $radius in $table-radii {
-    &--#{$modifier},
-    &.#{$modifier},
-    &[#{$modifier}],
-    &[corner="#{$modifier}"],
-    &[radius="#{$modifier}"] {
+    &:is(.fz-table--#{$modifier}, .#{$modifier}, [#{$modifier}], [corner="#{$modifier}"], [radius="#{$modifier}"]) {
       --fz-table-radius: #{$radius};
-      border-radius: #{$radius};
     }
   }
 
   // Layer modifiers
   @each $layer, $offset in modifiers.$layers {
-    &--layer-#{$layer},
-    &.layer-#{$layer},
-    &[layer="#{$layer}"],
-    &[layer-#{$layer}] {
+    &:is(.fz-table--layer-#{$layer}, .layer-#{$layer}, [layer="#{$layer}"], [layer-#{$layer}]) {
       box-shadow: #{modifiers.layer($layer)};
     }
   }
 
   // Row modifiers
-  &--striped,
-  &.striped,
-  &[striped] {
+  &:is(.fz-table--striped, .striped, [striped]) {
     tbody > tr:nth-child(even) > td {
       background-color: var(--fz-table-stripe-bg);
     }
   }
 
-  &--hover,
-  &.hover,
-  &[hover] {
+  &:is(.fz-table--hover, .hover, [hover]) {
     tbody > tr:hover > td {
       background-color: var(--fz-table-hover-bg);
     }
   }
 
   // Size modifiers
-  &--mini,
-  &.mini,
-  &[mini],
-  &[size="mini"] {
+  &:is(.fz-table--mini, .mini, [mini], [size="mini"]) {
     --fz-table-font-size: #{sizes.$mini-font-size};
     --fz-table-cell-padding: #{sizes.$mini-vertical-padding} #{sizes.$mini-horizontal-padding};
   }
 
-  &--small,
-  &.small,
-  &[small],
-  &[size="small"] {
+  &:is(.fz-table--small, .small, [small], [size="small"]) {
     --fz-table-font-size: #{sizes.$small-font-size};
     --fz-table-cell-padding: #{sizes.$small-vertical-padding} #{sizes.$small-horizontal-padding};
   }
 
-  &--large,
-  &.large,
-  &[large],
-  &[size="large"] {
+  &:is(.fz-table--large, .large, [large], [size="large"]) {
     --fz-table-font-size: #{sizes.$large-font-size};
     --fz-table-cell-padding: #{sizes.$large-vertical-padding} #{sizes.$large-horizontal-padding};
   }
 
-  &--mega,
-  &.mega,
-  &[mega],
-  &[size="mega"] {
+  &:is(.fz-table--mega, .mega, [mega], [size="mega"]) {
     --fz-table-font-size: #{sizes.$mega-font-size};
     --fz-table-cell-padding: #{sizes.$mega-vertical-padding} #{sizes.$mega-horizontal-padding};
   }
 
   // Color modifiers: tint the outline, dotted lines and header
   @each $color-name, $color-val in colors.$all-colors {
-    &--#{$color-name},
-    &.#{$color-name},
-    &[#{$color-name}],
-    &[color="#{$color-name}"] {
+    &:is(.fz-table--#{$color-name}, .#{$color-name}, [#{$color-name}], [color="#{$color-name}"]) {
       --fz-table-border-color: #{$color-val};
       --fz-table-column-color: #{rgba($color-val, 0.6)};
       --fz-table-header-bg: #{rgba($color-val, 0.15)};

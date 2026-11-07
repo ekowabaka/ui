@@ -5,10 +5,7 @@
 @use "modifiers";
 
 // Base Menu Block (Custom element & pure CSS classes)
-.fz-menu,
-.menu,
-ul.fz-menu,
-fz-menu {
+:is(.fz-menu, .menu, fz-menu) {
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -18,6 +15,7 @@ fz-menu {
   user-select: none;
   background-color: var(--fz-menu-bg, transparent);
   border-radius: var(--fz-menu-border-radius, #{map.get(modifiers.$corner-radii, 'subtle')});
+  box-shadow: var(--fz-menu-box-shadow, none);
   min-width: var(--fz-menu-min-width, 140px);
 
   // CSS variables for child components (fz-menu-item, fz-menu-separator)
@@ -29,164 +27,69 @@ fz-menu {
   --fz-menu-item-font-size: 14px;
   --fz-menu-item-padding: 6px 12px;
 
-  // Pure CSS Menu Item Element
-  > li,
-  .fz-menu__item,
-  .menu__item {
-    display: flex;
-    align-items: center;
-    padding: var(--fz-menu-item-padding, 6px 12px);
-    font-size: var(--fz-menu-item-font-size, 14px);
-    white-space: nowrap;
-    color: var(--fz-menu-item-color, #{colors.$gray-2});
-    cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease;
-
-    &:hover {
-      background-color: var(--fz-menu-item-hover-bg, #{color.adjust(colors.$gray-5, $lightness: 8%)});
-      color: var(--fz-menu-item-hover-color, #{colors.$gray-0});
-    }
-
-    &--disabled,
-    &.disabled,
-    &[disabled] {
-      color: var(--fz-menu-item-disabled-color, #{colors.$gray-4});
-      cursor: not-allowed;
-      pointer-events: none;
-      background-color: transparent;
-    }
-
-    // Individual Item Color Modifiers (accents)
-    @each $color-name, $color-val in colors.$all-colors {
-      &--#{$color-name},
-      &.#{$color-name},
-      &[#{$color-name}],
-      &[color="#{$color-name}"] {
-        color: $color-val;
-
-        &:hover {
-          background-color: rgba($color-val, 0.1);
-          color: color.adjust($color-val, $lightness: -10%);
-        }
-      }
-    }
-  }
-
-  // Pure CSS Separator Element
-  > hr,
-  .fz-menu__separator,
-  .menu__separator {
-    height: 1px;
-    margin: var(--fz-menu-separator-margin, 4px 0);
-    background-color: var(--fz-menu-separator-color, #{colors.$gray-5});
-    border: none;
-    pointer-events: none;
-  }
-
   // Corner radius modifiers
   @each $modifier, $radius in modifiers.$corner-radii {
-    &--#{$modifier},
-    &.#{$modifier},
-    &[#{$modifier}],
-    &[corner="#{$modifier}"],
-    &[radius="#{$modifier}"] {
+    &:is(.fz-menu--#{$modifier}, .menu--#{$modifier}, .#{$modifier}, [#{$modifier}], [corner="#{$modifier}"], [radius="#{$modifier}"]) {
       --fz-menu-border-radius: #{$radius};
-      border-radius: #{$radius};
     }
   }
 
   // Layer modifiers
   @each $layer, $offset in modifiers.$layers {
-    &--layer-#{$layer},
-    &.layer-#{$layer},
-    &[layer="#{$layer}"],
-    &[layer-#{$layer}] {
+    &:is(.fz-menu--layer-#{$layer}, .menu--layer-#{$layer}, .layer-#{$layer}, [layer="#{$layer}"], [layer-#{$layer}]) {
       --fz-menu-box-shadow: #{modifiers.layer($layer)};
-      box-shadow: #{modifiers.layer($layer)};
     }
   }
 
   // Size modifiers
-  &--mini,
-  &.mini,
-  &[mini],
-  &[size="mini"] {
+  &:is(.fz-menu--mini, .menu--mini, .mini, [mini], [size="mini"]) {
     --fz-menu-item-font-size: #{sizes.$mini-font-size};
     --fz-menu-item-padding: #{sizes.$mini-vertical-padding} #{sizes.$mini-horizontal-padding};
   }
 
-  &--small,
-  &.small,
-  &[small],
-  &[size="small"] {
+  &:is(.fz-menu--small, .menu--small, .small, [small], [size="small"]) {
     --fz-menu-item-font-size: #{sizes.$small-font-size};
     --fz-menu-item-padding: #{sizes.$small-vertical-padding} #{sizes.$small-horizontal-padding};
   }
 
-  &--large,
-  &.large,
-  &[large],
-  &[size="large"] {
+  &:is(.fz-menu--large, .menu--large, .large, [large], [size="large"]) {
     --fz-menu-item-font-size: #{sizes.$large-font-size};
     --fz-menu-item-padding: #{sizes.$large-vertical-padding} #{sizes.$large-horizontal-padding};
   }
 
-  &--mega,
-  &.mega,
-  &[mega],
-  &[size="mega"] {
+  &:is(.fz-menu--mega, .menu--mega, .mega, [mega], [size="mega"]) {
     --fz-menu-item-font-size: #{sizes.$mega-font-size};
     --fz-menu-item-padding: #{sizes.$mega-vertical-padding} #{sizes.$mega-horizontal-padding};
   }
 
   // Color modifiers loop on Menu: Background remains white/transparent, colors affect accents
   @each $color-name, $color-val in colors.$all-colors {
-    &--#{$color-name},
-    &.#{$color-name},
-    &[#{$color-name}],
-    &[color="#{$color-name}"] {
+    &:is(.fz-menu--#{$color-name}, .menu--#{$color-name}, .#{$color-name}, [#{$color-name}], [color="#{$color-name}"]) {
       --fz-menu-item-hover-bg: #{rgba($color-val, 0.1)};
       --fz-menu-item-hover-color: #{color.adjust($color-val, $lightness: -10%)};
       --fz-menu-separator-color: #{rgba($color-val, 0.25)};
-
-      > li,
-      .fz-menu__item,
-      .menu__item {
-        &:hover {
-          background-color: rgba($color-val, 0.1);
-          color: color.adjust($color-val, $lightness: -10%);
-        }
-      }
-
-      > hr,
-      .fz-menu__separator,
-      .menu__separator {
-        background-color: rgba($color-val, 0.25);
-      }
     }
   }
 }
 
-// Standalone Pure CSS Menu Item Block
-.fz-menu__item,
-.menu__item {
+// Pure CSS Menu Item Element (inside menu or standalone)
+:is(.fz-menu > li, .menu > li, fz-menu > li, .fz-menu__item, .menu__item) {
   display: flex;
   align-items: center;
-  padding: 6px 12px;
-  font-size: 14px;
+  padding: var(--fz-menu-item-padding, 6px 12px);
+  font-size: var(--fz-menu-item-font-size, 14px);
   white-space: nowrap;
-  color: colors.$gray-2;
+  color: var(--fz-item-color, var(--fz-menu-item-color, #{colors.$gray-2}));
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
 
   &:hover {
-    background-color: color.adjust(colors.$gray-5, $lightness: 8%);
-    color: colors.$gray-0;
+    background-color: var(--fz-item-hover-bg, var(--fz-menu-item-hover-bg, #{color.adjust(colors.$gray-5, $lightness: 8%)}));
+    color: var(--fz-item-hover-color, var(--fz-menu-item-hover-color, #{colors.$gray-0}));
   }
 
-  &--disabled,
-  &.disabled {
-    color: colors.$gray-4;
+  &:is(.fz-menu__item--disabled, .menu__item--disabled, .disabled, [disabled]) {
+    color: var(--fz-menu-item-disabled-color, #{colors.$gray-4});
     cursor: not-allowed;
     pointer-events: none;
     background-color: transparent;
@@ -194,26 +97,23 @@ fz-menu {
 
   // Individual item color modifiers
   @each $color-name, $color-val in colors.$all-colors {
-    &--#{$color-name},
-    &.#{$color-name},
-    &[#{$color-name}],
-    &[color="#{$color-name}"] {
-      color: $color-val;
-
-      &:hover {
-        background-color: rgba($color-val, 0.1);
-        color: color.adjust($color-val, $lightness: -10%);
-      }
+    &:is(.fz-menu__item--#{$color-name}, .menu__item--#{$color-name}, .#{$color-name}, [#{$color-name}], [color="#{$color-name}"]) {
+      --fz-item-color: #{$color-val};
+      --fz-item-hover-bg: #{rgba($color-val, 0.1)};
+      --fz-item-hover-color: #{color.adjust($color-val, $lightness: -10%)};
     }
   }
 }
 
-// Standalone Pure CSS Menu Separator
+// Pure CSS Menu Separator (inside menu or standalone)
+.fz-menu > hr,
+.menu > hr,
+fz-menu > hr,
 .fz-menu__separator,
 .menu__separator {
   height: 1px;
-  margin: 4px 0;
-  background-color: colors.$gray-5;
+  margin: var(--fz-menu-separator-margin, 4px 0);
+  background-color: var(--fz-menu-separator-color, #{colors.$gray-5});
   border: none;
   pointer-events: none;
 }

@@ -17,9 +17,7 @@ $default-layer: "1";
 }
 
 // Base Dropdown Block (Custom element & pure CSS classes)
-.dropdown,
-.fz-dropdown,
-fz-dropdown {
+:is(.dropdown, .fz-dropdown, fz-dropdown) {
   position: relative;
   display: inline-block;
 
@@ -37,68 +35,28 @@ fz-dropdown {
   --dropdown-contents-bottom: auto;
 
   // Positioning modifiers
-  &--right,
-  &.dropdown-right,
-  &[right] {
+  &:is(.dropdown--right, .fz-dropdown--right, .dropdown-right, [right]) {
     --dropdown-contents-left: auto;
     --dropdown-contents-right: 0;
-
-    .dropdown__contents,
-    .fz-dropdown__contents,
-    .dropdown-contents {
-      left: auto;
-      right: 0;
-    }
   }
 
-  &--dropup,
-  &--up,
-  &.dropup,
-  &[dropup],
-  &[up] {
+  &:is(.dropdown--dropup, .fz-dropdown--dropup, .dropdown--up, .fz-dropdown--up, .dropup, [dropup], [up]) {
     --dropdown-contents-top: auto;
     --dropdown-contents-bottom: 100%;
     --dropdown-contents-margin: 0 0 5px 0;
-
-    .dropdown__contents,
-    .fz-dropdown__contents,
-    .dropdown-contents {
-      top: auto;
-      bottom: 100%;
-      margin: 0 0 5px 0;
-    }
   }
 
   // Corner radius modifiers
   @each $modifier, $radius in modifiers.$corner-radii {
-    &--#{$modifier},
-    &.#{$modifier},
-    &[#{$modifier}],
-    &[corner="#{$modifier}"],
-    &[radius="#{$modifier}"] {
+    &:is(.dropdown--#{$modifier}, .fz-dropdown--#{$modifier}, .#{$modifier}, [#{$modifier}], [corner="#{$modifier}"], [radius="#{$modifier}"]) {
       --dropdown-contents-border-radius: #{$radius};
-
-      .dropdown__contents,
-      .fz-dropdown__contents,
-      .dropdown-contents {
-        border-radius: #{$radius};
-      }
     }
   }
 
   // BEM Layer / Shadow modifiers loop (layer-0, layer-1, layer-2, layer-3)
   @each $layer, $offset in modifiers.$layers {
-    &--layer-#{$layer},
-    &.layer-#{$layer},
-    &[layer="#{$layer}"],
-    &[layer-#{$layer}] {
+    &:is(.dropdown--layer-#{$layer}, .fz-dropdown--layer-#{$layer}, .layer-#{$layer}, [layer="#{$layer}"], [layer-#{$layer}]) {
       --dropdown-contents-box-shadow: #{modifiers.layer($layer)};
-
-      .dropdown__contents,
-      .fz-dropdown__contents,
-      .dropdown-contents {
-        box-shadow: #{modifiers.layer($layer)};
-      }
     }
   }
 
@@ -106,31 +64,14 @@ fz-dropdown {
   @each $color-name, $color-val in colors.$all-colors {
     $outline-color: dropdown-outline-color($color-val);
 
-    &--#{$color-name},
-    &.#{$color-name},
-    &[#{$color-name}],
-    &[color="#{$color-name}"] {
-      --dropdown-contents-background-color: #{colors.$white};
-      --dropdown-contents-color: #{colors.$gray-1};
+    &:is(.dropdown--#{$color-name}, .fz-dropdown--#{$color-name}, .#{$color-name}, [#{$color-name}], [color="#{$color-name}"]) {
       --dropdown-contents-border-color: #{$outline-color};
-      --dropdown-contents-border: 1px solid #{$outline-color};
-
-      .dropdown__contents,
-      .fz-dropdown__contents,
-      .dropdown-contents {
-        background-color: colors.$white;
-        color: colors.$gray-1;
-        border: 1px solid $outline-color;
-      }
     }
   }
 
   // Active state for pure CSS dropdowns
-  &--active,
-  &.active {
-    .dropdown__contents,
-    .fz-dropdown__contents,
-    .dropdown-contents {
+  &:is(.dropdown--active, .fz-dropdown--active, .active) {
+    :is(.dropdown__contents, .fz-dropdown__contents, .dropdown-contents) {
       display: block;
     }
   }
@@ -142,15 +83,17 @@ fz-dropdown {
 .dropdown-contents {
   display: none;
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: var(--dropdown-contents-top, 100%);
+  bottom: var(--dropdown-contents-bottom, auto);
+  left: var(--dropdown-contents-left, 0);
+  right: var(--dropdown-contents-right, auto);
   z-index: 1000;
-  margin: 5px 0;
-  background-color: colors.$white;
-  color: colors.$gray-1;
-  border: 1px solid colors.$gray-5;
-  border-radius: map.get(modifiers.$corner-radii, "subtle");
-  box-shadow: modifiers.layer($default-layer);
+  margin: var(--dropdown-contents-margin, 5px 0);
+  background-color: var(--dropdown-contents-background-color, #{colors.$white});
+  color: var(--dropdown-contents-color, #{colors.$gray-1});
+  border: var(--dropdown-contents-border, 1px solid #{colors.$gray-5});
+  border-radius: var(--dropdown-contents-border-radius, #{map.get(modifiers.$corner-radii, "subtle")});
+  box-shadow: var(--dropdown-contents-box-shadow, #{modifiers.layer($default-layer)});
   min-width: 140px;
 
   &--active,

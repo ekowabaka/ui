@@ -9,8 +9,30 @@
         {"name": "purple"}
     ],
     "form-layouts" : [
-        {"title": "Inline Layout", "class": ""},
-        {"title": "Grid Layout", "class": "form-grid"}
+        {"title": "Default (Normal) Layout", "class": "", "id": "default"},
+        {"title": "Grid Layout", "class": "form-grid", "id": "grid"},
+        {"title": "Large Layout", "class": "form--large", "id": "large"},
+        {"title": "Large Grid Layout", "class": "form-grid form-grid--large", "id": "grid-large"},
+        {"title": "Mega Layout", "class": "form--mega", "id": "mega"},
+        {"title": "Mega Grid Layout", "class": "form-grid form-grid--mega", "id": "grid-mega"}
+    ],
+    "form-groups": [
+        {
+            "group-title": "Standard Form Layouts",
+            "layouts": [
+                {"title": "Default (Normal) Layout", "class": "", "id": "default"},
+                {"title": "Large Layout", "class": "form--large", "id": "large"},
+                {"title": "Mega Layout", "class": "form--mega", "id": "mega"}
+            ]
+        },
+        {
+            "group-title": "Grid Form Layouts",
+            "layouts": [
+                {"title": "Grid Layout", "class": "form-grid", "id": "grid"},
+                {"title": "Large Grid Layout", "class": "form-grid form-grid--large", "id": "grid-large"},
+                {"title": "Mega Grid Layout", "class": "form-grid form-grid--mega", "id": "grid-mega"}
+            ]
+        }
     ],
     "drops" : [
         {"type": "dropdown"},

@@ -3,26 +3,45 @@
 @use "sizes" as sizes;
 @use "modifiers" as modifiers;
 
+// CSS custom properties for a given button color (solid + outline states)
+@mixin button-color-vars($color) {
+  --fz-btn-bg: #{$color};
+  --fz-btn-shadow: 1px 1px 3px #{rgba(color.adjust($color, $lightness: -60%), 0.2)};
+  --fz-btn-hover-bg: #{color.adjust($color, $lightness: 5%)};
+  --fz-btn-hover-shadow: 2px 2px 4px #{rgba(color.adjust($color, $lightness: -70%), 0.2)};
+  --fz-btn-active-bg: #{color.adjust(color.adjust($color, $lightness: -5%), $saturation: -10%)};
+  --fz-btn-active-shadow: inset 1px 1px 4px #{color.adjust($color, $lightness: -30%)};
+  --fz-btn-outline-hover-bg: #{rgba($color, 0.1)};
+  --fz-btn-outline-active-bg: #{rgba(color.adjust($color, $lightness: -20%), 0.1)};
+  --fz-btn-outline-active-shadow: inset 1px 1px 2px #{rgba(color.adjust($color, $lightness: -30%), 0.4)};
+}
+
+@mixin button-size-vars($font-size, $v-pad, $h-pad) {
+  --fz-btn-font-size: #{$font-size};
+  --fz-btn-v-pad: #{$v-pad};
+  --fz-btn-h-pad: #{$h-pad};
+}
+
 // Shadow for the button
 @mixin button-shadow($color) {
-  box-shadow: 1px 1px 3px rgba(color.adjust($color, $lightness: -60%), 0.2);
+  box-shadow: var(--fz-btn-shadow, 1px 1px 3px #{rgba(color.adjust($color, $lightness: -60%), 0.2)});
 }
 
 // Inversion of the shadow for active engaged button
 @mixin button-active($color) {
-  background-color: color.adjust(color.adjust($color, $lightness: -5%), $saturation: -10%);
-  box-shadow: inset 1px 1px 4px color.adjust($color, $lightness: -30%);
+  background-color: var(--fz-btn-active-bg, #{color.adjust(color.adjust($color, $lightness: -5%), $saturation: -10%)});
+  box-shadow: var(--fz-btn-active-shadow, inset 1px 1px 4px #{color.adjust($color, $lightness: -30%)});
   top: 1px;
   left: 1px;
 }
 
 @mixin button-hover($color) {
-  background-color: color.adjust($color, $lightness: 5%);
-  box-shadow: 2px 2px 4px rgba(color.adjust($color, $lightness: -70%), 0.2);
+  background-color: var(--fz-btn-hover-bg, #{color.adjust($color, $lightness: 5%)});
+  box-shadow: var(--fz-btn-hover-shadow, 2px 2px 4px #{rgba(color.adjust($color, $lightness: -70%), 0.2)});
 }
 
 @mixin button-decoration($color) {
-  background-color: $color;
+  background-color: var(--fz-btn-bg, #{$color});
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-weight: bold;
   border-radius: 3px;
@@ -34,8 +53,12 @@
 }
 
 @mixin button($color) {
+  @include button-color-vars($color);
+  @include button-size-vars(sizes.$normal-font-size, sizes.$normal-vertical-padding, sizes.$normal-horizontal-padding);
+  --fz-btn-border-offset: 0px;
   position: relative;
-  @include sizes.size-normal;
+  font-size: var(--fz-btn-font-size, #{sizes.$normal-font-size});
+  padding: calc(var(--fz-btn-v-pad, #{sizes.$normal-vertical-padding}) - var(--fz-btn-border-offset, 0px)) calc(var(--fz-btn-h-pad, #{sizes.$normal-horizontal-padding}) - var(--fz-btn-border-offset, 0px));
   @include button-decoration($color);
   @include button-shadow($color);
   display: inline-block;
@@ -43,24 +66,23 @@
 }
 
 @mixin button-outline($color) {
-  border-color: $color;
-  @include sizes.outline-size-normal;
-  color: $color;
+  --fz-btn-border-offset: 1px;
+  border-color: var(--fz-btn-bg, #{$color});
+  color: var(--fz-btn-bg, #{$color});
 }
 
 @mixin button-outline-hover($color) {
-  background-color: rgba($color, 0.1);
+  background-color: var(--fz-btn-outline-hover-bg, #{rgba($color, 0.1)});
 }
 
 @mixin button-outline-active($color) {
-  background-color: rgba(color.adjust($color, $lightness: -20%), 0.1);
-  box-shadow: inset 1px 1px 2px rgba(color.adjust($color, $lightness: -30%), 0.4);
+  background-color: var(--fz-btn-outline-active-bg, #{rgba(color.adjust($color, $lightness: -20%), 0.1)});
+  box-shadow: var(--fz-btn-outline-active-shadow, inset 1px 1px 2px #{rgba(color.adjust($color, $lightness: -30%), 0.4)});
   top: 0px;
   left: 0px;
 }
 
-button,
-.button {
+:is(button, .button, :where(.form-submit-area) input:where([type="submit"])) {
   @include button(colors.$gray-4);
 
   &:hover {
@@ -75,29 +97,15 @@ button,
     border: none;
   }
 
-  // Color modifiers (classes + attributes)
+  // Color modifiers (classes + attributes) — sets CSS variables for both solid and outline variants
   @each $color-name, $color-val in colors.$all-colors {
-    &--#{$color-name},
-    &.#{$color-name},
-    &[#{$color-name}],
-    &[color="#{$color-name}"] {
-      @include button($color-val);
-
-      &:hover {
-        @include button-hover($color-val);
-      }
-
-      &:active {
-        @include button-active($color-val);
-      }
+    &:is(.button-#{$color-name}, .button--#{$color-name}, .#{$color-name}, [#{$color-name}], [color="#{$color-name}"]) {
+      @include button-color-vars($color-val);
     }
   }
 
   // Layer modifiers (classes + attributes): Layer 0 (flat), Layer 1 (default elevation)
-  &--layer-0,
-  &.layer-0,
-  &[layer="0"],
-  &[layer-0] {
+  &:is(.button--layer-0, .layer-0, [layer="0"], [layer-0]) {
     box-shadow: none;
 
     &:hover {
@@ -111,17 +119,8 @@ button,
     }
   }
 
-  &--layer-1,
-  &.layer-1,
-  &[layer="1"],
-  &[layer-1] {
-    // Retains standard button elevation and active behavior
-  }
-
   // Outline modifier (classes + attributes)
-  &--outline,
-  &.outline,
-  &[outline] {
+  &:is(.button--outline, .outline, [outline]) {
     background-color: transparent;
     box-shadow: none;
     border-width: 1px;
@@ -136,82 +135,27 @@ button,
     &:active {
       @include button-outline-active(colors.$gray-4);
     }
-
-    // Outline Color modifiers
-    @each $color-name, $color-val in colors.$all-colors {
-      &.button--#{$color-name},
-      &.#{$color-name},
-      &[#{$color-name}],
-      &[color="#{$color-name}"] {
-        @include button-outline($color-val);
-
-        &:hover {
-          @include button-outline-hover($color-val);
-        }
-
-        &:active {
-          @include button-outline-active($color-val);
-        }
-      }
-    }
-
-    // Outline Size modifiers
-    &.button--mini,
-    &.mini,
-    &[mini],
-    &[size="mini"] {
-      @include sizes.outline-size-mini;
-    }
-
-    &.button--small,
-    &.small,
-    &[small],
-    &[size="small"] {
-      @include sizes.outline-size-small;
-    }
-
-    &.button--large,
-    &.large,
-    &[large],
-    &[size="large"] {
-      @include sizes.outline-size-large;
-    }
-
-    &.button--mega,
-    &.mega,
-    &[mega],
-    &[size="mega"] {
-      @include sizes.outline-size-mega;
-    }
   }
 
-  // Size modifiers (classes + attributes)
-  &--mini,
-  &.mini,
-  &[mini],
-  &[size="mini"] {
-    @include sizes.size-mini;
+  // Size modifiers (classes + attributes) — works for both solid and outline buttons via --fz-btn-border-offset
+  &:is(.button-mini, .button--mini, .mini, [mini], [size="mini"]) {
+    @include button-size-vars(sizes.$mini-font-size, sizes.$mini-vertical-padding, sizes.$mini-horizontal-padding);
   }
 
-  &--small,
-  &.small,
-  &[small],
-  &[size="small"] {
-    @include sizes.size-small;
+  &:is(.button-small, .button--small, .small, [small], [size="small"]) {
+    @include button-size-vars(sizes.$small-font-size, sizes.$small-vertical-padding, sizes.$small-horizontal-padding);
   }
 
-  &--large,
-  &.large,
-  &[large],
-  &[size="large"] {
-    @include sizes.size-large;
+  &:is(.button-normal, .button--normal, .normal, [normal], [size="normal"]) {
+    @include button-size-vars(sizes.$normal-font-size, sizes.$normal-vertical-padding, sizes.$normal-horizontal-padding);
   }
 
-  &--mega,
-  &.mega,
-  &[mega],
-  &[size="mega"] {
-    @include sizes.size-mega;
+  &:is(.button-large, .button--large, .large, [large], [size="large"]) {
+    @include button-size-vars(sizes.$large-font-size, sizes.$large-vertical-padding, sizes.$large-horizontal-padding);
+  }
+
+  &:is(.button-mega, .button--mega, .mega, [mega], [size="mega"]) {
+    @include button-size-vars(sizes.$mega-font-size, sizes.$mega-vertical-padding, sizes.$mega-horizontal-padding);
   }
 }
 
@@ -223,6 +167,8 @@ button,
   .button {
     border-radius: 0px;
     border-right: none;
+    font-size: var(--fz-btn-font-size, #{sizes.$normal-font-size});
+    padding: calc(var(--fz-btn-v-pad, #{sizes.$normal-vertical-padding}) - var(--fz-btn-border-offset, 0px)) calc(var(--fz-btn-h-pad, #{sizes.$normal-horizontal-padding}) - var(--fz-btn-border-offset, 0px));
   }
 
   button:active,
@@ -232,57 +178,29 @@ button,
     left: 0px;
   }
 
-  > button:first-child,
-  > .button:first-child,
-  > [class*="button--"]:first-child,
-  .dropdown:first-child > button,
-  .dropdown:first-child > .button,
-  .dropdown:first-child > [class*="button--"] {
+  > :is(button, .button, [class*="button--"]):first-child,
+  .dropdown:first-child > :is(button, .button, [class*="button--"]) {
     border-radius: 3px 0px 0px 3px;
   }
 
-  > button:last-child,
-  > .button:last-child,
-  > [class*="button--"]:last-child,
-  .dropdown:last-child > button,
-  .dropdown:last-child > .button,
-  .dropdown:last-child > [class*="button--"] {
+  > :is(button, .button, [class*="button--"]):last-child,
+  .dropdown:last-child > :is(button, .button, [class*="button--"]) {
     border-radius: 0px 3px 3px 0px;
   }
 
   &--mini {
-    > button,
-    > .button,
-    > .dropdown > button,
-    > .dropdown > .button {
-      @include sizes.size-mini;
-    }
+    @include button-size-vars(sizes.$mini-font-size, sizes.$mini-vertical-padding, sizes.$mini-horizontal-padding);
   }
 
   &--small {
-    > button,
-    > .button,
-    > .dropdown > button,
-    > .dropdown > .button {
-      @include sizes.size-small;
-    }
+    @include button-size-vars(sizes.$small-font-size, sizes.$small-vertical-padding, sizes.$small-horizontal-padding);
   }
 
   &--large {
-    > button,
-    > .button,
-    > .dropdown > button,
-    > .dropdown > .button {
-      @include sizes.size-large;
-    }
+    @include button-size-vars(sizes.$large-font-size, sizes.$large-vertical-padding, sizes.$large-horizontal-padding);
   }
 
   &--mega {
-    > button,
-    > .button,
-    > .dropdown > button,
-    > .dropdown > .button {
-      @include sizes.size-mega;
-    }
+    @include button-size-vars(sizes.$mega-font-size, sizes.$mega-vertical-padding, sizes.$mega-horizontal-padding);
   }
 }

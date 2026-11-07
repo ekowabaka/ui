@@ -1,7 +1,71 @@
 @use "sass:color";
 @use "colors" as colors;
-@use "buttons" as buttons;
+@use "_buttons.scss" as buttons;
 @use "sizes" as sizes;
+
+// Form size mixins
+@mixin form-size-normal {
+  --fz-form-control-font-size: #{sizes.$normal-font-size};
+  --fz-form-control-padding: #{sizes.$normal-input-vertical-padding} #{sizes.$normal-input-horizontal-padding};
+  --fz-form-control-height: #{sizes.$normal-control-height};
+  --fz-form-label-font-size: #{sizes.$normal-label-font-size};
+  --fz-form-legend-font-size: #{sizes.$normal-legend-font-size};
+  --fz-form-help-font-size: #{sizes.$normal-help-font-size};
+  --fz-form-legend-padding: #{sizes.$normal-fieldset-padding};
+  --fz-form-fieldset-padding: #{sizes.$normal-fieldset-padding};
+  --fz-form-fieldset-padding-top: #{sizes.$normal-fieldset-padding-top};
+  --fz-form-submit-font-size: #{sizes.$normal-font-size};
+  --fz-form-submit-v-pad: #{sizes.$normal-vertical-padding};
+  --fz-form-submit-h-pad: #{sizes.$normal-horizontal-padding};
+}
+
+@mixin form-size-large {
+  --fz-form-control-font-size: #{sizes.$large-font-size};
+  --fz-form-control-padding: #{sizes.$large-input-vertical-padding} #{sizes.$large-input-horizontal-padding};
+  --fz-form-control-height: #{sizes.$large-control-height};
+  --fz-form-label-font-size: #{sizes.$large-label-font-size};
+  --fz-form-legend-font-size: #{sizes.$large-legend-font-size};
+  --fz-form-help-font-size: #{sizes.$large-help-font-size};
+  --fz-form-legend-padding: #{sizes.$large-fieldset-padding};
+  --fz-form-fieldset-padding: #{sizes.$large-fieldset-padding};
+  --fz-form-fieldset-padding-top: #{sizes.$large-fieldset-padding-top};
+  --fz-form-submit-font-size: #{sizes.$large-font-size};
+  --fz-form-submit-v-pad: #{sizes.$large-vertical-padding};
+  --fz-form-submit-h-pad: #{sizes.$large-horizontal-padding};
+}
+
+@mixin form-size-mega {
+  --fz-form-control-font-size: #{sizes.$mega-font-size};
+  --fz-form-control-padding: #{sizes.$mega-input-vertical-padding} #{sizes.$mega-input-horizontal-padding};
+  --fz-form-control-height: #{sizes.$mega-control-height};
+  --fz-form-label-font-size: #{sizes.$mega-label-font-size};
+  --fz-form-legend-font-size: #{sizes.$mega-legend-font-size};
+  --fz-form-help-font-size: #{sizes.$mega-help-font-size};
+  --fz-form-legend-padding: #{sizes.$mega-fieldset-padding};
+  --fz-form-fieldset-padding: #{sizes.$mega-fieldset-padding};
+  --fz-form-fieldset-padding-top: #{sizes.$mega-fieldset-padding-top};
+  --fz-form-submit-font-size: #{sizes.$mega-font-size};
+  --fz-form-submit-v-pad: #{sizes.$mega-vertical-padding};
+  --fz-form-submit-h-pad: #{sizes.$mega-horizontal-padding};
+}
+
+// Base form styles & defaults
+:is(form, .form, .form-grid) {
+  @include form-size-normal;
+
+  // Form size modifiers (BEM classes, utility classes, and attributes)
+  &:is(.form--normal, .form-grid--normal, .normal, [normal], [size="normal"]) {
+    @include form-size-normal;
+  }
+
+  &:is(.form--large, .form-grid--large, .large, [large], [size="large"]) {
+    @include form-size-large;
+  }
+
+  &:is(.form--mega, .form-grid--mega, .mega, [mega], [size="mega"]) {
+    @include form-size-mega;
+  }
+}
 
 .form-element {
   padding-bottom: 10px;
@@ -17,6 +81,7 @@
     padding-top: 5px;
     padding-bottom: 5px;
     font-weight: bold;
+    font-size: var(--fz-form-label-font-size, #{sizes.$normal-label-font-size});
   }
 
   > input,
@@ -24,21 +89,30 @@
   textarea {
     border: 1px solid colors.$gray-5;
     border-radius: 3px;
-    padding: 8px 8px 5px 8px;
+    padding: var(--fz-form-control-padding, #{sizes.$normal-input-vertical-padding} #{sizes.$normal-input-horizontal-padding});
     width: 100%;
     box-sizing: border-box;
     box-shadow: inset 1px 1px 3px rgba(color.adjust(colors.$gray-5, $lightness: -30%), 0.2);
     color: colors.$gray-0;
-    font-size: 11pt;
+    font-size: var(--fz-form-control-font-size, #{sizes.$normal-font-size});
     font-family: inherit;
     background-color: colors.$white;
+    line-height: normal;
+  }
+
+  > input:not([type="checkbox"]):not([type="radio"]),
+  > select {
+    height: var(--fz-form-control-height, #{sizes.$normal-control-height});
   }
 
   > input[type="checkbox"],
-  > input[type=checkbox] {
+  > input[type=checkbox],
+  > input[type="radio"],
+  > input[type=radio] {
     border: none;
     box-shadow: none;
     width: auto;
+    padding: 0;
   }
 
   > input[type="text"]::placeholder,
@@ -49,105 +123,83 @@
   }
 
   > span {
-    font-size: small;
+    font-size: var(--fz-form-help-font-size, #{sizes.$normal-help-font-size});
     color: colors.$gray-3;
     display: block;
     margin-top: 5px;
   }
 
   textarea {
-    height: 80px;
+    height: var(--fz-form-textarea-height, 80px);
   }
 
   .check-group {
     label {
       display: block;
+      font-size: var(--fz-form-control-font-size, #{sizes.$normal-font-size});
     }
   }
 
   > select {
     width: auto;
     max-width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+    vertical-align: middle;
   }
 
   ul {
     margin: 0px;
-    font-size: 0.9em;
+    font-size: var(--fz-form-help-font-size, #{sizes.$normal-help-font-size});
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 0px;
     color: colors.$gray-1;
     list-style: none;
   }
+
+  // Size modifiers for individual form elements
+  &--normal {
+    --fz-form-control-font-size: #{sizes.$normal-font-size};
+    --fz-form-control-padding: #{sizes.$normal-input-vertical-padding} #{sizes.$normal-input-horizontal-padding};
+    --fz-form-control-height: #{sizes.$normal-control-height};
+    --fz-form-label-font-size: #{sizes.$normal-label-font-size};
+    --fz-form-help-font-size: #{sizes.$normal-help-font-size};
+  }
+
+  &--large {
+    --fz-form-control-font-size: #{sizes.$large-font-size};
+    --fz-form-control-padding: #{sizes.$large-input-vertical-padding} #{sizes.$large-input-horizontal-padding};
+    --fz-form-control-height: #{sizes.$large-control-height};
+    --fz-form-label-font-size: #{sizes.$large-label-font-size};
+    --fz-form-help-font-size: #{sizes.$large-help-font-size};
+  }
+
+  &--mega {
+    --fz-form-control-font-size: #{sizes.$mega-font-size};
+    --fz-form-control-padding: #{sizes.$mega-input-vertical-padding} #{sizes.$mega-input-horizontal-padding};
+    --fz-form-control-height: #{sizes.$mega-control-height};
+    --fz-form-label-font-size: #{sizes.$mega-label-font-size};
+    --fz-form-help-font-size: #{sizes.$mega-help-font-size};
+  }
 }
 
 .form-submit-area {
   padding-top: 10px;
 
-  input[type="submit"],
-  input[type=submit] {
-    @include buttons.button(colors.$blue);
-
-    &:hover {
-      @include buttons.button-hover(colors.$blue);
-    }
-
-    &:active {
-      @include buttons.button-active(colors.$blue);
-    }
-
-    // Color modifiers (classes + attributes)
-    @each $color-name, $color-val in colors.$all-colors {
-      &.button-#{$color-name},
-      &.button--#{$color-name},
-      &.#{$color-name},
-      &[#{$color-name}],
-      &[color="#{$color-name}"] {
-        @include buttons.button($color-val);
-
-        &:hover {
-          @include buttons.button-hover($color-val);
-        }
-
-        &:active {
-          @include buttons.button-active($color-val);
-        }
-      }
-    }
-
-    // Size modifiers
-    &.button-mini,
-    &.button--mini,
-    &.mini,
-    &[mini],
-    &[size="mini"] {
-      @include sizes.size-mini;
-    }
-
-    &.button-small,
-    &.button--small,
-    &.small,
-    &[small],
-    &[size="small"] {
-      @include sizes.size-small;
-    }
-
-    &.button-large,
-    &.button--large,
-    &.large,
-    &[large],
-    &[size="large"] {
-      @include sizes.size-large;
-    }
-
-    &.button-mega,
-    &.button--mega,
-    &.mega,
-    &[mega],
-    &[size="mega"] {
-      @include sizes.size-mega;
+  :is(input[type="submit"], button[type="submit"], button, .button) {
+    &:not(:is(.button-mini, .button--mini, .button-small, .button--small, .button-normal, .button--normal, .button-large, .button--large, .button-mega, .button--mega, .mini, .small, .normal, .large, .mega, [mini], [small], [normal], [large], [mega], [size])) {
+      --fz-btn-font-size: var(--fz-form-submit-font-size, #{sizes.$normal-font-size});
+      --fz-btn-v-pad: var(--fz-form-submit-v-pad, #{sizes.$normal-vertical-padding});
+      --fz-btn-h-pad: var(--fz-form-submit-h-pad, #{sizes.$normal-horizontal-padding});
+      height: var(--fz-form-control-height, #{sizes.$normal-control-height});
     }
   }
+}
+
+// Default blue color for <input type="submit"> when no explicit color modifier is present
+:where(.form-submit-area) input[type="submit"] {
+  @include buttons.button-color-vars(colors.$blue);
 }
 
 .form-grid {
@@ -159,7 +211,10 @@
       display: inline-block;
       width: 30%;
       box-sizing: border-box;
-      font-size: initial;
+      font-size: var(--fz-form-label-font-size, #{sizes.$normal-label-font-size});
+      line-height: 1.5;
+      padding-top: calc((var(--fz-form-control-height, #{sizes.$normal-control-height}) - 1.5em) / 2);
+      padding-bottom: calc((var(--fz-form-control-height, #{sizes.$normal-control-height}) - 1.5em) / 2);
       text-align: right;
       padding-right: 10px;
       margin-top: 10px;
@@ -174,34 +229,55 @@
       width: 70%;
       display: inline-block;
       box-sizing: border-box;
-      font-size: 11pt;
+      font-size: var(--fz-form-control-font-size, #{sizes.$normal-font-size});
       margin-top: 10px;
+      vertical-align: top;
+    }
+
+    .check-group,
+    .input-wrapper {
+      line-height: 1.5;
+      padding-top: calc((var(--fz-form-control-height, #{sizes.$normal-control-height}) - 1.5em) / 2);
+      padding-bottom: calc((var(--fz-form-control-height, #{sizes.$normal-control-height}) - 1.5em) / 2);
+    }
+
+    > input:not([type="checkbox"]):not([type="radio"]),
+    > select {
+      height: var(--fz-form-control-height, #{sizes.$normal-control-height});
     }
 
     > input[type="checkbox"],
-    > input[type=checkbox] {
+    > input[type=checkbox],
+    > input[type="radio"],
+    > input[type=radio] {
       width: initial;
-      margin-top: 20px;
+      height: var(--fz-form-control-height, #{sizes.$normal-control-height});
+      margin-top: 10px;
+      padding: 0;
+      vertical-align: top;
     }
 
     > select {
       width: auto;
       max-width: 70%;
+      padding-top: 0;
+      padding-bottom: 0;
+      vertical-align: top;
     }
 
     > span {
       margin-left: 30%;
-      font-size: small;
+      font-size: var(--fz-form-help-font-size, #{sizes.$normal-help-font-size});
       white-space: normal;
     }
 
     > ul {
       margin-left: 30%;
       white-space: normal;
-      font-size: initial;
+      font-size: var(--fz-form-help-font-size, #{sizes.$normal-help-font-size});
 
       li {
-        font-size: 0.9em;
+        font-size: inherit;
       }
     }
 
@@ -210,6 +286,7 @@
         display: block;
         width: auto;
         text-align: left;
+        font-size: var(--fz-form-control-font-size, #{sizes.$normal-font-size});
       }
     }
   }
@@ -220,18 +297,25 @@
 }
 
 @mixin marked-element($color) {
+  --fz-form-mark-border: #{$color};
+  --fz-form-mark-shadow: inset 1px 1px 3px #{rgba(color.adjust($color, $lightness: -60%), 0.2)};
+  --fz-form-mark-bg: #{color.adjust($color, $lightness: 50%)};
+  --fz-form-mark-color: #{color.adjust($color, $lightness: -30%)};
+}
+
+:is(.form-error, .form-warning, .form-success) {
   input,
   select,
   textarea {
-    border-color: $color;
-    box-shadow: inset 1px 1px 3px rgba(color.adjust($color, $lightness: -60%), 0.2);
-    background-color: color.adjust($color, $lightness: 50%);
-    color: color.adjust($color, $lightness: -30%);
+    border-color: var(--fz-form-mark-border);
+    box-shadow: var(--fz-form-mark-shadow);
+    background-color: var(--fz-form-mark-bg);
+    color: var(--fz-form-mark-color);
   }
 
   label,
   ul {
-    color: color.adjust($color, $lightness: -30%);
+    color: var(--fz-form-mark-color);
   }
 }
 
@@ -250,22 +334,22 @@
 fieldset {
   border: 1px solid colors.$gray-5;
   border-radius: 3px;
-  padding: 10px;
-  padding-top: 50px;
+  padding: var(--fz-form-fieldset-padding, #{sizes.$normal-fieldset-padding});
+  padding-top: var(--fz-form-fieldset-padding-top, #{sizes.$normal-fieldset-padding-top});
   position: relative;
   margin: 0px;
   margin-top: 10px;
 
   legend {
     font-weight: bold;
-    font-size: initial;
+    font-size: var(--fz-form-legend-font-size, #{sizes.$normal-legend-font-size});
     position: absolute;
     left: 0px;
     top: 0px;
     width: 100%;
     color: colors.$gray-2;
     border-bottom: 1px dotted colors.$gray-5;
-    padding: 10px;
+    padding: var(--fz-form-legend-padding, #{sizes.$normal-fieldset-padding});
     box-sizing: border-box;
   }
 }
@@ -283,13 +367,25 @@ fieldset {
     width: auto;
     margin: 0px;
     margin-right: 5px;
+    vertical-align: middle;
+  }
+
+  > input:not([type="checkbox"]):not([type="radio"]),
+  > select {
+    height: var(--fz-form-control-height, #{sizes.$normal-control-height});
+  }
+
+  > select {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   > label {
     padding: 0px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    height: var(--fz-form-control-height, #{sizes.$normal-control-height});
+    line-height: var(--fz-form-control-height, #{sizes.$normal-control-height});
     vertical-align: middle;
+    font-size: var(--fz-form-label-font-size, #{sizes.$normal-label-font-size});
   }
 }
 

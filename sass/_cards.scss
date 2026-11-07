@@ -74,8 +74,7 @@ $image-positions: (
   ),
 );
 
-fz-card,
-.fz-card {
+:is(fz-card, .fz-card) {
   --card-padding: 1.25em;
   --card-image-padding: var(--card-padding, 1.25em);
   --card-image-calculated-padding: var(--card-padding, 1.25em) var(--card-padding, 1.25em) 0 var(--card-padding, 1.25em);
@@ -96,7 +95,7 @@ fz-card,
   color: var(--card-body-color);
 
   // When card has no image, reset image padding and use standard card padding for body
-  &:not(:has([slot="image"])):not(:has(.fz-card__image)) {
+  &:not(:has([slot="image"], .fz-card__image)) {
     --card-image-calculated-padding: 0;
     --card-body-calculated-padding: var(--card-padding, 1.25em);
   }
@@ -115,39 +114,10 @@ fz-card,
     box-sizing: border-box;
   }
 
-  // Standalone/pure CSS entity inside card
-  &__image {
-    display: var(--card-image-display, block);
-    width: var(--card-image-width, 100%);
-    height: var(--card-image-height, auto);
-    object-fit: var(--card-image-object-fit, cover);
-    order: var(--card-image-order, 0);
-    padding: var(--card-image-calculated-padding);
-    border-radius: var(--card-image-border-radius, var(--card-border-radius, 4px));
-    box-sizing: border-box;
-    flex-shrink: 0;
-  }
-
-  // Modifiers on the image entity inside card for positions (classes + attributes)
+  // BEM image position modifiers on card or child image (classes + attributes)
   @each $pos, $props in $image-positions {
-    &__image--#{$pos},
-    &__image.#{$pos},
-    &__image[#{$pos}] {
-      --card-flex-direction: #{map.get($props, 'flex-direction')};
-      --card-image-order: #{map.get($props, 'order')};
-      --card-image-width: #{map.get($props, 'width')};
-      --card-image-height: #{map.get($props, 'height')};
-      --card-image-calculated-padding: #{map.get($props, 'image-padding')};
-      --card-body-calculated-padding: #{map.get($props, 'body-padding')};
-      order: #{map.get($props, 'order')};
-      width: #{map.get($props, 'width')};
-      height: #{map.get($props, 'height')};
-      padding: #{map.get($props, 'image-padding')};
-    }
-
-    [slot="image"].#{$pos},
-    [slot="image"][#{$pos}],
-    [slot="image"].fz-card__image--#{$pos} {
+    &:is(.fz-card--image-#{$pos}, .image-#{$pos}, [image-#{$pos}], [image-position="#{$pos}"], [#{$pos}]),
+    &:has(:is(.fz-card__image, [slot="image"]):is(.fz-card__image--#{$pos}, .#{$pos}, [#{$pos}])) {
       --card-flex-direction: #{map.get($props, 'flex-direction')};
       --card-image-order: #{map.get($props, 'order')};
       --card-image-width: #{map.get($props, 'width')};
@@ -157,162 +127,40 @@ fz-card,
     }
   }
 
-  // Modifiers on image entity inside card for fit/padding (classes + attributes)
-  &__image--flush,
-  &__image.flush,
-  &__image[flush],
-  [slot="image"].flush,
-  [slot="image"][flush],
-  [slot="image"].fz-card__image--flush {
-    --card-image-calculated-padding: 0;
-    --card-body-calculated-padding: var(--card-padding, 1.25em);
-    --card-image-border-radius: 0;
-    padding: 0;
-    border-radius: 0;
-  }
-
-  &__image--padded,
-  &__image.padded,
-  &__image[padded],
-  &__image--inset,
-  &__image.inset,
-  &__image[inset],
-  [slot="image"].padded,
-  [slot="image"][padded],
-  [slot="image"].fz-card__image--padded,
-  [slot="image"].inset,
-  [slot="image"][inset],
-  [slot="image"].fz-card__image--inset {
-    --card-image-border-radius: var(--card-border-radius, 4px);
-    border-radius: var(--card-border-radius, 4px);
-  }
-
-  // BEM image position modifiers on card (classes + attributes)
-  @each $pos, $props in $image-positions {
-    &--image-#{$pos},
-    &.image-#{$pos},
-    &[image-#{$pos}],
-    &[image-position="#{$pos}"],
-    &[#{$pos}] {
-      --card-flex-direction: #{map.get($props, 'flex-direction')};
-      --card-image-order: #{map.get($props, 'order')};
-      --card-image-width: #{map.get($props, 'width')};
-      --card-image-height: #{map.get($props, 'height')};
-      --card-image-calculated-padding: #{map.get($props, 'image-padding')};
-      --card-body-calculated-padding: #{map.get($props, 'body-padding')};
-    }
-
-    &:has(.fz-card__image--#{$pos}),
-    &:has(.fz-card__image.#{$pos}),
-    &:has(.fz-card__image[#{$pos}]),
-    &:has([slot="image"].#{$pos}),
-    &:has([slot="image"][#{$pos}]),
-    &:has([slot="image"].fz-card__image--#{$pos}) {
-      --card-flex-direction: #{map.get($props, 'flex-direction')};
-      --card-image-order: #{map.get($props, 'order')};
-      --card-image-width: #{map.get($props, 'width')};
-      --card-image-height: #{map.get($props, 'height')};
-      --card-image-calculated-padding: #{map.get($props, 'image-padding')};
-      --card-body-calculated-padding: #{map.get($props, 'body-padding')};
-    }
-  }
-
-  // BEM image fit modifiers on card (classes + attributes)
-  &--image-flush,
-  &.image-flush,
-  &--flush,
-  &.flush,
-  &[flush],
-  &[image-flush] {
+  // BEM image fit modifiers on card or child image (classes + attributes)
+  &:is(.fz-card--image-flush, .image-flush, .fz-card--flush, .flush, [flush], [image-flush]),
+  &:has(:is(.fz-card__image, [slot="image"]):is(.fz-card__image--flush, .flush, [flush])) {
     --card-image-calculated-padding: 0;
     --card-body-calculated-padding: var(--card-padding, 1.25em);
     --card-image-border-radius: 0;
   }
 
-  &--image-padded,
-  &.image-padded,
-  &--padded,
-  &.padded,
-  &[padded],
-  &[image-padded],
-  &--image-inset,
-  &.image-inset,
-  &--inset,
-  &.inset,
-  &[inset] {
-    --card-image-border-radius: var(--card-border-radius, 4px);
-  }
-
-  &:has(.fz-card__image--flush),
-  &:has(.fz-card__image.flush),
-  &:has(.fz-card__image[flush]),
-  &:has([slot="image"].flush),
-  &:has([slot="image"][flush]),
-  &:has([slot="image"].fz-card__image--flush) {
-    --card-image-calculated-padding: 0;
-    --card-body-calculated-padding: var(--card-padding, 1.25em);
-    --card-image-border-radius: 0;
-  }
-
-  &:has(.fz-card__image--padded),
-  &:has(.fz-card__image.padded),
-  &:has(.fz-card__image[padded]),
-  &:has([slot="image"].padded),
-  &:has([slot="image"][padded]),
-  &:has([slot="image"].fz-card__image--padded),
-  &:has(.fz-card__image--inset),
-  &:has(.fz-card__image.inset),
-  &:has([slot="image"].inset),
-  &:has([slot="image"][inset]),
-  &:has([slot="image"].fz-card__image--inset) {
+  &:is(.fz-card--image-padded, .image-padded, .fz-card--padded, .padded, [padded], [image-padded], .fz-card--image-inset, .image-inset, .fz-card--inset, .inset, [inset]),
+  &:has(:is(.fz-card__image, [slot="image"]):is(.fz-card__image--padded, .padded, [padded], .fz-card__image--inset, .inset, [inset])) {
     --card-image-border-radius: var(--card-border-radius, 4px);
   }
 
   // BEM corner modifier loop: .fz-card--sharp, .fz-card--subtle, etc. (classes + attributes)
   @each $modifier, $radius in modifiers.$corner-radii {
-    // @at-root avoids generating the invalid `fz-card--sharp` element selector
-    @at-root {
-      .fz-card--#{$modifier},
-      .fz-card.#{$modifier},
-      .fz-card[#{$modifier}],
-      .fz-card[corner="#{$modifier}"],
-      .fz-card[radius="#{$modifier}"],
-      fz-card.fz-card--#{$modifier},
-      fz-card.#{$modifier},
-      fz-card[#{$modifier}],
-      fz-card[corner="#{$modifier}"],
-      fz-card[radius="#{$modifier}"] {
-        --card-border-radius: #{$radius};
-      }
+    &:is(.fz-card--#{$modifier}, .#{$modifier}, [#{$modifier}], [corner="#{$modifier}"], [radius="#{$modifier}"]) {
+      --card-border-radius: #{$radius};
     }
   }
 
   // BEM layer modifier loop: .fz-card--layer-0, [layer="0"], [layer-0], etc. (classes + attributes)
   @each $layer, $offset in modifiers.$layers {
-    &--layer-#{$layer},
-    &.layer-#{$layer},
-    &[layer="#{$layer}"],
-    &[layer-#{$layer}] {
+    &:is(.fz-card--layer-#{$layer}, .layer-#{$layer}, [layer="#{$layer}"], [layer-#{$layer}]) {
       --card-box-shadow: #{modifiers.layer($layer)};
     }
   }
 
   // BEM color modifier loop: .fz-card--red, [color="red"], [red], etc. (classes + attributes)
   @each $color-name, $color-val in colors.$all-colors {
-    &--#{$color-name},
-    &.#{$color-name},
-    &[#{$color-name}],
-    &[color="#{$color-name}"] {
+    &:is(.fz-card--#{$color-name}, .#{$color-name}, [#{$color-name}], [color="#{$color-name}"]) {
       --card-background-color: #{$color-val};
       --card-border-color: #{card-border-color($color-val)};
-      --card-box-shadow: #{modifiers.layer($default-layer)};
       --card-title-color: #{card-title-color($color-val)};
       --card-body-color: #{card-body-color($color-val)};
-      color: var(--card-body-color);
-
-      [slot="title"] {
-        color: var(--card-title-color);
-      }
     }
   }
 }
@@ -330,9 +178,7 @@ fz-card,
   flex-shrink: 0;
 
   @each $pos, $props in $image-positions {
-    &--#{$pos},
-    &.#{$pos},
-    &[#{$pos}] {
+    &:is(.fz-card__image--#{$pos}, .#{$pos}, [#{$pos}]) {
       order: #{map.get($props, 'order')};
       width: #{map.get($props, 'width')};
       height: #{map.get($props, 'height')};
@@ -340,19 +186,12 @@ fz-card,
     }
   }
 
-  &--flush,
-  &.flush,
-  &[flush] {
+  &:is(.fz-card__image--flush, .flush, [flush]) {
     padding: 0;
     border-radius: 0;
   }
 
-  &--padded,
-  &.padded,
-  &[padded],
-  &--inset,
-  &.inset,
-  &[inset] {
+  &:is(.fz-card__image--padded, .padded, [padded], .fz-card__image--inset, .inset, [inset]) {
     border-radius: var(--card-border-radius, 4px);
   }
 }

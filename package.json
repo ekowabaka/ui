@@ -17,6 +17,7 @@
       "default": "./dist/fzui.js"
     },
     "./css": "./dist/fzui.css",
+    "./css/*": "./dist/css/*.css",
     "./sass/*": "./sass/*"
   },
   "scripts": {
