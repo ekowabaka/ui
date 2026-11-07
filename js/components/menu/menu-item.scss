@@ -3,6 +3,7 @@
 
 :host {
     display: block;
+    cursor: pointer;
 }
 
 :host([hidden]) {
