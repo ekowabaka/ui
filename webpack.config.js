@@ -41,6 +41,7 @@ const cssEntries = {
   'css/buttons': './sass/buttons.scss',
   'css/menus': './sass/menus.scss',
   'css/cards': './sass/cards.scss',
+  'css/callouts': './sass/callouts.scss',
   'css/dropdowns': './sass/dropdowns.scss',
   'css/tables': './sass/tables.scss',
 };

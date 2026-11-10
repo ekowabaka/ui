@@ -1,0 +1,137 @@
+<div class="component-header">
+    <h2>Callouts &amp; Notifications</h2>
+    <p>Callouts communicate important context, system alerts, and feedback with support for classifications (notification, error, warning, success, etc.), elevation layers, and corner styling like cards. Callouts are also used to present notifications.</p>
+</div>
+<section class="component">
+    <div class="variant">
+        <h3>Classifications (via attributes &amp; classes)</h3>
+        <div class="callouts-grid">
+            <fz-callout notification>
+                <span slot="title">Notification</span>
+                <div>A new software update is available for download.</div>
+            </fz-callout>
+
+            <fz-callout error>
+                <span slot="title">Error</span>
+                <div>Failed to authenticate credentials. Please check your password.</div>
+            </fz-callout>
+
+            <fz-callout warning>
+                <span slot="title">Warning</span>
+                <div>Your storage quota has reached 90% capacity.</div>
+            </fz-callout>
+
+            <fz-callout success>
+                <span slot="title">Success</span>
+                <div>Your configuration profile has been saved successfully.</div>
+            </fz-callout>
+
+            <fz-callout neutral>
+                <span slot="title">Neutral Note</span>
+                <div>Scheduled database maintenance will occur this Sunday at 02:00 UTC.</div>
+            </fz-callout>
+        </div>
+    </div>
+
+    <div class="variant">
+        <h3>Layers / Elevation (via layer="..." &amp; [layer-#])</h3>
+        <div class="callouts-grid">
+            <fz-callout notification layer="0">
+                <span slot="title">Layer 0 (layer="0")</span>
+                <div>Flat callout with no shadow elevation.</div>
+            </fz-callout>
+
+            <fz-callout notification layer="1">
+                <span slot="title">Layer 1 (layer="1")</span>
+                <div>Default subtle elevation shadow.</div>
+            </fz-callout>
+
+            <fz-callout notification layer="2">
+                <span slot="title">Layer 2 (layer="2")</span>
+                <div>Medium elevation with noticeable depth.</div>
+            </fz-callout>
+
+            <fz-callout notification layer="3">
+                <span slot="title">Layer 3 (layer="3")</span>
+                <div>High elevation floating callout shadow.</div>
+            </fz-callout>
+        </div>
+    </div>
+
+    <div class="variant">
+        <h3>Corners (via corner="..." &amp; [sharp|subtle|curved|circle])</h3>
+        <div class="callouts-grid">
+            <fz-callout warning sharp>
+                <span slot="title">Sharp (sharp)</span>
+                <div>Crisp square edges with 0px corner radius.</div>
+            </fz-callout>
+
+            <fz-callout warning corner="subtle">
+                <span slot="title">Subtle (corner="subtle")</span>
+                <div>Standard 3px slightly rounded corners.</div>
+            </fz-callout>
+
+            <fz-callout warning curved>
+                <span slot="title">Curved (curved)</span>
+                <div>Curved 10px corners for modern soft aesthetics.</div>
+            </fz-callout>
+
+            <fz-callout warning circle>
+                <span slot="title">Circle (circle)</span>
+                <div>Pill / circular rounded corners.</div>
+            </fz-callout>
+        </div>
+    </div>
+
+    <div class="variant">
+        <h3>Closable Callouts</h3>
+        <div class="callouts-stack">
+            <fz-callout error closable layer="1">
+                <span slot="title">Dismissible Error Callout</span>
+                <div>This callout includes a close button. Click the X button on the right to dismiss it.</div>
+            </fz-callout>
+
+            <fz-callout success closable curved layer="2">
+                <span slot="title">Dismissible Success Callout</span>
+                <div>Payment processed successfully. Transaction reference: #849204.</div>
+            </fz-callout>
+        </div>
+    </div>
+
+    <div class="variant">
+        <h3>Showing Notifications (Interactive Demo)</h3>
+        <p>Callouts are used to display toast and banner notifications. Click any button below to trigger dynamic notifications displayed via the callout component:</p>
+        <div class="buttons" style="display: flex; gap: 0.75em; flex-wrap: wrap; margin-bottom: 2em;">
+            <button type="button" class="blue" onclick="fzui.notify({ classification: 'notification', title: 'New Notification', message: 'You have 3 unread messages in your inbox.', layer: 2, corner: 'curved' })">
+                Show Notification
+            </button>
+            <button type="button" class="red" onclick="fzui.notify.error('Could not connect to authentication service.', { title: 'Network Error', layer: 2, corner: 'curved' })">
+                Show Error
+            </button>
+            <button type="button" class="yellow" onclick="fzui.notify.warning('Your session will expire in 5 minutes.', { title: 'Session Warning', layer: 2, corner: 'curved' })">
+                Show Warning
+            </button>
+            <button type="button" class="green" onclick="fzui.notify.success('All settings have been updated and synchronized.', { title: 'Success', layer: 2, corner: 'curved' })">
+                Show Success
+            </button>
+            <button type="button" onclick="fzui.notify({ classification: 'notification', title: 'Top-Center Notice', message: 'Callout centered at top of viewport.', position: 'top-center', layer: 3, corner: 'curved' })">
+                Show Top-Center
+            </button>
+        </div>
+    </div>
+
+    <div class="variant">
+        <h3>Pure CSS Callouts (via .fz-callout class)</h3>
+        <div class="callouts-stack">
+            <div class="fz-callout fz-callout--notification fz-callout--layer-1 fz-callout--curved">
+                <div class="fz-callout__icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                </div>
+                <div class="fz-callout__content">
+                    <div class="fz-callout__title">Pure CSS Callout</div>
+                    <div class="fz-callout__body">This callout is rendered using pure CSS classes (.fz-callout .fz-callout--notification .fz-callout--curved).</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

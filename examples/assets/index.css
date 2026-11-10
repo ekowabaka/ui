@@ -26,6 +26,23 @@ body {
     }
 }
 
+.callouts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25em;
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+.callouts-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 2em;
+}
+
 .component-header {
     width: 1800px;
     max-width: 100%;

@@ -71,6 +71,7 @@ Calling `initialize()` registers the following custom elements:
 | **Sidebar** | `<fz-sidebar>` | Collapsible navigation sidebar |
 | **Sidebar Item** | `<fz-sidebar-item>` | Sidebar navigation link / item with icon support |
 | **Card** | `<fz-card>` | Structured content card with header, body, and actions |
+| **Callout** | `<fz-callout>` | Callout alert and notification banner with classifications, elevation layers, and corner styles |
 | **Dropdown** | `<fz-dropdown>` | Interactive popup / menu trigger container |
 | **Menu** | `<fz-menu>` | Context and action menu |
 | **Menu Item** | `<fz-menu-item>` | Action item inside `<fz-menu>` |

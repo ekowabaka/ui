@@ -26,6 +26,21 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ },
 
+/***/ 779
+(module, __unused_webpack_exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___ = __webpack_require__(601);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(314);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `:host{display:block}.callout{display:flex;align-items:center;gap:.75em;padding:var(--callout-padding, 0.9em 1.2em);background-color:var(--callout-bg-color, #ffffff);border:var(--callout-border-width, 1px) var(--callout-border-style, solid) var(--callout-border-color, #e2e8f0);border-radius:var(--callout-border-radius, 3px);box-shadow:var(--callout-box-shadow, 1.2px 1.2px 4px rgba(0, 0, 0, 0.15));color:var(--callout-body-color, #1e293b);box-sizing:border-box;position:relative;font-family:inherit;line-height:var(--callout-line-height, 1.5);font-size:var(--callout-font-size, 0.95rem)}.callout__icon{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;align-self:center;color:var(--callout-icon-color, var(--callout-accent-color, #21add3));line-height:1;margin-top:0}.callout__icon svg{display:block;width:20px;height:20px}.callout__content{flex:1 1 auto;min-width:0}.callout__title{display:block}.callout__body{display:block}.callout__actions{display:flex;align-items:center;justify-content:center;align-self:center;gap:.5em;flex-shrink:0;margin-left:auto}.callout__close{display:none;align-items:center;justify-content:center;align-self:center;background:rgba(0,0,0,0);border:none;padding:.25em;cursor:pointer;color:var(--callout-body-color, #1e293b);opacity:.6;border-radius:3px;line-height:1;transition:opacity .15s ease,background-color .15s ease}.callout__close:hover{opacity:1;background-color:rgba(0,0,0,.08)}.callout__close svg{display:block}:host([closable]) .callout__close,:host([dismissible]) .callout__close{display:inline-flex}:host([no-icon]) .callout__icon{display:none}slot[name=title]{display:block}slot:not([name]){display:block}[slot=title]:empty{display:none}::slotted([slot=title]){display:block;color:var(--callout-title-color, #1a1a1a);font-size:var(--callout-title-font-size, 1em);font-weight:var(--callout-title-font-weight, 700);line-height:1.3;margin-bottom:var(--callout-title-margin-bottom, 0.25em)}::slotted(:not([slot=title]):not([slot=icon]):not([slot=action])){color:var(--callout-body-color, #1e293b);font-size:var(--callout-body-font-size, 0.95em);line-height:1.5}::slotted([slot=icon]){display:inline-flex;align-items:center;justify-content:center;align-self:center;color:var(--callout-icon-color, var(--callout-accent-color, #21add3))}`, ""]);
+// Exports
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ },
+
 /***/ 568
 (module, __unused_webpack_exports, __webpack_require__) {
 
@@ -269,6 +284,25 @@ module.exports = function (i) {
 
 /***/ },
 
+/***/ 495
+(module, __unused_webpack_exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(779);
+
+        if (result && result.__esModule) {
+            result = result.default;
+        }
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ },
+
 /***/ 732
 (module, __unused_webpack_exports, __webpack_require__) {
 
@@ -478,7 +512,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  initialize: () => (/* binding */ initialize)
+  CalloutComponent: () => (/* reexport */ CalloutComponent),
+  NotificationComponent: () => (/* reexport */ NotificationComponent),
+  initialize: () => (/* binding */ initialize),
+  notify: () => (/* reexport */ notify)
 });
 
 // EXTERNAL MODULE: ./js/components/cards/cards.css
@@ -871,6 +908,227 @@ class AvatarComponent extends HTMLElement {
             </div>`
     }
 }
+// EXTERNAL MODULE: ./js/components/callout/callout.scss
+var callout = __webpack_require__(495);
+;// ./js/components/callout/callout.js
+
+
+const DEFAULT_ICONS = {
+    notification: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`,
+    info: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`,
+    error: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`,
+    danger: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`,
+    warning: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
+    success: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 11 12 14 22 4"></polyline></svg>`,
+    neutral: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>`,
+    default: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`
+};
+
+class CalloutComponent extends HTMLElement {
+    static get observedAttributes() {
+        return [
+            'classification',
+            'type',
+            'notification',
+            'info',
+            'error',
+            'danger',
+            'warning',
+            'success',
+            'neutral',
+            'closable',
+            'dismissible'
+        ];
+    }
+
+    #defaultIconEl;
+    #closeBtn;
+
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' }).innerHTML = `
+            <style>${callout}</style>
+            <div class="callout" role="status" aria-live="polite">
+                <div class="callout__icon">
+                    <slot name="icon">
+                        <span class="callout__default-icon"></span>
+                    </slot>
+                </div>
+                <div class="callout__content">
+                    <div class="callout__title">
+                        <slot name="title"></slot>
+                    </div>
+                    <div class="callout__body">
+                        <slot></slot>
+                    </div>
+                </div>
+                <div class="callout__actions">
+                    <slot name="action"></slot>
+                    <button type="button" class="callout__close" aria-label="Dismiss">
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        `;
+
+        this.#defaultIconEl = this.shadowRoot.querySelector('.callout__default-icon');
+        this.#closeBtn = this.shadowRoot.querySelector('.callout__close');
+
+        this.#closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.dismiss();
+        });
+
+        this.#updateIcon();
+    }
+
+    connectedCallback() {
+        this.#updateIcon();
+    }
+
+    attributeChangedCallback(name) {
+        if (name !== 'closable' && name !== 'dismissible') {
+            this.#updateIcon();
+        }
+    }
+
+    #updateIcon() {
+        if (!this.#defaultIconEl) return;
+        const cls = this.getClassification();
+        const iconSvg = DEFAULT_ICONS[cls] || DEFAULT_ICONS.default;
+        this.#defaultIconEl.innerHTML = iconSvg;
+    }
+
+    getClassification() {
+        const attr = this.getAttribute('classification') || this.getAttribute('type');
+        if (attr) return attr.toLowerCase();
+        for (const name of ['notification', 'info', 'error', 'danger', 'warning', 'success', 'neutral']) {
+            if (this.hasAttribute(name) || this.classList.contains(name) || this.classList.contains(`fz-callout--${name}`)) {
+                return name;
+            }
+        }
+        return 'notification';
+    }
+
+    dismiss() {
+        const event = new CustomEvent('dismiss', { bubbles: true, composed: true, cancelable: true });
+        this.dispatchEvent(event);
+        if (!event.defaultPrevented) {
+            this.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+            this.style.opacity = '0';
+            this.style.transform = 'translateY(-4px)';
+            setTimeout(() => {
+                this.remove();
+                this.dispatchEvent(new CustomEvent('dismissed', { bubbles: true, composed: true }));
+            }, 200);
+        }
+    }
+
+    close() {
+        this.dismiss();
+    }
+}
+
+class NotificationComponent extends CalloutComponent {
+    connectedCallback() {
+        super.connectedCallback?.();
+        if (!this.hasAttribute('classification') && !this.hasAttribute('type')) {
+            this.setAttribute('classification', 'notification');
+        }
+    }
+}
+
+/**
+ * Display a notification using the callout component.
+ *
+ * @param {string|Object} optionsOrMessage
+ * @param {Object} [maybeOptions]
+ * @returns {CalloutComponent} The created callout element.
+ */
+function notify(optionsOrMessage, maybeOptions = {}) {
+    const options = typeof optionsOrMessage === 'string'
+        ? { message: optionsOrMessage, ...maybeOptions }
+        : { ...optionsOrMessage };
+
+    const {
+        message = '',
+        title = '',
+        classification = 'notification',
+        layer = '2',
+        corner = 'subtle',
+        duration = 4500,
+        closable = true,
+        icon = null,
+        position = 'top-right',
+        container = null
+    } = options;
+
+    let targetContainer = container;
+    if (!targetContainer) {
+        let containerEl = document.querySelector(`.fz-notification-container.fz-notification-container--${position}`);
+        if (!containerEl) {
+            containerEl = document.createElement('div');
+            containerEl.className = `fz-notification-container fz-notification-container--${position}`;
+            document.body.appendChild(containerEl);
+        }
+        targetContainer = containerEl;
+    }
+
+    const callout = document.createElement('fz-callout');
+    callout.setAttribute('classification', classification);
+    callout.setAttribute('layer', String(layer));
+    if (corner) callout.setAttribute('corner', corner);
+    if (closable) callout.setAttribute('closable', '');
+
+    if (icon) {
+        const iconEl = document.createElement('span');
+        iconEl.slot = 'icon';
+        if (typeof icon === 'string') {
+            iconEl.innerHTML = icon;
+        } else if (icon instanceof Node) {
+            iconEl.appendChild(icon);
+        }
+        callout.appendChild(iconEl);
+    }
+
+    if (title) {
+        const titleEl = document.createElement('span');
+        titleEl.slot = 'title';
+        titleEl.textContent = title;
+        callout.appendChild(titleEl);
+    }
+
+    if (message) {
+        const bodyEl = document.createElement('div');
+        if (typeof message === 'string') {
+            bodyEl.innerHTML = message;
+        } else if (message instanceof Node) {
+            bodyEl.appendChild(message);
+        }
+        callout.appendChild(bodyEl);
+    }
+
+    targetContainer.appendChild(callout);
+
+    if (duration > 0) {
+        const timer = setTimeout(() => {
+            callout.dismiss();
+        }, duration);
+        callout.addEventListener('dismiss', () => clearTimeout(timer), { once: true });
+    }
+
+    return callout;
+}
+
+notify.notification = (msg, opts) => notify(msg, { ...opts, classification: 'notification' });
+notify.info = (msg, opts) => notify(msg, { ...opts, classification: 'info' });
+notify.error = (msg, opts) => notify(msg, { ...opts, classification: 'error' });
+notify.warning = (msg, opts) => notify(msg, { ...opts, classification: 'warning' });
+notify.success = (msg, opts) => notify(msg, { ...opts, classification: 'success' });
+
 ;// ./js/fzui.js
 
 
@@ -880,7 +1138,12 @@ class AvatarComponent extends HTMLElement {
 
 
 
+
+
+
 function initialize() {
+    customElements.define('fz-callout', CalloutComponent)
+    customElements.define('fz-notification', NotificationComponent)
     customElements.define('fz-card', CardComponent)
     customElements.define('fz-dropdown', DropdownComponent)
     customElements.define('fz-menu', MenuComponent)

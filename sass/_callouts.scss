@@ -1,0 +1,317 @@
+@use 'colors';
+@use 'modifiers';
+@use 'sass:color';
+@use 'sass:map';
+
+$default-layer: '1';
+
+@function safe-title-color($c) {
+  $l: color.channel($c, 'lightness', $space: hsl);
+  @if $l > 30% {
+    @return color.adjust($c, $lightness: -25%);
+  } @else {
+    @return $c;
+  }
+}
+
+@function safe-bg-color($c) {
+  @if $c == colors.$white {
+    @return #ffffff;
+  }
+  @return rgba($c, 0.08);
+}
+
+// Classification configuration
+$classifications: (
+  'notification': (
+    'accent': colors.$blue,
+    'bg': rgba(colors.$blue, 0.035),
+    'border': rgba(colors.$blue, 0.35),
+    'title': color.adjust(colors.$blue, $lightness: -32%),
+    'body': #1e293b,
+  ),
+  'info': (
+    'accent': colors.$blue,
+    'bg': rgba(colors.$blue, 0.035),
+    'border': rgba(colors.$blue, 0.35),
+    'title': color.adjust(colors.$blue, $lightness: -32%),
+    'body': #1e293b,
+  ),
+  'error': (
+    'accent': colors.$red,
+    'bg': rgba(colors.$red, 0.08),
+    'border': rgba(colors.$red, 0.35),
+    'title': color.adjust(colors.$red, $lightness: -25%),
+    'body': #1e293b,
+  ),
+  'danger': (
+    'accent': colors.$red,
+    'bg': rgba(colors.$red, 0.08),
+    'border': rgba(colors.$red, 0.35),
+    'title': color.adjust(colors.$red, $lightness: -25%),
+    'body': #1e293b,
+  ),
+  'warning': (
+    'accent': colors.$yellow,
+    'bg': rgba(colors.$yellow, 0.12),
+    'border': rgba(colors.$yellow, 0.45),
+    'title': color.adjust(colors.$yellow, $lightness: -35%),
+    'body': #1e293b,
+  ),
+  'success': (
+    'accent': colors.$green,
+    'bg': rgba(colors.$green, 0.08),
+    'border': rgba(colors.$green, 0.35),
+    'title': color.adjust(colors.$green, $lightness: -30%),
+    'body': #1e293b,
+  ),
+  'neutral': (
+    'accent': colors.$gray-2,
+    'bg': rgba(colors.$gray-4, 0.12),
+    'border': rgba(colors.$gray-3, 0.3),
+    'title': colors.$gray-0,
+    'body': colors.$gray-1,
+  ),
+);
+
+:is(fz-callout, .fz-callout, fz-notification) {
+  --callout-padding: 0.9em 1.2em;
+  --callout-border-width: 1px;
+  --callout-border-style: solid;
+  --callout-border-color: #{rgba(colors.$gray-3, 0.3)};
+  --callout-accent-color: #{colors.$blue};
+  --callout-bg-color: #{rgba(colors.$blue, 0.035)};
+  --callout-title-color: #{color.adjust(colors.$blue, $lightness: -32%)};
+  --callout-body-color: #1e293b;
+  --callout-icon-color: var(--callout-accent-color);
+  --callout-box-shadow: #{modifiers.layer($default-layer)};
+  --callout-border-radius: #{map.get(modifiers.$corner-radii, 'subtle')};
+  --callout-font-size: 0.95rem;
+  --callout-line-height: 1.5;
+  color: var(--callout-body-color);
+  font-size: var(--callout-font-size);
+  line-height: var(--callout-line-height);
+
+  [slot="title"] {
+    color: var(--callout-title-color);
+  }
+
+  // Classification loop (attributes and classes)
+  @each $name, $props in $classifications {
+    &:is(
+      .fz-callout--#{$name},
+      .#{$name},
+      [#{$name}],
+      [classification="#{$name}"],
+      [type="#{$name}"]
+    ) {
+      --callout-accent-color: #{map.get($props, 'accent')};
+      --callout-bg-color: #{map.get($props, 'bg')};
+      --callout-border-color: #{map.get($props, 'border')};
+      --callout-title-color: #{map.get($props, 'title')};
+      --callout-body-color: #{map.get($props, 'body')};
+      --callout-icon-color: #{map.get($props, 'accent')};
+    }
+  }
+
+  // BEM corner modifier loop: .fz-callout--sharp, .sharp, [sharp], [corner="sharp"], [radius="sharp"]
+  @each $modifier, $radius in modifiers.$corner-radii {
+    &:is(.fz-callout--#{$modifier}, .#{$modifier}, [#{$modifier}], [corner="#{$modifier}"], [radius="#{$modifier}"]) {
+      --callout-border-radius: #{$radius};
+    }
+  }
+
+  // BEM layer modifier loop: .fz-callout--layer-0, [layer="0"], [layer-0], etc. (classes + attributes)
+  @each $layer, $offset in modifiers.$layers {
+    &:is(.fz-callout--layer-#{$layer}, .layer-#{$layer}, [layer="#{$layer}"], [layer-#{$layer}]) {
+      --callout-box-shadow: #{modifiers.layer($layer)};
+    }
+  }
+
+  // Color modifier loop: .fz-callout--red, [color="red"], [red], etc.
+  @each $color-name, $color-val in colors.$all-colors {
+    &:is(.fz-callout--#{$color-name}, .#{$color-name}, [#{$color-name}], [color="#{$color-name}"]) {
+      --callout-accent-color: #{$color-val};
+      --callout-bg-color: #{safe-bg-color($color-val)};
+      --callout-border-color: #{rgba($color-val, 0.35)};
+      --callout-title-color: #{safe-title-color($color-val)};
+      --callout-icon-color: #{$color-val};
+    }
+  }
+
+  // Filled style variant
+  &:is(.fz-callout--filled, .filled, [filled]) {
+    --callout-bg-color: var(--callout-accent-color);
+    --callout-border-color: var(--callout-accent-color);
+    --callout-title-color: #ffffff;
+    --callout-body-color: rgba(255, 255, 255, 0.95);
+    --callout-icon-color: #ffffff;
+
+    [slot="title"] {
+      color: #ffffff;
+    }
+  }
+}
+
+// Pure CSS .fz-callout component styles
+.fz-callout {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: var(--callout-padding, 0.9em 1.2em);
+  background-color: var(--callout-bg-color);
+  border: var(--callout-border-width, 1px) var(--callout-border-style, solid) var(--callout-border-color);
+  border-radius: var(--callout-border-radius, 3px);
+  box-shadow: var(--callout-box-shadow);
+  color: var(--callout-body-color);
+  box-sizing: border-box;
+  position: relative;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  &__icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    color: var(--callout-icon-color);
+    font-size: 1.25em;
+    line-height: 1;
+    margin-top: 0;
+
+    svg {
+      width: 1.25em;
+      height: 1.25em;
+    }
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__title {
+    font-weight: 700;
+    color: var(--callout-title-color);
+    margin-bottom: 0.25em;
+    line-height: 1.3;
+    font-size: 1em;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__body {
+    color: var(--callout-body-color);
+    font-size: 0.95em;
+    line-height: 1.5;
+
+    > *:first-child {
+      margin-top: 0;
+    }
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    gap: 0.5em;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  &__close {
+    background: transparent;
+    border: none;
+    padding: 0.2em;
+    cursor: pointer;
+    color: var(--callout-body-color);
+    opacity: 0.6;
+    border-radius: 3px;
+    display: none;
+    line-height: 1;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+
+    &:hover {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &:is(.fz-callout--closable, .closable, [closable], [dismissible]) {
+    .fz-callout__close {
+      display: inline-flex;
+    }
+  }
+
+  &:is(.fz-callout--no-icon, [no-icon]) {
+    .fz-callout__icon {
+      display: none;
+    }
+  }
+}
+
+:is(fz-callout, fz-notification) {
+  display: block;
+}
+
+// Notification container for toast/alert notifications
+.fz-notification-container {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+  max-width: 420px;
+  width: calc(100vw - 2rem);
+  box-sizing: border-box;
+
+  > * {
+    pointer-events: auto;
+  }
+
+  &--top-right {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  &--top-left {
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+
+  &--top-center {
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &--bottom-right {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+
+  &--bottom-left {
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+
+  &--bottom-center {
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

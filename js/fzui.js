@@ -5,8 +5,13 @@ import { MenuComponent, MenuItemComponent, MenuSeparatorComponent } from './comp
 import {AppFrameComponent} from "./components/layouts/layouts.js";
 import {AvatarComponent} from "./components/avatars/avatars.js";
 import {SidebarComponent, SidebarItemComponent} from "./components/layouts/layouts.js";
+import { CalloutComponent, NotificationComponent, notify } from "./components/callout/callout.js";
+
+export { CalloutComponent, NotificationComponent, notify };
 
 export function initialize() {
+    customElements.define('fz-callout', CalloutComponent)
+    customElements.define('fz-notification', NotificationComponent)
     customElements.define('fz-card', CardComponent)
     customElements.define('fz-dropdown', DropdownComponent)
     customElements.define('fz-menu', MenuComponent)
