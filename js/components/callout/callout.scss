@@ -1,7 +1,12 @@
 :host {
     display: block;
+    box-sizing: border-box;
     position: relative;
     z-index: var(--callout-z-index, 1000);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
 .callout {

@@ -75,6 +75,7 @@ $classifications: (
 );
 
 :is(fz-callout, .fz-callout, fz-notification) {
+  box-sizing: border-box;
   --callout-padding: 0.9em 1.2em;
   --callout-border-width: 1px;
   --callout-border-style: solid;
@@ -269,6 +270,7 @@ $classifications: (
 
 :is(fz-callout, fz-notification) {
   display: block;
+  box-sizing: border-box;
 }
 
 // Notification container for toast/alert notifications
