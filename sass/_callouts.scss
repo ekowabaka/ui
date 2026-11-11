@@ -88,6 +88,9 @@ $classifications: (
   --callout-border-radius: #{map.get(modifiers.$corner-radii, 'subtle')};
   --callout-font-size: 0.95rem;
   --callout-line-height: 1.5;
+  --callout-z-index: 1000;
+  position: relative;
+  z-index: var(--callout-z-index, 1000);
   color: var(--callout-body-color);
   font-size: var(--callout-font-size);
   line-height: var(--callout-line-height);
@@ -166,6 +169,7 @@ $classifications: (
   color: var(--callout-body-color);
   box-sizing: border-box;
   position: relative;
+  z-index: var(--callout-z-index, 1000);
   transition: opacity 0.2s ease, transform 0.2s ease;
 
   &__icon {
