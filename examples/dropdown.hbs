@@ -197,8 +197,8 @@
     </div>
 
     <div class="variant third">
-        <h3>Arrow Options</h3>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <h3>Arrow Options & Custom Triggers</h3>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
             <fz-dropdown>
                 <button slot="button">With Arrow</button>
                 <fz-menu>
@@ -223,11 +223,37 @@
                 </fz-menu>
             </fz-dropdown>
 
-            <fz-dropdown no-arrow>
-                <button slot="button" outline color="blue">Outline No Arrow</button>
+            <fz-dropdown right no-arrow>
+                <button slot="button" outline color="blue">Right + No Arrow</button>
                 <fz-menu color="blue">
-                    <fz-menu-item>First Option</fz-menu-item>
-                    <fz-menu-item>Second Option</fz-menu-item>
+                    <fz-menu-item>Right Item 1</fz-menu-item>
+                    <fz-menu-item>Right Item 2</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown no-arrow>
+                <fz-avatar slot="button" size="mini">
+                    <img slot="image" src="assets/avatar.jpg" alt="User Avatar">
+                    <span slot="name">Avatar (Normal)</span>
+                </fz-avatar>
+                <fz-menu>
+                    <fz-menu-item>Profile</fz-menu-item>
+                    <fz-menu-item>Settings</fz-menu-item>
+                    <fz-menu-separator></fz-menu-separator>
+                    <fz-menu-item>Logout</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown right no-arrow>
+                <fz-avatar slot="button" size="mini">
+                    <img slot="image" src="assets/avatar.jpg" alt="User Avatar">
+                    <span slot="name">Avatar (Right)</span>
+                </fz-avatar>
+                <fz-menu>
+                    <fz-menu-item>Profile</fz-menu-item>
+                    <fz-menu-item>Settings</fz-menu-item>
+                    <fz-menu-separator></fz-menu-separator>
+                    <fz-menu-item>Logout</fz-menu-item>
                 </fz-menu>
             </fz-dropdown>
         </div>

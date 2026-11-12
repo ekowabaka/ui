@@ -17,10 +17,18 @@
     </head>
     <body>
         <fz-app-frame>
-            <fz-avatar slot="topnav" size="small">
-                <img slot="image" src="assets/avatar.jpg" alt="User Avatar">
-                <span slot="name">John Doe</span>
-            </fz-avatar>
+            <fz-dropdown slot="topnav" right no-arrow>
+                <fz-avatar slot="button" size="small">
+                    <img slot="image" src="assets/avatar.jpg" alt="User Avatar">
+                    <span slot="name">John Doe</span>
+                </fz-avatar>
+                <fz-menu>
+                    <fz-menu-item>Profile</fz-menu-item>
+                    <fz-menu-item>Settings</fz-menu-item>
+                    <fz-menu-separator></fz-menu-separator>
+                    <fz-menu-item>Logout</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
             <div slot="search" style="text-align:center">
                 <input placeholder="Search..." size="small"></input>
             </div>

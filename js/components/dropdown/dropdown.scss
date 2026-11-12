@@ -90,6 +90,27 @@ div.contents {
     }
 }
 
+// Positioning modifiers on :host
+:host(.fz-dropdown--right),
+:host(.dropdown--right),
+:host(.dropdown-right),
+:host([right]) {
+    --dropdown-contents-left: auto;
+    --dropdown-contents-right: 0;
+}
+
+:host(.fz-dropdown--dropup),
+:host(.dropdown--dropup),
+:host(.fz-dropdown--up),
+:host(.dropdown--up),
+:host(.dropup),
+:host([dropup]),
+:host([up]) {
+    --dropdown-contents-top: auto;
+    --dropdown-contents-bottom: 100%;
+    --dropdown-contents-margin: 0 0 5px 0;
+}
+
 // BEM corner modifiers on :host (classes + attributes).
 // These set the same custom properties the global stylesheet sets, so the
 // component still honours them when the global CSS is not loaded.
