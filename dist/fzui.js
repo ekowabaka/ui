@@ -64,7 +64,7 @@ var ___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___ = __webpack_require__(601);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(314);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `:host{display:inline-block;position:relative}::slotted([slot=button]){cursor:pointer}::slotted([slot=button]):after{content:"▼";padding-left:10px}div.contents{display:none;position:absolute;top:var(--dropdown-contents-top, 100%);bottom:var(--dropdown-contents-bottom, auto);left:var(--dropdown-contents-left, 0);right:var(--dropdown-contents-right, auto);box-shadow:var(--dropdown-contents-box-shadow, 1.2px 1.2px 4px rgba(0, 0, 0, 0.2));margin:var(--dropdown-contents-margin, 5px 0);background-color:var(--dropdown-contents-background-color, #ffffff);color:var(--dropdown-contents-color, #494949);border-radius:var(--dropdown-contents-border-radius, 3px);border:var(--dropdown-contents-border, 1px solid #dbdbdb);z-index:1000;padding:.5em}div.contents.active{display:block}:host(.fz-dropdown--sharp),:host(.dropdown--sharp),:host(.sharp),:host([sharp]),:host([corner=sharp]),:host([radius=sharp]){--dropdown-contents-border-radius: 0px}:host(.fz-dropdown--subtle),:host(.dropdown--subtle),:host(.subtle),:host([subtle]),:host([corner=subtle]),:host([radius=subtle]){--dropdown-contents-border-radius: 3px}:host(.fz-dropdown--curved),:host(.dropdown--curved),:host(.curved),:host([curved]),:host([corner=curved]),:host([radius=curved]){--dropdown-contents-border-radius: 10px}:host(.fz-dropdown--circle),:host(.dropdown--circle),:host(.circle),:host([circle]),:host([corner=circle]),:host([radius=circle]){--dropdown-contents-border-radius: 50%}:host(.fz-dropdown--layer-0),:host(.dropdown--layer-0),:host(.layer-0),:host([layer="0"]),:host([layer-0]){--dropdown-contents-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2)}:host(.fz-dropdown--layer-1),:host(.dropdown--layer-1),:host(.layer-1),:host([layer="1"]),:host([layer-1]){--dropdown-contents-box-shadow: 1.2px 1.2px 4px rgba(0, 0, 0, 0.2)}:host(.fz-dropdown--layer-2),:host(.dropdown--layer-2),:host(.layer-2),:host([layer="2"]),:host([layer-2]){--dropdown-contents-box-shadow: 3.6px 3.6px 12px rgba(0, 0, 0, 0.2)}:host(.fz-dropdown--layer-3),:host(.dropdown--layer-3),:host(.layer-3),:host([layer="3"]),:host([layer-3]){--dropdown-contents-box-shadow: 10.8px 10.8px 36px rgba(0, 0, 0, 0.2)}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `:host{display:inline-block;position:relative;--dropdown-arrow: "▼";--dropdown-arrow-padding: 10px;--dropdown-arrow-display: inline}:host(.fz-dropdown--no-arrow),:host(.dropdown--no-arrow),:host(.no-arrow),:host(.no-caret),:host(.without-arrow),:host([no-arrow]),:host([no-caret]),:host([without-arrow]),:host([arrow=none]),:host([arrow=false]){--dropdown-arrow: "";--dropdown-arrow-padding: 0;--dropdown-arrow-display: none}::slotted([slot=button]){cursor:pointer}::slotted([slot=button]):after{content:var(--dropdown-arrow, "▼");padding-left:var(--dropdown-arrow-padding, 10px);display:var(--dropdown-arrow-display, inline)}:host(.fz-dropdown--no-arrow) ::slotted([slot=button]):after,:host(.dropdown--no-arrow) ::slotted([slot=button]):after,:host(.no-arrow) ::slotted([slot=button]):after,:host(.no-caret) ::slotted([slot=button]):after,:host(.without-arrow) ::slotted([slot=button]):after,:host([no-arrow]) ::slotted([slot=button]):after,:host([no-caret]) ::slotted([slot=button]):after,:host([without-arrow]) ::slotted([slot=button]):after,:host([arrow=none]) ::slotted([slot=button]):after,:host([arrow=false]) ::slotted([slot=button]):after,::slotted([slot=button][no-arrow]):after,::slotted([slot=button][no-caret]):after,::slotted([slot=button][without-arrow]):after,::slotted([slot=button][arrow=none]):after,::slotted([slot=button][arrow=false]):after,::slotted([slot=button].no-arrow):after,::slotted([slot=button].no-caret):after,::slotted([slot=button].without-arrow):after,::slotted([slot=button].button--no-arrow):after,::slotted([no-arrow]):after,::slotted([no-caret]):after,::slotted([without-arrow]):after,::slotted(.no-arrow):after,::slotted(.no-caret):after,::slotted(.without-arrow):after,::slotted(.button--no-arrow):after{content:none !important;display:none !important;padding-left:0 !important}div.contents{display:none;position:absolute;top:var(--dropdown-contents-top, 100%);bottom:var(--dropdown-contents-bottom, auto);left:var(--dropdown-contents-left, 0);right:var(--dropdown-contents-right, auto);box-shadow:var(--dropdown-contents-box-shadow, 1.2px 1.2px 4px rgba(0, 0, 0, 0.2));margin:var(--dropdown-contents-margin, 5px 0);background-color:var(--dropdown-contents-background-color, #ffffff);color:var(--dropdown-contents-color, #494949);border-radius:var(--dropdown-contents-border-radius, 3px);border:var(--dropdown-contents-border, 1px solid #dbdbdb);z-index:1000;padding:.5em}div.contents.active{display:block}:host(.fz-dropdown--sharp),:host(.dropdown--sharp),:host(.sharp),:host([sharp]),:host([corner=sharp]),:host([radius=sharp]){--dropdown-contents-border-radius: 0px}:host(.fz-dropdown--subtle),:host(.dropdown--subtle),:host(.subtle),:host([subtle]),:host([corner=subtle]),:host([radius=subtle]){--dropdown-contents-border-radius: 3px}:host(.fz-dropdown--curved),:host(.dropdown--curved),:host(.curved),:host([curved]),:host([corner=curved]),:host([radius=curved]){--dropdown-contents-border-radius: 10px}:host(.fz-dropdown--circle),:host(.dropdown--circle),:host(.circle),:host([circle]),:host([corner=circle]),:host([radius=circle]){--dropdown-contents-border-radius: 50%}:host(.fz-dropdown--layer-0),:host(.dropdown--layer-0),:host(.layer-0),:host([layer="0"]),:host([layer-0]){--dropdown-contents-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2)}:host(.fz-dropdown--layer-1),:host(.dropdown--layer-1),:host(.layer-1),:host([layer="1"]),:host([layer-1]){--dropdown-contents-box-shadow: 1.2px 1.2px 4px rgba(0, 0, 0, 0.2)}:host(.fz-dropdown--layer-2),:host(.dropdown--layer-2),:host(.layer-2),:host([layer="2"]),:host([layer-2]){--dropdown-contents-box-shadow: 3.6px 3.6px 12px rgba(0, 0, 0, 0.2)}:host(.fz-dropdown--layer-3),:host(.dropdown--layer-3),:host(.layer-3),:host([layer="3"]),:host([layer-3]){--dropdown-contents-box-shadow: 10.8px 10.8px 36px rgba(0, 0, 0, 0.2)}`, ""]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -546,12 +546,52 @@ var dropdown = __webpack_require__(319);
 
 
 class DropdownComponent extends HTMLElement {
+    static get observedAttributes() {
+        return ['no-arrow', 'arrow', 'without-arrow', 'no-caret']
+    }
+
     #button
     #contents
 
     #onDocumentClick = (event) => {
         if (!event.composedPath().includes(this)) {
             this.close()
+        }
+    }
+
+    get noArrow() {
+        return this.hasAttribute('no-arrow') ||
+            this.hasAttribute('without-arrow') ||
+            this.hasAttribute('no-caret') ||
+            this.getAttribute('arrow') === 'false' ||
+            this.getAttribute('arrow') === 'none' ||
+            this.classList.contains('no-arrow') ||
+            this.classList.contains('fz-dropdown--no-arrow') ||
+            this.classList.contains('dropdown--no-arrow')
+    }
+
+    set noArrow(value) {
+        if (value) {
+            this.setAttribute('no-arrow', '')
+        } else {
+            this.removeAttribute('no-arrow')
+            this.removeAttribute('without-arrow')
+            this.removeAttribute('no-caret')
+            if (this.getAttribute('arrow') === 'false' || this.getAttribute('arrow') === 'none') {
+                this.removeAttribute('arrow')
+            }
+        }
+    }
+
+    get arrow() {
+        return !this.noArrow
+    }
+
+    set arrow(value) {
+        if (!value || value === 'false' || value === 'none') {
+            this.noArrow = true
+        } else {
+            this.noArrow = false
         }
     }
 

@@ -21,6 +21,10 @@ $default-layer: "1";
   position: relative;
   display: inline-block;
 
+  --dropdown-arrow: "▼";
+  --dropdown-arrow-padding: 10px;
+  --dropdown-arrow-display: inline;
+
   // CSS variables for Web Components & Shadow DOM
   --dropdown-contents-background-color: #{colors.$white};
   --dropdown-contents-color: #{colors.$gray-1};
@@ -33,6 +37,13 @@ $default-layer: "1";
   --dropdown-contents-right: auto;
   --dropdown-contents-top: 100%;
   --dropdown-contents-bottom: auto;
+
+  // Arrow disabling modifiers
+  &:is(.dropdown--no-arrow, .fz-dropdown--no-arrow, .no-arrow, .no-caret, .without-arrow, [no-arrow], [no-caret], [without-arrow], [arrow="none"], [arrow="false"]) {
+    --dropdown-arrow: "";
+    --dropdown-arrow-padding: 0;
+    --dropdown-arrow-display: none;
+  }
 
   // Positioning modifiers
   &:is(.dropdown--right, .fz-dropdown--right, .dropdown-right, [right]) {
@@ -99,5 +110,28 @@ $default-layer: "1";
   &--active,
   &.active {
     display: block;
+  }
+}
+
+// Pure CSS dropdown button arrow support (for non-web-component containers)
+:is(.dropdown, .fz-dropdown):not(fz-dropdown) {
+  > :is(button, .button, [class*="button--"]):not(.dropdown--no-arrow, .fz-dropdown--no-arrow, .no-arrow, .no-caret, .without-arrow, .button--no-arrow, [no-arrow], [no-caret], [without-arrow], [arrow="none"], [arrow="false"]):after {
+    content: var(--dropdown-arrow, "▼");
+    padding-left: var(--dropdown-arrow-padding, 10px);
+    display: var(--dropdown-arrow-display, inline);
+  }
+
+  &:is(.dropdown--no-arrow, .fz-dropdown--no-arrow, .no-arrow, .no-caret, .without-arrow, [no-arrow], [no-caret], [without-arrow], [arrow="none"], [arrow="false"]) {
+    > :is(button, .button, [class*="button--"]):after {
+      content: none !important;
+      display: none !important;
+      padding-left: 0 !important;
+    }
+  }
+
+  > :is(button, .button, [class*="button--"]):is(.dropdown--no-arrow, .fz-dropdown--no-arrow, .no-arrow, .no-caret, .without-arrow, .button--no-arrow, [no-arrow], [no-caret], [without-arrow], [arrow="none"], [arrow="false"]):after {
+    content: none !important;
+    display: none !important;
+    padding-left: 0 !important;
   }
 }

@@ -1,12 +1,52 @@
 import styles from './dropdown.scss'
 
 export class DropdownComponent extends HTMLElement {
+    static get observedAttributes() {
+        return ['no-arrow', 'arrow', 'without-arrow', 'no-caret']
+    }
+
     #button
     #contents
 
     #onDocumentClick = (event) => {
         if (!event.composedPath().includes(this)) {
             this.close()
+        }
+    }
+
+    get noArrow() {
+        return this.hasAttribute('no-arrow') ||
+            this.hasAttribute('without-arrow') ||
+            this.hasAttribute('no-caret') ||
+            this.getAttribute('arrow') === 'false' ||
+            this.getAttribute('arrow') === 'none' ||
+            this.classList.contains('no-arrow') ||
+            this.classList.contains('fz-dropdown--no-arrow') ||
+            this.classList.contains('dropdown--no-arrow')
+    }
+
+    set noArrow(value) {
+        if (value) {
+            this.setAttribute('no-arrow', '')
+        } else {
+            this.removeAttribute('no-arrow')
+            this.removeAttribute('without-arrow')
+            this.removeAttribute('no-caret')
+            if (this.getAttribute('arrow') === 'false' || this.getAttribute('arrow') === 'none') {
+                this.removeAttribute('arrow')
+            }
+        }
+    }
+
+    get arrow() {
+        return !this.noArrow
+    }
+
+    set arrow(value) {
+        if (!value || value === 'false' || value === 'none') {
+            this.noArrow = true
+        } else {
+            this.noArrow = false
         }
     }
 

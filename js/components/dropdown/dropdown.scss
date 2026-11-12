@@ -3,6 +3,24 @@
 :host {
     display: inline-block;
     position: relative;
+    --dropdown-arrow: "▼";
+    --dropdown-arrow-padding: 10px;
+    --dropdown-arrow-display: inline;
+}
+
+:host(.fz-dropdown--no-arrow),
+:host(.dropdown--no-arrow),
+:host(.no-arrow),
+:host(.no-caret),
+:host(.without-arrow),
+:host([no-arrow]),
+:host([no-caret]),
+:host([without-arrow]),
+:host([arrow="none"]),
+:host([arrow="false"]) {
+    --dropdown-arrow: "";
+    --dropdown-arrow-padding: 0;
+    --dropdown-arrow-display: none;
 }
 
 @mixin after ($text){
@@ -15,7 +33,40 @@
 }
 
 ::slotted([slot="button"]):after {
-    @include after("▼");
+    content: var(--dropdown-arrow, "▼");
+    padding-left: var(--dropdown-arrow-padding, 10px);
+    display: var(--dropdown-arrow-display, inline);
+}
+
+:host(.fz-dropdown--no-arrow) ::slotted([slot="button"]):after,
+:host(.dropdown--no-arrow) ::slotted([slot="button"]):after,
+:host(.no-arrow) ::slotted([slot="button"]):after,
+:host(.no-caret) ::slotted([slot="button"]):after,
+:host(.without-arrow) ::slotted([slot="button"]):after,
+:host([no-arrow]) ::slotted([slot="button"]):after,
+:host([no-caret]) ::slotted([slot="button"]):after,
+:host([without-arrow]) ::slotted([slot="button"]):after,
+:host([arrow="none"]) ::slotted([slot="button"]):after,
+:host([arrow="false"]) ::slotted([slot="button"]):after,
+::slotted([slot="button"][no-arrow]):after,
+::slotted([slot="button"][no-caret]):after,
+::slotted([slot="button"][without-arrow]):after,
+::slotted([slot="button"][arrow="none"]):after,
+::slotted([slot="button"][arrow="false"]):after,
+::slotted([slot="button"].no-arrow):after,
+::slotted([slot="button"].no-caret):after,
+::slotted([slot="button"].without-arrow):after,
+::slotted([slot="button"].button--no-arrow):after,
+::slotted([no-arrow]):after,
+::slotted([no-caret]):after,
+::slotted([without-arrow]):after,
+::slotted(.no-arrow):after,
+::slotted(.no-caret):after,
+::slotted(.without-arrow):after,
+::slotted(.button--no-arrow):after {
+    content: none !important;
+    display: none !important;
+    padding-left: 0 !important;
 }
 
 div.contents {

@@ -1,6 +1,6 @@
 <div class="component-header">
     <h2>Dropdown & Menu</h2>
-    <p>Dropdowns and Menus display contextual options and actions with support for colors, layers (elevation), positioning, and sizing via attributes and BEM classes.</p>
+    <p>Dropdowns and Menus display contextual options and actions with support for colors, layers (elevation), positioning, sizing, and disabling trigger arrows via attributes and BEM classes.</p>
 </div>
 
 <section class="component">
@@ -191,6 +191,43 @@
                 <fz-menu purple>
                     <fz-menu-item>Overview</fz-menu-item>
                     <fz-menu-item>Preferences</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+        </div>
+    </div>
+
+    <div class="variant third">
+        <h3>Arrow Options</h3>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <fz-dropdown>
+                <button slot="button">With Arrow</button>
+                <fz-menu>
+                    <fz-menu-item>First Option</fz-menu-item>
+                    <fz-menu-item>Second Option</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown no-arrow>
+                <button slot="button">No Arrow (wrapper)</button>
+                <fz-menu>
+                    <fz-menu-item>First Option</fz-menu-item>
+                    <fz-menu-item>Second Option</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown>
+                <button slot="button" no-arrow>No Arrow (button)</button>
+                <fz-menu>
+                    <fz-menu-item>First Option</fz-menu-item>
+                    <fz-menu-item>Second Option</fz-menu-item>
+                </fz-menu>
+            </fz-dropdown>
+
+            <fz-dropdown no-arrow>
+                <button slot="button" outline color="blue">Outline No Arrow</button>
+                <fz-menu color="blue">
+                    <fz-menu-item>First Option</fz-menu-item>
+                    <fz-menu-item>Second Option</fz-menu-item>
                 </fz-menu>
             </fz-dropdown>
         </div>
