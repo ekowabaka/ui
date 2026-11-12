@@ -79,7 +79,7 @@ var ___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___ = __webpack_require__(601);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(314);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `:host{display:block;height:100%}#wrapper{box-sizing:border-box;width:100%;height:100%;display:grid;grid-template-columns:var(--fz-app-frame-sidebar-width, 280px) minmax(0, 1fr);grid-template-rows:auto minmax(0, 1fr) auto;grid-template-areas:"header header" "sidebar main" "footer footer";position:relative;transition:grid-template-columns .25s ease}@media(max-width: 1024px){#wrapper{grid-template-columns:var(--fz-app-frame-sidebar-collapsed-width, 64px) minmax(0, 1fr)}}@media(max-width: 600px){#wrapper{grid-template-columns:minmax(0, 1fr);grid-template-areas:"header" "main" "footer"}}.menu-toggle{display:none;align-items:center;justify-content:center;margin:5px 0;padding:4px;border:0;border-radius:5px;background:rgba(0,0,0,0);color:inherit;cursor:pointer}.menu-toggle:hover{background:rgba(0,0,0,.08)}@media(max-width: 600px){.menu-toggle{display:inline-flex}}.backdrop{display:none}header{grid-area:header;box-sizing:border-box;display:flex;align-items:center;gap:5px;width:100%;height:64px;padding-left:10px;padding-right:10px}header slot[name=logo]{display:inline-flex;align-items:center;height:100%;box-sizing:border-box;padding:8px 5px}header slot[name=logo]::slotted(img){height:100%;width:auto;object-fit:contain;box-sizing:border-box}header slot[name=logo]::slotted(*){max-height:100%}header slot[name=search]::slotted(*){flex-grow:1;text-align:center}header ::slotted(*){margin:5px}aside{grid-area:sidebar;min-width:0;overflow-y:auto;overflow-x:hidden}@media(max-width: 600px){aside{grid-area:main;position:absolute;top:0;bottom:0;left:0;z-index:2;width:var(--fz-app-frame-drawer-width, 280px);max-width:85%;background:var(--fz-app-frame-drawer-bg, #fff);transform:translateX(-100%);visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s,box-shadow .25s ease}}@media(max-width: 600px){:host([open]) aside{transform:translateX(0);visibility:visible;box-shadow:2px 0 8px rgba(0,0,0,.25);transition:transform .25s ease,visibility 0s,box-shadow .25s ease}}@media(max-width: 600px){.backdrop{display:block;grid-area:main;position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s ease}:host([open]) .backdrop{opacity:1;pointer-events:auto}}@media(prefers-reduced-motion: reduce){#wrapper,aside,.backdrop{transition:none !important}}main{grid-area:main;min-width:0;overflow:auto}footer{grid-area:footer}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `:host{display:block;height:100%}#wrapper{box-sizing:border-box;width:100%;height:100%;display:grid;grid-template-columns:var(--fz-app-frame-sidebar-width, 280px) minmax(0, 1fr);grid-template-rows:auto minmax(0, 1fr) auto;grid-template-areas:"header header" "sidebar main" "footer footer";position:relative;transition:grid-template-columns .25s ease}@media(max-width: 1024px){#wrapper{grid-template-columns:var(--fz-app-frame-sidebar-collapsed-width, 64px) minmax(0, 1fr)}}@media(max-width: 600px){#wrapper{grid-template-columns:minmax(0, 1fr);grid-template-areas:"header" "main" "footer"}}.menu-toggle{display:none;align-items:center;justify-content:center;margin:5px 0;padding:4px;border:0;border-radius:5px;background:rgba(0,0,0,0);color:inherit;cursor:pointer}.menu-toggle:hover{background:rgba(0,0,0,.08)}@media(max-width: 600px){.menu-toggle{display:inline-flex}}.backdrop{display:none}header{grid-area:header;box-sizing:border-box;display:flex;align-items:center;gap:5px;width:100%;height:64px;padding-left:10px;padding-right:10px}header slot[name=logo]{display:inline-flex;align-items:center;height:100%;box-sizing:border-box;padding:8px 5px}header slot[name=logo]::slotted(img){height:100%;width:auto;object-fit:contain;box-sizing:border-box}header slot[name=logo]::slotted(*){display:inline-flex;align-items:center;height:100%;max-height:100%;box-sizing:border-box}header slot[name=search]::slotted(*){flex-grow:1;text-align:center}header ::slotted(*){margin:5px}aside{grid-area:sidebar;min-width:0;overflow-y:auto;overflow-x:hidden}@media(max-width: 600px){aside{grid-area:main;position:absolute;top:0;bottom:0;left:0;z-index:2;width:var(--fz-app-frame-drawer-width, 280px);max-width:85%;background:var(--fz-app-frame-drawer-bg, #fff);transform:translateX(-100%);visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s,box-shadow .25s ease}}@media(max-width: 600px){:host([open]) aside{transform:translateX(0);visibility:visible;box-shadow:2px 0 8px rgba(0,0,0,.25);transition:transform .25s ease,visibility 0s,box-shadow .25s ease}}@media(max-width: 600px){.backdrop{display:block;grid-area:main;position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s ease}:host([open]) .backdrop{opacity:1;pointer-events:auto}}@media(prefers-reduced-motion: reduce){#wrapper,aside,.backdrop{transition:none !important}}main{grid-area:main;min-width:0;overflow:auto}footer{grid-area:footer}`, ""]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -724,6 +724,12 @@ class AppFrameComponent extends HTMLElement {
         this.#toggle = this.shadowRoot.querySelector('.menu-toggle')
         this.#backdrop = this.shadowRoot.querySelector('.backdrop')
 
+        const logoSlot = this.shadowRoot.querySelector('slot[name="logo"]')
+        if (logoSlot) {
+            logoSlot.addEventListener('slotchange', () => this.#styleLogoSlot(logoSlot))
+            this.#styleLogoSlot(logoSlot)
+        }
+
         this.#toggle.addEventListener('click', () => { this.open = !this.open })
         this.#backdrop.addEventListener('click', () => { this.open = false })
         this.addEventListener('keydown', (event) => {
@@ -760,6 +766,19 @@ class AppFrameComponent extends HTMLElement {
     // Leaving the narrow layout always resets the drawer to closed.
     #onViewportChange = () => {
         this.open = false
+    }
+
+    #styleLogoSlot(slot) {
+        const assigned = slot.assignedElements({ flatten: true })
+        for (const el of assigned) {
+            const images = el.matches('img') ? [el] : Array.from(el.querySelectorAll('img'))
+            for (const img of images) {
+                img.style.height = '100%'
+                img.style.width = 'auto'
+                img.style.objectFit = 'contain'
+                img.style.boxSizing = 'border-box'
+            }
+        }
     }
 }
 

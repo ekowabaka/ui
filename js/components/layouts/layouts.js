@@ -41,6 +41,12 @@ export class AppFrameComponent extends HTMLElement {
         this.#toggle = this.shadowRoot.querySelector('.menu-toggle')
         this.#backdrop = this.shadowRoot.querySelector('.backdrop')
 
+        const logoSlot = this.shadowRoot.querySelector('slot[name="logo"]')
+        if (logoSlot) {
+            logoSlot.addEventListener('slotchange', () => this.#styleLogoSlot(logoSlot))
+            this.#styleLogoSlot(logoSlot)
+        }
+
         this.#toggle.addEventListener('click', () => { this.open = !this.open })
         this.#backdrop.addEventListener('click', () => { this.open = false })
         this.addEventListener('keydown', (event) => {
@@ -77,6 +83,19 @@ export class AppFrameComponent extends HTMLElement {
     // Leaving the narrow layout always resets the drawer to closed.
     #onViewportChange = () => {
         this.open = false
+    }
+
+    #styleLogoSlot(slot) {
+        const assigned = slot.assignedElements({ flatten: true })
+        for (const el of assigned) {
+            const images = el.matches('img') ? [el] : Array.from(el.querySelectorAll('img'))
+            for (const img of images) {
+                img.style.height = '100%'
+                img.style.width = 'auto'
+                img.style.objectFit = 'contain'
+                img.style.boxSizing = 'border-box'
+            }
+        }
     }
 }
 
