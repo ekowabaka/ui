@@ -6,8 +6,9 @@ import {AppFrameComponent} from "./components/layouts/layouts.js";
 import {AvatarComponent} from "./components/avatars/avatars.js";
 import {SidebarComponent, SidebarItemComponent} from "./components/layouts/layouts.js";
 import { CalloutComponent, NotificationComponent, notify } from "./components/callout/callout.js";
+import { BreadcrumbComponent, BreadcrumbItemComponent } from "./components/breadcrumbs/breadcrumbs.js";
 
-export { CalloutComponent, NotificationComponent, notify };
+export { CalloutComponent, NotificationComponent, notify, BreadcrumbComponent, BreadcrumbItemComponent };
 
 export function initialize() {
     customElements.define('fz-callout', CalloutComponent)
@@ -21,4 +22,6 @@ export function initialize() {
     customElements.define('fz-avatar', AvatarComponent)
     customElements.define('fz-sidebar', SidebarComponent)
     customElements.define('fz-sidebar-item', SidebarItemComponent)
+    customElements.define('fz-breadcrumb', BreadcrumbComponent)
+    customElements.define('fz-breadcrumb-item', BreadcrumbItemComponent)
 }

@@ -148,6 +148,8 @@
       '.variant > div > fz-dropdown',
       '.variant > div > .fz-dropdown',
       '.variant > div > .dropdown',
+      '.variant > div > fz-breadcrumb',
+      '.variant > div > .fz-breadcrumb',
       'section.component > fz-dropdown',
       '.button-group',
     ];

@@ -1,0 +1,78 @@
+<div class="component-header">
+    <h2>Breadcrumbs</h2>
+    <p>Breadcrumb trails show the user's location within a site hierarchy and link to each ancestor page, with support for separators, visual variants (plain, bar, pills), colors, sizes, icons, and pure CSS classes.</p>
+</div>
+
+<section class="component">
+    <div class="variant third">
+        <h3>Standard &amp; Separators</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <fz-breadcrumb>
+                <fz-breadcrumb-item href="#home">Home</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#products">Products</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#electronics">Electronics</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#laptops" current>Laptops</fz-breadcrumb-item>
+            </fz-breadcrumb>
+
+            <fz-breadcrumb chevron>
+                <fz-breadcrumb-item href="#home">
+                    <span slot="icon" class="material-symbols-outlined">home</span>
+                    Home
+                </fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#settings">Settings</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#security" current>Security</fz-breadcrumb-item>
+            </fz-breadcrumb>
+
+            <fz-breadcrumb separator="arrow">
+                <fz-breadcrumb-item href="#docs">Docs</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#components">Components</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#breadcrumbs">Breadcrumbs</fz-breadcrumb-item>
+            </fz-breadcrumb>
+        </div>
+    </div>
+
+    <div class="variant third">
+        <h3>Bar Variant</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <fz-breadcrumb bar chevron>
+                <fz-breadcrumb-item href="#home">Home</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#workspace">Workspace</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#projects" current>Projects</fz-breadcrumb-item>
+            </fz-breadcrumb>
+
+            <fz-breadcrumb bar chevron curved layer="1" color="green">
+                <fz-breadcrumb-item href="#home">
+                    <span slot="icon" class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#reports">Reports</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#quarterly" current>Q4 Summary</fz-breadcrumb-item>
+            </fz-breadcrumb>
+        </div>
+    </div>
+
+    <div class="variant third">
+        <h3>Pills &amp; Color Variants</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <fz-breadcrumb pills chevron>
+                <fz-breadcrumb-item href="#home">Home</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#library">Library</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#articles" current>Articles</fz-breadcrumb-item>
+            </fz-breadcrumb>
+
+            <fz-breadcrumb pills chevron color="purple">
+                <fz-breadcrumb-item href="#admin">Admin</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#users">Users</fz-breadcrumb-item>
+                <fz-breadcrumb-item href="#permissions" current>Permissions</fz-breadcrumb-item>
+            </fz-breadcrumb>
+
+            <nav class="fz-breadcrumb fz-breadcrumb--chevron" aria-label="Pure CSS Breadcrumbs">
+                <ol>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#css">Pure CSS</a></li>
+                    <li><a href="#trail" aria-current="page">Trail</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>

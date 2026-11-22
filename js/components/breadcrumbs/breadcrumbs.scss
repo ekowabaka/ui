@@ -1,0 +1,76 @@
+@use "sass:string";
+
+:host {
+  display: block;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.breadcrumb {
+  display: block;
+  width: 100%;
+  font-size: var(--fz-breadcrumb-font-size, 1.3em);
+  line-height: var(--fz-breadcrumb-line-height, 1.3);
+  color: var(--fz-breadcrumb-text-color, #494949);
+}
+
+.breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--fz-breadcrumb-gap, 0.1rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+// Bar variant: bordered segmented container with overflow clip
+:host(:is([bar], [variant="bar"], .bar, .fz-breadcrumb--bar)) {
+  container-type: inline-size;
+
+  .breadcrumb {
+    display: inline-block;
+    max-width: 100%;
+    background-color: var(--fz-breadcrumb-bar-bg, #f8fafc);
+    border: 1px solid var(--fz-breadcrumb-bar-border, #dbdbdb);
+    border-radius: var(--fz-breadcrumb-border-radius, 3px);
+    box-shadow: var(--fz-breadcrumb-box-shadow, none);
+    overflow: clip;
+  }
+
+  .breadcrumb__list {
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+}
+
+@container (max-width: 420px) {
+  :host(:is([bar], [variant="bar"], .bar, .fz-breadcrumb--bar)) {
+    .breadcrumb {
+      display: block;
+      border-radius: var(--fz-breadcrumb-bar-stacked-radius, 6px);
+    }
+
+    .breadcrumb__list {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+}
+
+// Pills variant
+:host(:is([pills], [variant="pills"], .pills, .fz-breadcrumb--pills)) {
+  .breadcrumb__list {
+    gap: var(--fz-breadcrumb-gap, 0.35rem);
+  }
+}
+
+@media (forced-colors: active) {
+  :host(:is([bar], [variant="bar"], .bar, .fz-breadcrumb--bar)) .breadcrumb {
+    border: 1px solid CanvasText;
+  }
+}

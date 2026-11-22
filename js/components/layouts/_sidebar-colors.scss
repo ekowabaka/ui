@@ -14,7 +14,12 @@ $hover-tint: 8% !default;
 }
 
 @function selected-color($val) {
-  @return darken($val, 20%);
+  $l: color.channel($val, 'lightness', $space: hsl);
+  @if $l > 30% {
+    @return color.adjust($val, $lightness: -25%);
+  } @else {
+    @return $val;
+  }
 }
 
 // Sets the sidebar item colour custom properties for a given colour.
@@ -22,7 +27,7 @@ $hover-tint: 8% !default;
 // nested sidebar items unless they declare their own colour.
 @mixin sidebar-item-color($val) {
   --fz-sidebar-item-selected-bg: #{selected-bg($val)};
-  --fz-sidebar-item-selected-color: #{$val};
+  --fz-sidebar-item-selected-color: #{selected-color($val)};
   --fz-sidebar-item-hover-bg: #{hover-bg($val)};
 }
 

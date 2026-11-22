@@ -1,0 +1,343 @@
+@use 'colors';
+@use 'modifiers';
+@use 'sizes';
+@use 'sass:color';
+@use 'sass:map';
+@use 'sass:string';
+
+// Tint strengths matching sidebar colors (percentage of the base colour mixed into white).
+$selected-tint: 18% !default;
+$hover-tint: 8% !default;
+$link-tint: 70% !default;
+$separator-tint: 45% !default;
+
+@function selected-bg($val) {
+  @return color.mix($val, #ffffff, $selected-tint);
+}
+
+@function hover-bg($val) {
+  @return color.mix($val, #ffffff, $hover-tint);
+}
+
+@function light-link-color($val) {
+  @return color.mix($val, #ffffff, $link-tint);
+}
+
+@function separator-color($val) {
+  @return color.mix($val, #ffffff, $separator-tint);
+}
+
+@function dark-current-color($val) {
+  $l: color.channel($val, 'lightness', $space: hsl);
+  @if $l > 30% {
+    @return color.adjust($val, $lightness: -25%);
+  } @else {
+    @return $val;
+  }
+}
+
+:is(fz-breadcrumb, .fz-breadcrumb) {
+  box-sizing: border-box;
+  --fz-breadcrumb-font-size: 1.3em;
+  --fz-breadcrumb-line-height: 1.3;
+  --fz-breadcrumb-gap: 0.1rem;
+  --fz-breadcrumb-separator: "/";
+  --fz-breadcrumb-separator-size: 1.6em;
+  --fz-breadcrumb-separator-weight: 200;
+  --fz-breadcrumb-separator-color: #{separator-color(colors.$blue)};
+  --fz-breadcrumb-separator-margin: 0.2rem;
+  --fz-breadcrumb-item-padding: 0.15em 0.35em;
+  --fz-breadcrumb-item-radius: 5px;
+  --fz-breadcrumb-link-color: #{light-link-color(colors.$blue)};
+  --fz-breadcrumb-link-hover-color: #{dark-current-color(colors.$blue)};
+  --fz-breadcrumb-link-hover-bg: #{selected-bg(colors.$blue)};
+  --fz-breadcrumb-current-color: #{dark-current-color(colors.$blue)};
+  --fz-breadcrumb-current-bg: #{selected-bg(colors.$blue)};
+  --fz-breadcrumb-current-weight: 600;
+  --fz-breadcrumb-focus-color: #{colors.$blue};
+  --fz-breadcrumb-border-radius: #{map.get(modifiers.$corner-radii, 'subtle')};
+  --fz-breadcrumb-box-shadow: none;
+  --fz-breadcrumb-bar-bg: #f8fafc;
+  --fz-breadcrumb-bar-border: #{colors.$gray-5};
+  --fz-breadcrumb-bar-hover-bg: #{hover-bg(colors.$blue)};
+  --fz-breadcrumb-bar-current-bg: #{selected-bg(colors.$blue)};
+  --fz-breadcrumb-pill-hover-bg: #{hover-bg(colors.$blue)};
+  --fz-breadcrumb-pill-current-bg: #{selected-bg(colors.$blue)};
+  --fz-breadcrumb-pill-current-color: #{dark-current-color(colors.$blue)};
+
+  // Separator modifiers
+  &:is(.fz-breadcrumb--chevron, .chevron, [chevron], [separator="chevron"]) {
+    --fz-breadcrumb-separator: "›";
+  }
+
+  &:is(.fz-breadcrumb--gt, [separator="gt"]) {
+    --fz-breadcrumb-separator: ">";
+  }
+
+  &:is(.fz-breadcrumb--arrow, [separator="arrow"]) {
+    --fz-breadcrumb-separator: "→";
+  }
+
+  &:is(.fz-breadcrumb--dot, [separator="dot"]) {
+    --fz-breadcrumb-separator: "·";
+  }
+
+  // Size modifiers
+  &:is(.fz-breadcrumb--mini, .mini, [mini], [size="mini"]) {
+    --fz-breadcrumb-font-size: #{sizes.$mini-font-size};
+  }
+
+  &:is(.fz-breadcrumb--small, .small, [small], [size="small"]) {
+    --fz-breadcrumb-font-size: #{sizes.$small-font-size};
+  }
+
+  &:is(.fz-breadcrumb--normal, .normal, [normal], [size="normal"]) {
+    --fz-breadcrumb-font-size: #{sizes.$normal-font-size};
+  }
+
+  &:is(.fz-breadcrumb--large, .large, [large], [size="large"]) {
+    --fz-breadcrumb-font-size: #{sizes.$large-font-size};
+  }
+
+  // Corner modifiers (relevant for bar variant)
+  @each $modifier, $radius in modifiers.$corner-radii {
+    &:is(.fz-breadcrumb--#{$modifier}, .#{$modifier}, [#{$modifier}], [corner="#{$modifier}"], [radius="#{$modifier}"]) {
+      @if $modifier == 'circle' {
+        --fz-breadcrumb-border-radius: 999px;
+      } @else {
+        --fz-breadcrumb-border-radius: #{$radius};
+      }
+    }
+  }
+
+  // Layer modifiers (elevation for bar variant)
+  @each $layer, $offset in modifiers.$layers {
+    &:is(.fz-breadcrumb--layer-#{$layer}, .layer-#{$layer}, [layer="#{$layer}"], [layer-#{$layer}]) {
+      --fz-breadcrumb-box-shadow: #{modifiers.layer($layer)};
+    }
+  }
+
+  // Color modifiers (lighter shade for ancestors, dark shade for current item, sidebar selected-bg tint on hover)
+  @each $color-name, $color-val in colors.$all-colors {
+    @if $color-name != 'white' {
+      &:is(.fz-breadcrumb--#{$color-name}, .#{$color-name}, [#{$color-name}], [color="#{$color-name}"]) {
+        --fz-breadcrumb-separator-color: #{separator-color($color-val)};
+        --fz-breadcrumb-link-color: #{light-link-color($color-val)};
+        --fz-breadcrumb-link-hover-color: #{dark-current-color($color-val)};
+        --fz-breadcrumb-link-hover-bg: #{selected-bg($color-val)};
+        --fz-breadcrumb-current-color: #{dark-current-color($color-val)};
+        --fz-breadcrumb-current-bg: #{selected-bg($color-val)};
+        --fz-breadcrumb-focus-color: #{$color-val};
+        --fz-breadcrumb-bar-hover-bg: #{hover-bg($color-val)};
+        --fz-breadcrumb-bar-current-bg: #{selected-bg($color-val)};
+        --fz-breadcrumb-pill-hover-bg: #{hover-bg($color-val)};
+        --fz-breadcrumb-pill-current-bg: #{selected-bg($color-val)};
+        --fz-breadcrumb-pill-current-color: #{dark-current-color($color-val)};
+      }
+    }
+  }
+}
+
+fz-breadcrumb {
+  display: block;
+}
+
+// Pure CSS .fz-breadcrumb component styles
+.fz-breadcrumb {
+  display: block;
+  font-size: var(--fz-breadcrumb-font-size, 1.3em);
+  line-height: var(--fz-breadcrumb-line-height, 1.3);
+  color: var(--fz-breadcrumb-current-color, #{colors.$gray-0});
+
+  > ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--fz-breadcrumb-gap, 0.1rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+
+      + li::before {
+        content: #{string.unquote('var(--fz-breadcrumb-separator, "/") / ""')};
+        display: inline-flex;
+        align-items: center;
+        align-self: center;
+        font-size: var(--fz-breadcrumb-separator-size, 1.6em);
+        font-weight: var(--fz-breadcrumb-separator-weight, 200);
+        color: var(--fz-breadcrumb-separator-color, #{colors.$gray-3});
+        margin-inline: var(--fz-breadcrumb-separator-margin, 0.2rem);
+        user-select: none;
+        flex-shrink: 0;
+        line-height: 1;
+        transform: translateY(-0.04em);
+      }
+
+      > a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3em;
+        color: var(--fz-breadcrumb-link-color);
+        text-decoration: none;
+        text-underline-offset: 0.2em;
+        border-radius: var(--fz-breadcrumb-item-radius, 5px);
+        padding: var(--fz-breadcrumb-item-padding, 0.15em 0.35em);
+        white-space: nowrap;
+        transition: color 0.15s ease, background-color 0.15s ease;
+
+        &:hover {
+          color: var(--fz-breadcrumb-link-hover-color);
+          background-color: var(--fz-breadcrumb-link-hover-bg);
+          text-decoration: underline;
+        }
+
+        &:focus-visible {
+          position: relative;
+          z-index: 1;
+          outline: 2px solid var(--fz-breadcrumb-focus-color);
+          outline-offset: 2px;
+          text-decoration: underline;
+        }
+
+        &[aria-current="page"] {
+          color: var(--fz-breadcrumb-current-color);
+          font-weight: var(--fz-breadcrumb-current-weight, 600);
+          text-decoration: none;
+          cursor: default;
+
+          &:hover {
+            color: var(--fz-breadcrumb-current-color);
+            background-color: transparent;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  // Bar variant (pure CSS)
+  &:is(.fz-breadcrumb--bar, .bar, [bar], [variant="bar"]) {
+    container-type: inline-size;
+
+    > ol {
+      display: inline-flex;
+      flex-wrap: nowrap;
+      gap: 0;
+      max-width: 100%;
+      background-color: var(--fz-breadcrumb-bar-bg);
+      border: 1px solid var(--fz-breadcrumb-bar-border);
+      border-radius: var(--fz-breadcrumb-border-radius);
+      box-shadow: var(--fz-breadcrumb-box-shadow);
+      overflow: clip;
+
+      > li {
+        + li::before {
+          margin-inline: 0;
+          padding-inline-start: 0.45rem;
+        }
+
+        &:has(> a[aria-current="page"]) {
+          background-color: var(--fz-breadcrumb-bar-current-bg);
+        }
+
+        > a {
+          padding: 0.45em 0.85em;
+          border-radius: 0;
+
+          &:hover {
+            background-color: var(--fz-breadcrumb-bar-hover-bg);
+          }
+
+          &:focus-visible {
+            outline-offset: -2px;
+          }
+
+          &[aria-current="page"] {
+            background-color: var(--fz-breadcrumb-bar-current-bg);
+          }
+        }
+
+        &:first-child > a {
+          border-start-start-radius: var(--fz-breadcrumb-border-radius);
+          border-end-start-radius: var(--fz-breadcrumb-border-radius);
+        }
+
+        &:last-child > a {
+          border-start-end-radius: var(--fz-breadcrumb-border-radius);
+          border-end-end-radius: var(--fz-breadcrumb-border-radius);
+        }
+      }
+    }
+
+    @container (max-width: 420px) {
+      > ol {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 6px;
+
+        > li {
+          + li {
+            border-block-start: 1px solid var(--fz-breadcrumb-bar-border);
+
+            &::before {
+              display: inline-block;
+              transform: rotate(90deg);
+            }
+          }
+
+          > a {
+            flex: 1 1 auto;
+            padding: 0.35em 0.75em;
+            border-radius: 0;
+          }
+        }
+      }
+    }
+  }
+
+  // Pills variant (pure CSS)
+  &:is(.fz-breadcrumb--pills, .pills, [pills], [variant="pills"]) {
+    > ol {
+      gap: 0.35rem;
+
+      > li > a {
+        padding: 0.25em 0.75em;
+        border-radius: 999px;
+
+        &:hover {
+          background-color: var(--fz-breadcrumb-pill-hover-bg);
+          text-decoration: none;
+        }
+
+        &[aria-current="page"] {
+          background-color: var(--fz-breadcrumb-pill-current-bg);
+          color: var(--fz-breadcrumb-pill-current-color);
+        }
+      }
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  .fz-breadcrumb > ol > li > a[aria-current="page"] {
+    text-decoration: underline;
+  }
+
+  .fz-breadcrumb:is(.fz-breadcrumb--bar, .bar, [bar], [variant="bar"]) > ol {
+    border: 1px solid CanvasText;
+  }
+
+  .fz-breadcrumb:is(.fz-breadcrumb--pills, .pills, [pills], [variant="pills"]) > ol > li > a {
+    border: 1px solid LinkText;
+
+    &[aria-current="page"] {
+      border: 1px solid CanvasText;
+    }
+  }
+}
