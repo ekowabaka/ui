@@ -1,0 +1,43 @@
+@use 'colors';
+@use 'sass:color';
+
+// Tint strengths (percentage of the base colour mixed into white).
+$selected-tint: 18% !default;
+$hover-tint: 8% !default;
+
+@function selected-bg($val) {
+  @return color.mix($val, #ffffff, $selected-tint);
+}
+
+@function hover-bg($val) {
+  @return color.mix($val, #ffffff, $hover-tint);
+}
+
+@function selected-color($val) {
+  $l: color.channel($val, 'lightness', $space: hsl);
+  @if $l > 30% {
+    @return color.adjust($val, $lightness: -25%);
+  } @else {
+    @return $val;
+  }
+}
+
+// Default sidebar color custom properties on the parent host;
+// custom properties inherit down into every <fz-sidebar-item>.
+:is(fz-sidebar, .fz-sidebar) {
+  --fz-sidebar-item-selected-bg: #{selected-bg(colors.$blue)};
+  --fz-sidebar-item-selected-color: #{selected-color(colors.$blue)};
+  --fz-sidebar-item-hover-bg: #{hover-bg(colors.$blue)};
+  --fz-sidebar-item-hover-color: #{colors.$black};
+}
+
+// Color modifiers on both <fz-sidebar> (inherited by all items) and
+// <fz-sidebar-item> (per-item override).
+@each $color-name, $color-val in colors.$all-colors {
+  :is(fz-sidebar, .fz-sidebar):is(.fz-sidebar--#{$color-name}, .#{$color-name}, [#{$color-name}], [color="#{$color-name}"]),
+  :is(fz-sidebar-item, .fz-sidebar-item):is(.fz-sidebar-item--#{$color-name}, .#{$color-name}, [#{$color-name}], [color="#{$color-name}"]) {
+    --fz-sidebar-item-selected-bg: #{selected-bg($color-val)};
+    --fz-sidebar-item-selected-color: #{selected-color($color-val)};
+    --fz-sidebar-item-hover-bg: #{hover-bg($color-val)};
+  }
+}

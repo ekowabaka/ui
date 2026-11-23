@@ -1,7 +1,6 @@
 @use "sass:color";
 @use "../../../sass/sizes" as sizes;
 @use "../../../sass/colors";
-@use "sidebar-colors";
 
 :host {
   display: block;
@@ -11,20 +10,17 @@
 
 // Hover tint (declared before the selected rule so selection wins).
 .sidebar-item:hover {
-  background-color: var(--fz-sidebar-item-hover-bg, #{sidebar-colors.hover-bg(colors.$blue)});
+  background-color: var(--fz-sidebar-item-hover-bg, #{color.mix(colors.$blue, #ffffff, 8%)});
   color: var(--fz-sidebar-item-hover-color, #{colors.$black});
   border-radius: var(--fz-sidebar-item-selected-radius, 5px);
 }
 
 :host([selected]) .sidebar-item {
-  background-color: var(--fz-sidebar-item-selected-bg, #{sidebar-colors.selected-bg(colors.$blue)});
-  color: var(--fz-sidebar-item-selected-color, #{sidebar-colors.selected-color(colors.$blue)});
+  background-color: var(--fz-sidebar-item-selected-bg, #{color.mix(colors.$blue, #ffffff, 18%)});
+  color: var(--fz-sidebar-item-selected-color, #{color.adjust(colors.$blue, $lightness: -25%)});
   border-radius: var(--fz-sidebar-item-selected-radius, 5px);
   font-weight: var(--fz-sidebar-item-selected-font-weight, 600);
 }
-
-// BEM colour modifiers: .fz-sidebar-item--red, .red, [red], [color="red"], etc.
-@include sidebar-colors.sidebar-color-modifiers('fz-sidebar-item');
 
 .sidebar-item__children {
   display: none;
