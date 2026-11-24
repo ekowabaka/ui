@@ -38,7 +38,7 @@ $separator-tint: 45% !default;
 
 :is(fz-breadcrumb, .fz-breadcrumb) {
   box-sizing: border-box;
-  --fz-breadcrumb-font-size: 1.3em;
+  --fz-breadcrumb-font-size: 1.35em;
   --fz-breadcrumb-line-height: 1.3;
   --fz-breadcrumb-gap: 0.1rem;
   --fz-breadcrumb-separator: "/";
@@ -145,7 +145,7 @@ fz-breadcrumb {
 // Pure CSS .fz-breadcrumb component styles
 .fz-breadcrumb {
   display: block;
-  font-size: var(--fz-breadcrumb-font-size, 1.3em);
+  font-size: var(--fz-breadcrumb-font-size, 1.35em);
   line-height: var(--fz-breadcrumb-line-height, 1.3);
   color: var(--fz-breadcrumb-current-color, #{colors.$gray-0});
 
