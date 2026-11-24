@@ -22,9 +22,10 @@ $hover-tint: 8% !default;
   }
 }
 
-// Default sidebar color custom properties on the parent host;
-// custom properties inherit down into every <fz-sidebar-item>.
-:is(fz-sidebar, .fz-sidebar) {
+// Default sidebar color custom properties at the root so embedded sidebars
+// without an explicit color modifier inherit from their parent instead of
+// resetting back to the default blue.
+:where(:root) {
   --fz-sidebar-item-selected-bg: #{selected-bg(colors.$blue)};
   --fz-sidebar-item-selected-color: #{selected-color(colors.$blue)};
   --fz-sidebar-item-hover-bg: #{hover-bg(colors.$blue)};
